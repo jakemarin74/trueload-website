@@ -518,6 +518,189 @@ footer {
   .hero-actions { flex-direction: column; align-items: center; }
 }
 
+/* ── HOOK SECTION ── */
+.hook-section {
+  background: var(--slate-900);
+  color: var(--white);
+  padding: 140px 24px 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hook-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(245,197,24,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 100% 30%, rgba(26,79,160,0.3) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hook-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hook-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.hook-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 20px;
+}
+.hook-headline {
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 28px;
+  color: var(--white);
+}
+.hook-headline em {
+  font-style: normal;
+  color: var(--yellow);
+}
+.hook-body {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.hook-savings {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(245,197,24,0.12);
+  border: 1px solid rgba(245,197,24,0.35);
+  border-radius: 14px;
+  padding: 20px 28px;
+}
+.hook-savings-amount {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--yellow);
+  line-height: 1;
+}
+.hook-savings-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.4;
+}
+
+/* Capacity Bar Chart */
+.capacity-chart {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 36px;
+}
+.chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.chart-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chart-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.chart-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+}
+.chart-bar-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+}
+.chart-bar-track {
+  height: 36px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  width: 0;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  position: relative;
+}
+.chart-bar-fill.bar-available {
+  background: linear-gradient(90deg, rgba(26,79,160,0.6), rgba(26,79,160,0.9));
+}
+.chart-bar-fill.bar-peak {
+  background: linear-gradient(90deg, var(--yellow), #f0a500);
+}
+.chart-bar-fill-pct {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+}
+.chart-gap-callout {
+  margin-top: 28px;
+  background: rgba(22,163,74,0.12);
+  border: 1px solid rgba(22,163,74,0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.callout-icon {
+  width: 36px; height: 36px;
+  background: rgba(22,163,74,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.callout-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+.callout-text strong {
+  color: #4ade80;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .hook-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+
 /* ── FADE IN ON SCROLL ── */
 .fade-up {
   opacity: 0;
@@ -544,6 +727,52 @@ footer {
     Open App →
   </a>
 </nav>
+
+<!-- HOOK -->
+<div class="hook-section" id="hook">
+  <div class="hook-inner">
+    <div class="hook-text-block fade-up">
+      <div class="hook-kicker">The $5,000 Question</div>
+      <h2 class="hook-headline">Most homes have<br>more capacity than<br>you <em>think they do.</em></h2>
+      <p class="hook-body">The average U.S. home peaks at just 9.7 kW. A standard 100-amp service delivers 24 kW. That's a 14 kW gap — sitting there unused. Before you recommend a service upgrade, check the data.</p>
+      <div class="hook-savings">
+        <div class="hook-savings-amount">$5,000+</div>
+        <div class="hook-savings-label">saved for your customer<br>on an upgrade they never needed</div>
+      </div>
+    </div>
+    <div class="capacity-chart fade-up" id="capacity-chart">
+      <div class="chart-title">Avg. U.S. Home — 100A Service Capacity</div>
+      <div class="chart-bars">
+        <div class="chart-bar-row">
+          <div class="chart-bar-meta">
+            <span class="chart-bar-label">Available Service Capacity</span>
+            <span class="chart-bar-value">24 kW (100A × 240V)</span>
+          </div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill bar-available" data-width="100">
+              <span class="chart-bar-fill-pct">100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="chart-bar-row">
+          <div class="chart-bar-meta">
+            <span class="chart-bar-label">Average Home Peak Demand</span>
+            <span class="chart-bar-value">9.7 kW</span>
+          </div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill bar-peak" data-width="40">
+              <span class="chart-bar-fill-pct">40%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-gap-callout">
+        <div class="callout-icon">✓</div>
+        <div class="callout-text"><strong>14 kW of headroom remains.</strong> Don't lose a job over a service upgrade that doesn't need to happen. Prove it with NEC 220.87.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -580,7 +809,7 @@ footer {
     <h2 style="font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;margin-bottom:16px;">
       Service upgrades slow jobs down and cost customers money
     </h2>
-    <p style="font-size:17px;color:var(--slate-400);line-height:1.65;">
+    <p style="font-size:17px;color:var(--slate-600);line-height:1.65;">
       NEC 220.87 lets you use actual measured demand data to prove the existing service is adequate. The problem is — until now — documenting it has been a manual, time-consuming process.
     </p>
   </div>
@@ -724,7 +953,7 @@ footer {
 </footer>
 
 <script>
-// Scroll fade-in
+// Scroll fade-in + bar chart animation
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(el => {
     if (el.isIntersecting) {
@@ -734,6 +963,21 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Animate capacity bars when chart enters view
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.chart-bar-fill').forEach(bar => {
+        const target = bar.dataset.width + '%';
+        setTimeout(() => { bar.style.width = target; }, 200);
+      });
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const chart = document.getElementById('capacity-chart');
+if (chart) chartObserver.observe(chart);
 
 // Fix body style from demo - demo sets body flex centering which we don't want
 // The demo's body style is scoped to its own original page context
