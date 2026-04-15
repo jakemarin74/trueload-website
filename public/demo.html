@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///Users/jakemarin/Downloads/trueload_demo_v5_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueLoad – Animated Demo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; font-family: system-ui, -apple-system, sans-serif; }
+.app-wrap { background: #f0f2f0; border-radius: 12px; overflow: hidden; font-size: 14px; color: #1e293b; border: 1px solid #d1d5db; max-width: 900px; width: 100%; }
+.app-header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo-lockup { display: flex; align-items: center; gap: 12px; }
+.logo-right { display: flex; flex-direction: column; gap: 3px; }
+.logo-pill { background: #f5c518; border-radius: 8px; padding: 4px 16px; display: inline-block; }
+.logo-pill-text { font-size: 22px; font-weight: 800; color: #1a4fa0; letter-spacing: -0.5px; line-height: 1; }
+.logo-tagline { font-size: 10px; color: #64748b; padding-left: 2px; }
+.header-center { text-align: center; }
+.project-name { font-size: 14px; font-weight: 600; color: #1e293b; }
+.autosave-label { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; line-height: 1; }
+.btn-green { background: #22c55e; color: #fff; }
+.btn-blue  { background: #1a4fa0; color: #fff; }
+.btn-outline { background: #fff; color: #374151; border: 1px solid #d1d5db; }
+.btn-icon { background: #fff; color: #374151; border: 1px solid #d1d5db; padding: 7px 10px; border-radius: 8px; }
+.tab-bar { background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; padding: 0 24px; }
+.tab { padding: 12px 16px; font-size: 13px; color: #64748b; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+.tab.active { color: #1a4fa0; border-bottom: 2px solid #1a4fa0; font-weight: 500; }
+.tab.dimmed { color: #c4cdd6; }
+.app-body { padding: 24px; background: #f0f2f0; position: relative; min-height: 400px; }
+.scene { position: absolute; inset: 24px; opacity: 0; transform: translateX(18px); transition: opacity 0.45s ease, transform 0.45s ease; pointer-events: none; overflow: hidden; }
+.scene.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+.scene.exit { opacity: 0; transform: translateX(-18px); }
+.form-card { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+.form-card-title { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+.field-label { font-size: 12px; color: #374151; margin-bottom: 5px; }
+.field-input { width: 100%; background: #fff; border: 1px solid #d1d5db; border-radius: 6px; padding: 7px 10px; font-size: 13px; color: #374151; min-height: 34px; margin-bottom: 12px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.typing-cursor { display: inline-block; width: 1.5px; height: 12px; background: #374151; margin-left: 1px; animation: blink 0.75s infinite; vertical-align: middle; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+.load-link { font-size: 13px; color: #1a4fa0; display: flex; align-items: center; gap: 4px; }
+.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.svc-tile { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
+.svc-tile-lbl { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.svc-tile-val { font-size: 22px; font-weight: 600; color: #1e293b; }
+.svc-tile-unit { font-size: 13px; font-weight: 400; color: #64748b; }
+.upload-zone { border: 2px dashed #93c5fd; border-radius: 10px; background: #eff6ff; padding: 28px 20px; text-align: center; transition: all 0.4s; margin-bottom: 14px; }
+.upload-zone.active { border-color: #1a4fa0; background: #dbeafe; }
+.upload-zone.done { border: 2px solid #22c55e; background: #f0fdf4; }
+.prog-wrap { background: #e2e8f0; border-radius: 4px; height: 5px; margin: 10px 0 4px; overflow: hidden; display: none; }
+.prog-fill { height: 100%; background: #1a4fa0; border-radius: 4px; width: 0%; transition: width 0.06s linear; }
+.ami-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; opacity: 0; transition: opacity 0.6s; }
+.ami-stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; text-align: center; }
+.ami-val { font-size: 16px; font-weight: 600; color: #1a4fa0; }
+.ami-lbl { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+.equip-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.equip-table th { text-align: left; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; padding: 0 10px 8px; border-bottom: 1px solid #e2e8f0; }
+.equip-table td { padding: 10px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+.equip-row { opacity: 0; transform: translateY(6px); transition: opacity 0.5s, transform 0.5s; }
+.equip-row.show { opacity: 1; transform: translateY(0); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.b-blue { background: #dbeafe; color: #1d4ed8; }
+.b-green { background: #dcfce7; color: #15803d; }
+.result-banner { background: #dcfce7; border: 1.5px solid #16a34a; border-radius: 10px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; opacity: 0; transform: scale(0.96); transition: opacity 0.5s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.result-banner.show { opacity: 1; transform: scale(1); }
+.result-icon { width: 42px; height: 42px; border-radius: 50%; background: #16a34a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.result-label { font-size: 22px; font-weight: 700; color: #15803d; }
+.result-sub { font-size: 12px; color: #475569; margin-top: 2px; }
+.calc-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; }
+.calc-lbl { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.calc-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+.calc-table tr { border-bottom: 1px solid #f1f5f9; }
+.calc-table td { padding: 7px 0; }
+.calc-table td:last-child { text-align: right; font-weight: 500; }
+.calc-table td:first-child { color: #64748b; }
+.calc-total td { border-top: 2px solid #e2e8f0; font-weight: 600; color: #1e293b; }
+.calc-margin td { color: #15803d; font-weight: 600; }
+.report-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+.report-top { background: #1a4fa0; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+.step-dots { display: flex; justify-content: center; gap: 6px; padding: 10px; background: #fff; border-top: 1px solid #e2e8f0; }
+.dot { height: 6px; border-radius: 3px; background: #e2e8f0; transition: background 0.3s, width 0.3s; width: 24px; }
+.dot.active { background: #1a4fa0; width: 36px; }
+.dot.done { background: #22c55e; }
+</style>
+</head>
+<body>
+<div class="app-wrap">
+  <div class="app-header">
+    <div class="logo-lockup">
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="54" height="54" rx="12" fill="#1a4fa0"></rect>
+        <path d="M 9 40 C 14 38, 18 28, 27 13" stroke="white" stroke-width="3.2" stroke-linecap="round" fill="none"></path>
+        <line x1="27" y1="13" x2="44" y2="40" stroke="white" stroke-width="3.2" stroke-linecap="round"></line>
+        <circle cx="27" cy="13" r="5" fill="#f5c518"></circle>
+      </svg>
+      <div class="logo-right">
+        <div class="logo-pill"><span class="logo-pill-text">TrueLoad</span></div>
+        <span class="logo-tagline">Real Data. Real Fast. Capacity Confirmed.</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <div class="project-name">Smith – 45 Elm Street</div>
+      <div class="autosave-label">Auto-saved at 1:33:15 PM</div>
+    </div>
+    <div class="header-actions">
+      <span class="btn btn-green">+ New</span>
+      <span class="btn btn-blue">Projects</span>
+      <span class="btn btn-outline">Save</span>
+      <span class="btn-icon">⚙</span>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab" id="tab-0">Project Info</div>
+    <div class="tab" id="tab-1">Service Info</div>
+    <div class="tab active" id="tab-2">AMI Data</div>
+    <div class="tab dimmed" id="tab-3">Equipment</div>
+    <div class="tab dimmed" id="tab-4">Results</div>
+    <div class="tab dimmed" id="tab-5">Report</div>
+  </div>
+
+  <div class="app-body">
+
+    <div class="scene" id="scene-0">
+      <div class="form-card">
+        <div class="form-card-title">Customer Information</div>
+        <div class="field-label">Customer Name</div>
+        <div class="field-input" id="f-name">Sarah Smith<span class="typing-cursor"></span></div>
+        <div class="field-label">Address</div>
+        <div class="field-input">45 Elm Street</div>
+        <div class="grid2">
+          <div><div class="field-label">City/Town</div><div class="field-input">Burlington</div></div>
+          <div><div class="field-label">State</div><div class="field-input">VT</div></div>
+        </div>
+        <div class="grid2">
+          <div><div class="field-label">ZIP Code</div><div class="field-input">05401</div></div>
+          <div><div class="field-label">Email</div><div class="field-input">s.smith@email.com</div></div>
+        </div>
+      </div>
+      <div class="form-card">
+        <div class="form-card-title">Preparer Information <span class="load-link">↻ Load My Details</span></div>
+        <div class="grid2">
+          <div><div class="field-label">Prepared By</div><div class="field-input">J. Marin</div></div>
+          <div><div class="field-label">License Number</div><div class="field-input">EL-00492</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-1">
+      <div class="form-card">
+        <div class="form-card-title">Service Info</div>
+        <div class="svc-grid">
+          <div class="svc-tile"><div class="svc-tile-lbl">Service Rating</div><div class="svc-tile-val" id="svc-rating">200<span class="svc-tile-unit">A</span></div></div>
+          <div class="svc-tile"><div class="svc-tile-lbl">Voltage</div><div class="svc-tile-val">240<span class="svc-tile-unit">V</span></div></div>
+          <div class="svc-tile"><div class="svc-tile-lbl">Panel Bus Rating</div><div class="svc-tile-val">200<span class="svc-tile-unit">A</span></div></div>
+          <div class="svc-tile"><div class="svc-tile-lbl">Service Type</div><div class="svc-tile-val" style="font-size:17px;margin-top:4px;">Overhead</div></div>
+        </div>
+        <div class="field-label">Service Voltage Description</div>
+        <div class="field-input">120/240V single-phase</div>
+      </div>
+    </div>
+
+    <div class="scene active" id="scene-2">
+      <div class="form-card">
+        <div class="form-card-title">AMI Data Upload</div>
+        <div class="upload-zone done" id="upload-zone">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin:0 auto 10px;display:block;">
+            <circle cx="18" cy="18" r="17" fill="#dbeafe"></circle>
+            <path d="M18 24V14M18 14L14 18M18 14L22 18" stroke="#1a4fa0" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M11 25v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="#1a4fa0" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+          <div id="upload-lbl" style="font-size:14px;color:#1a4fa0;font-weight:500;">Upload complete</div>
+          <div id="upload-sub" style="font-size:12px;color:#94a3b8;margin-top:4px;">35,040 records • Peak detected • 12-month period</div>
+          <div class="prog-wrap" id="prog-wrap" style="display: block;"><div class="prog-fill" id="prog-fill" style="width: 100%;"></div></div>
+          <div id="prog-pct" style="font-size: 12px; color: rgb(26, 79, 160); display: none; margin-top: 4px;">100%</div>
+        </div>
+        <div class="ami-stats" id="ami-stats" style="opacity: 1;">
+          <div class="ami-stat"><div class="ami-val" id="ami-pts">35,040</div><div class="ami-lbl">Data Points</div></div>
+          <div class="ami-stat"><div class="ami-val" id="ami-peak">14.2 kW</div><div class="ami-lbl">Peak Demand</div></div>
+          <div class="ami-stat"><div class="ami-val">12 mo</div><div class="ami-lbl">Data Period</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-3">
+      <div class="form-card" style="padding:16px 20px;">
+        <div class="form-card-title">Equipment</div>
+        <table class="equip-table">
+          <thead><tr><th>Equipment Name</th><th>Type</th><th>MCA</th><th>kVA</th><th>Concurrent</th></tr></thead>
+          <tbody id="equip-body"><tr class="equip-row show"><td>Heat Pump – Main Floor</td><td><span class="badge b-blue">Heat Pump</span></td><td>30A</td><td>6.0 kVA</td><td><span class="badge b-green">Yes</span></td></tr></tbody>
+        </table>
+        <div style="margin-top:14px;">
+          <span class="btn btn-blue" style="font-size:12px;padding:6px 14px;">+ Add Equipment</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-4">
+      <div class="result-banner show" id="result-banner">
+        <div class="result-icon">✓</div>
+        <div>
+          <div class="result-label">PASS</div>
+          <div class="result-sub">Existing service has adequate capacity for the proposed new loads under NEC 220.87.</div>
+        </div>
+      </div>
+      <div class="calc-card">
+        <div class="calc-lbl">NEC 220.87 Load Calculation</div>
+        <table class="calc-table">
+          <tbody><tr><td>Existing Demand</td><td id="c1">11.8 kVA</td></tr>
+          <tr><td>125% of Existing Demand</td><td id="c2">14.8 kVA</td></tr>
+          <tr><td>New Concurrent Load</td><td id="c3">6.0 kVA</td></tr>
+          <tr class="calc-total"><td>Adjusted Demand</td><td id="c4">20.8 kVA</td></tr>
+          <tr><td>Service Capacity</td><td id="c5">38.4 kVA</td></tr>
+          <tr class="calc-margin"><td>Available Margin</td><td id="c6">+17.6 kVA</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-5">
+      <div class="report-card">
+        <div class="report-top">
+          <div>
+            <div style="color:#fff;font-weight:600;font-size:15px;">TrueLoad Measured Demand Report</div>
+            <div style="color:rgba(255,255,255,0.65);font-size:12px;margin-top:2px;">NEC 220.87 Service Adequacy Evaluation</div>
+          </div>
+          <div class="logo-pill" style="padding:4px 14px;"><span class="logo-pill-text" style="font-size:16px;">TrueLoad</span></div>
+        </div>
+        <div style="padding:16px 20px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;margin-bottom:14px;">
+            <div style="color:#64748b;">Customer: <span style="color:#1e293b;font-weight:500;">Sarah Smith</span></div>
+            <div style="color:#64748b;">Address: <span style="color:#1e293b;font-weight:500;">45 Elm St, Burlington VT</span></div>
+            <div style="color:#64748b;">Preparer: <span style="color:#1e293b;font-weight:500;">J. Marin, Lic. Electrician</span></div>
+            <div style="color:#64748b;">Date: <span style="color:#1e293b;font-weight:500;">04/14/2026</span></div>
+          </div>
+          <div style="border-top:1px solid #e2e8f0;padding-top:12px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#16a34a;font-size:16px;">✓</div>
+              <div>
+                <div style="font-weight:600;color:#15803d;font-size:14px;">PASS — Service Adequate</div>
+                <div style="font-size:11px;color:#64748b;">Available margin: +17.6 kVA</div>
+              </div>
+            </div>
+            <span class="btn btn-blue" id="print-btn" style="font-size: 12px; padding: 6px 16px; background: rgb(26, 79, 160);">Print Report</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:#fef9c3;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#78350f;line-height:1.5;">
+        This evaluation covers service capacity under NEC 220.87 only. Final approval remains with the Authority Having Jurisdiction.
+      </div>
+    </div>
+
+  </div>
+  <div class="step-dots" id="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<script>
+const N=6, DURATIONS=[4200,3800,5200,3800,4800,4800];
+let cur=0, timer=null;
+
+function dots(){
+  const c=document.getElementById('dots'); c.innerHTML='';
+  for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===cur?' active':i<cur?' done':'');c.appendChild(d);}
+}
+function tabs(idx){
+  for(let i=0;i<N;i++){const el=document.getElementById('tab-'+i);if(!el)return;el.classList.remove('active','dimmed');if(i===idx)el.classList.add('active');else if(i>idx)el.classList.add('dimmed');}
+}
+function go(next){
+  const prev=cur; cur=next%N;
+  const pe=document.getElementById('scene-'+prev), ne=document.getElementById('scene-'+cur);
+  if(pe){pe.classList.add('exit');setTimeout(()=>pe.classList.remove('active','exit'),480);}
+  setTimeout(()=>{if(ne)ne.classList.add('active');},80);
+  dots(); tabs(cur); anim(cur);
+  if(timer)clearTimeout(timer);
+  timer=setTimeout(()=>go(cur+1),DURATIONS[cur]);
+}
+function anim(idx){[a0,a1,a2,a3,a4,a5][idx]();}
+
+function a0(){
+  const el=document.getElementById('f-name');
+  el.innerHTML='<span class="typing-cursor"></span>';
+  const s='Sarah Smith'; let i=0;
+  const iv=setInterval(()=>{if(i>=s.length){clearInterval(iv);return;}el.innerHTML=s.slice(0,++i)+'<span class="typing-cursor"></span>';},90);
+}
+function a1(){
+  const el=document.getElementById('svc-rating'); el.textContent='—';
+  setTimeout(()=>{let v=0;const iv=setInterval(()=>{v=Math.min(v+10,200);el.innerHTML=v+'<span class="svc-tile-unit">A</span>';if(v>=200)clearInterval(iv);},40);},500);
+}
+function a2(){
+  const zone=document.getElementById('upload-zone'),lbl=document.getElementById('upload-lbl'),sub=document.getElementById('upload-sub'),pw=document.getElementById('prog-wrap'),pf=document.getElementById('prog-fill'),pp=document.getElementById('prog-pct'),stats=document.getElementById('ami-stats'),pts=document.getElementById('ami-pts'),peak=document.getElementById('ami-peak');
+  zone.className='upload-zone'; lbl.textContent='Drop CSV, Excel, or XML file here'; sub.textContent='or click to browse — any format accepted';
+  pw.style.display='none'; pp.style.display='none'; stats.style.opacity='0'; pts.textContent='—'; peak.textContent='—'; pf.style.width='0%';
+  setTimeout(()=>{
+    zone.className='upload-zone active'; lbl.textContent='GMP_AMI_Data_2024.csv'; sub.textContent='Processing records...';
+    pw.style.display='block'; pp.style.display='block';
+    let p=0;
+    const iv=setInterval(()=>{
+      p=Math.min(p+Math.random()*8+4,100); pf.style.width=p+'%'; pp.textContent=Math.round(p)+'%';
+      if(p>=100){clearInterval(iv); zone.className='upload-zone done'; lbl.textContent='Upload complete'; sub.textContent='35,040 records • Peak detected • 12-month period'; pp.style.display='none';
+        setTimeout(()=>{stats.style.opacity='1';let n=0;const iv2=setInterval(()=>{n=Math.min(n+700,35040);pts.textContent=n.toLocaleString();if(n>=35040)clearInterval(iv2);},25);setTimeout(()=>peak.textContent='14.2 kW',700);},400);}
+    },55);
+  },700);
+}
+function a3(){
+  const tb=document.getElementById('equip-body'); tb.innerHTML='';
+  const tr=document.createElement('tr'); tr.className='equip-row';
+  tr.innerHTML='<td>Heat Pump – Main Floor</td><td><span class="badge b-blue">Heat Pump</span></td><td>30A</td><td>6.0 kVA</td><td><span class="badge b-green">Yes</span></td>';
+  tb.appendChild(tr); setTimeout(()=>tr.classList.add('show'),300);
+}
+function a4(){
+  const banner=document.getElementById('result-banner'); banner.classList.remove('show');
+  ['c1','c2','c3','c4','c5','c6'].forEach(id=>document.getElementById(id).textContent='—');
+  setTimeout(()=>banner.classList.add('show'),350);
+  ['11.8 kVA','14.8 kVA','6.0 kVA','20.8 kVA','38.4 kVA','+17.6 kVA'].forEach((v,i)=>setTimeout(()=>document.getElementById(['c1','c2','c3','c4','c5','c6'][i]).textContent=v,650+i*320));
+}
+function a5(){
+  const btn=document.getElementById('print-btn');
+  setTimeout(()=>{btn.style.background='#15803d';btn.textContent='Printing...';setTimeout(()=>{btn.style.background='#1a4fa0';btn.textContent='Print Report';},1600);},2200);
+}
+setTimeout(()=>{dots();tabs(0);anim(0);timer=setTimeout(()=>go(1),DURATIONS[0]);},200);
+</script>
+
+
+</body></html>
