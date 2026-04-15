@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="erP530ELLVugD_rT5MhyaNQYtMNR-qFErgHmSoHEkWg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueLoad – NEC 220.87 Service Adequacy Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--slate-900);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 96px; display: block; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,197,24,0.35); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,79,160,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,197,24,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black, transparent);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,79,160,0.08);
+  border: 1px solid rgba(26,79,160,0.25);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--slate-600);
+  max-width: 540px;
+  margin: 0 auto 44px;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 72px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.09); border-color: rgba(0,0,0,0.25); }
+
+/* ── DEMO WRAPPER ── */
+.demo-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 40px 80px rgba(0,0,0,0.6),
+    0 0 80px rgba(26,79,160,0.2);
+  position: relative;
+}
+.demo-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, rgba(26,79,160,0.6), rgba(245,197,24,0.2), transparent 60%);
+  z-index: -1;
+}
+
+/* Embed the demo iframe-style */
+.demo-inner {
+  background: #f0f2f0;
+  width: 100%;
+  height: 640px;
+}
+
+/* ── SECTION COMMON ── */
+section {
+  padding: 100px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+
+/* ── PROBLEM SECTION ── */
+.problem-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.problem-card {
+  background: var(--slate-50);
+  padding: 40px 36px;
+  position: relative;
+}
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), transparent);
+}
+.problem-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--slate-600);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.problem-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.problem-card p {
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.65;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.how-header {
+  max-width: 560px;
+  margin-bottom: 64px;
+}
+.how-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.how-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.step {
+  background: var(--slate-50);
+  padding: 36px 40px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: background 0.2s;
+}
+.step:hover { background: var(--slate-100); }
+.step-num {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  background: rgba(26,79,160,0.08);
+  border: 1px solid rgba(26,79,160,0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+}
+.step-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.step-content p {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.6;
+}
+
+/* ── WHO IT'S FOR ── */
+.who-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.who-text h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.who-text p {
+  font-size: 17px;
+  color: var(--slate-600);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.who-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(26,79,160,0.07);
+  border: 1px solid rgba(26,79,160,0.2);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+.chip-dot { width: 5px; height: 5px; background: var(--blue); border-radius: 50%; }
+
+.who-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.who-stat {
+  background: var(--slate-50);
+  padding: 32px 28px;
+}
+.who-stat-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.who-stat-label {
+  font-size: 13px;
+  color: var(--slate-600);
+  line-height: 1.5;
+}
+
+/* ── PRICING / ACCESS ── */
+.access-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.access-card {
+  background: linear-gradient(135deg, rgba(26,79,160,0.06) 0%, rgba(26,79,160,0.02) 100%);
+  border: 1px solid rgba(26,79,160,0.15);
+  border-radius: 20px;
+  padding: 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.access-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 200px;
+  background: radial-gradient(ellipse, rgba(26,79,160,0.08), transparent 70%);
+  pointer-events: none;
+}
+.access-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(22,163,74,0.2);
+  border: 1px solid rgba(22,163,74,0.4);
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.access-card h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.access-card p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+.access-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--slate-600);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .who-section { grid-template-columns: 1fr; gap: 48px; }
+  .access-card { padding: 40px 24px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+  .hero-actions { flex-direction: column; align-items: center; }
+}
+
+/* ── HOOK SECTION ── */
+.hook-section {
+  background: #ffffff;
+  color: var(--slate-900);
+  padding: 100px 24px 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hook-section::before {
+  display: none;
+}
+.hook-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hook-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.hook-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 20px;
+}
+.hook-headline {
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 28px;
+  color: var(--slate-900);
+}
+.hook-headline em {
+  font-style: normal;
+  color: var(--blue);
+}
+.hook-body {
+  font-size: 17px;
+  color: rgba(15,23,42,0.65);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.hook-savings {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(245,197,24,0.12);
+  border: 1px solid rgba(245,197,24,0.35);
+  border-radius: 14px;
+  padding: 20px 28px;
+}
+.hook-savings-amount {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--yellow);
+  line-height: 1;
+}
+.hook-savings-label {
+  font-size: 14px;
+  color: rgba(15,23,42,0.6);
+  line-height: 1.4;
+}
+
+/* Capacity Bar Chart */
+.capacity-chart {
+  background: #f8fafc;
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 20px;
+  padding: 36px;
+}
+.chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(15,23,42,0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.chart-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chart-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.chart-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(15,23,42,0.75);
+}
+.chart-bar-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(15,23,42,0.45);
+}
+.chart-bar-track {
+  height: 36px;
+  background: rgba(15,23,42,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  width: 0;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  position: relative;
+}
+.chart-bar-fill.bar-available {
+  background: linear-gradient(90deg, rgba(26,79,160,0.6), rgba(26,79,160,0.9));
+}
+.chart-bar-fill.bar-peak {
+  background: linear-gradient(90deg, var(--yellow), #f0a500);
+}
+.chart-bar-fill-pct {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+}
+.chart-gap-callout {
+  margin-top: 28px;
+  background: rgba(22,163,74,0.12);
+  border: 1px solid rgba(22,163,74,0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.callout-icon {
+  width: 36px; height: 36px;
+  background: rgba(22,163,74,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.callout-text {
+  font-size: 13px;
+  color: rgba(15,23,42,0.7);
+  line-height: 1.5;
+}
+.callout-text strong {
+  color: #4ade80;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .hook-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ── FADE IN ON SCROLL ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── DEMO INLINE STYLES (scoped) ── */
+.demo-inner * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="/assets/trueload_logo_lg-WHpUWDQo.png" alt="TrueLoad">
+  </div>
+  <a href="https://trueload-nec-220-87-s9fc.bolt.host/" class="nav-cta">
+    Open App →
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Fast, Reliable Load Calculations
+  </div>
+
+  <h1>Service adequacy,<br>backed by <em>real data.</em></h1>
+
+  <p class="hero-sub">TrueLoad gives electricians and heat pump installers a fast, defensible way to calculate existing service capacity — without setting foot on site.</p>
+
+  <div class="hero-actions">
+    <a href="https://trueload-nec-220-87-s9fc.bolt.host/" class="btn-primary">Get Started Free →</a>
+    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+  </div>
+
+</section>
+
+<!-- HOOK -->
+<div class="hook-section" id="hook">
+  <div class="hook-inner">
+    <div class="hook-text-block fade-up">
+      <h2 class="hook-headline">Electric panels have<br>more capacity than<br>you <em>think they do.</em></h2>
+      <p class="hook-body">The average U.S. home peaks at just 9.7 kW. A standard 100-amp service delivers 24 kW. That's a 60-amp gap — sitting there unused. Before you recommend a service upgrade, check the data.</p>
+      <div class="hook-savings">
+        <div class="hook-savings-amount">$5,000+</div>
+        <div class="hook-savings-label">saved for your customer<br>on avoided upgrades</div>
+      </div>
+    </div>
+    <div class="capacity-chart fade-up" id="capacity-chart">
+      <div class="chart-title">Example U.S. Home — 100A Service Capacity</div>
+      <div class="chart-bars">
+        <div class="chart-bar-row">
+          <div class="chart-bar-meta">
+            <span class="chart-bar-label">Available Service Capacity</span>
+          </div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill bar-available" data-width="100">
+              <span class="chart-bar-fill-pct">100A</span>
+            </div>
+          </div>
+        </div>
+        <div class="chart-bar-row">
+          <div class="chart-bar-meta">
+            <span class="chart-bar-label">Average Home Peak Demand</span>
+          </div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill bar-peak" data-width="40">
+              <span class="chart-bar-fill-pct">40A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-gap-callout">
+        <div class="callout-icon">✓</div>
+        <div class="callout-text"><strong>60A of headroom remains.</strong> Don't lose a job over a service upgrade that doesn't need to happen. Prove it with TrueLoad.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<div class="problem-section fade-up">
+  <div class="section-label">The Problem</div>
+  <div style="max-width:560px; margin-bottom:48px;">
+    <h2 style="font-size:clamp(34px,4.5vw,52px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;margin-bottom:16px;">
+      Service upgrades slow jobs down and cost customers money
+    </h2>
+    <p style="font-size:17px;color:var(--slate-600);line-height:1.65;">
+      Using NEC 220.87, TrueLoad uses actual measured demand data to prove the existing service is adequate. Data access and documentation have been the problem - until now.
+    </p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <h3>Inspectors want documentation</h3>
+      <p>Authorities Having Jurisdiction (AHJs) increasingly require a formal calculation before approving heat pump or EV charger installations on existing services. A verbal assurance isn't enough.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <h3>Service upgrades stall projects</h3>
+      <p>Recommending a service upgrade when one isn't needed adds thousands in cost and weeks of delay — and can kill a sale before it starts.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <h3>NEC 220.87 is underused</h3>
+      <p>Access to data and clarity around how measured demand can be used has made this process highly overlooked. TrueLoad closes that gap.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section fade-up" id="how-it-works">
+  <div class="how-header">
+    <div class="section-label">How It Works</div>
+    <h2>Six steps to documented service capacity</h2>
+    <p>TrueLoad walks you through the entire NEC 220.87 process — from requesting utility data to printing a report ready for the AHJ.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h3>Request AMI data from the utility</h3>
+        <p>TrueLoad provides a pre-written email template your customer sends to the utility. The utility sends the interval data file directly to you.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h3>Create a new project</h3>
+        <p>One project per job site. Enter the customer information, your preparer details, and the existing service specifications.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h3>Enter the existing service</h3>
+        <p>Main breaker size and service voltage. TrueLoad uses these to determine total service capacity in kVA.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h3>Add proposed equipment</h3>
+        <p>List each piece of new equipment — heat pump, EV charger, water heater — and provide nameplate equipment demand.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h3>Upload the AMI data file</h3>
+        <p>Drag and drop the file from the utility — CSV, Excel, or XML. TrueLoad processes it automatically and identifies the peak demand.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <h3>Review results and print the report</h3>
+        <p>PASS or FAIL is displayed immediately. Print a formatted report ready for permit submission or for your records.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANIMATED DEMO EMBEDDED INLINE -->
+  <div class="demo-wrapper fade-up">
+    <div class="demo-inner">
+      <iframe src="/public/demo.html" scrolling="no" style="width:100%;height:100%;border:none;display:block;" title="TrueLoad Animated Demo"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHO IT'S FOR -->
+<div class="who-section fade-up">
+  <div class="who-text">
+    <div class="section-label">Who It's For</div>
+    <h2>Built for professional electricians and heat pumps installers</h2>
+    <p>TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly and reliably.</p>
+    <p>If you're adding a heat pump, EV charger, or other major load to an existing residential service and want to avoid an unnecessary service upgrade, this is the tool.</p>
+    <div class="who-chips">
+      <span class="chip"><span class="chip-dot"></span>Licensed Electricians</span>
+      <span class="chip"><span class="chip-dot"></span>Heat Pump Installers</span>
+      <span class="chip"><span class="chip-dot"></span>EV Charger Installers</span>
+      <span class="chip"><span class="chip-dot"></span>Plumbing/Heating Contractors</span>
+    </div>
+  </div>
+  <div class="who-stat-grid">
+    <div class="who-stat">
+      <div class="who-stat-val">More Installations</div>
+      <div class="who-stat-label">Don't lose jobs to unnecessary service upgrades</div>
+    </div>
+    <div class="who-stat">
+      <div class="who-stat-val">Save Time</div>
+      <div class="who-stat-label">Spend your time on billable jobs, not load calculations</div>
+    </div>
+    <div class="who-stat">
+      <div class="who-stat-val">Document Capacity</div>
+      <div class="who-stat-label">Clear calculations and reports in minutes</div>
+    </div>
+    <div class="who-stat">
+      <div class="who-stat-val">10 Min</div>
+      <div class="who-stat-label">Or less from project creation to final report</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ACCESS / CTA -->
+<div class="access-section fade-up">
+  <div class="access-card">
+    <div class="access-badge">
+      <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#4ade80"/></svg>
+      Free During Beta
+    </div>
+    <h2>Ready to run your first project?</h2>
+    <p>TrueLoad is free to use during the current beta period. Sign up, create a project, and have a report ready for the AHJ in under an hour.</p>
+    <a href="https://trueload-nec-220-87-s9fc.bolt.host/" class="btn-primary" style="font-size:16px;padding:16px 36px;">
+      Open TrueLoad →
+    </a>
+    <p class="access-note">Free during beta &nbsp;·&nbsp; No credit card required &nbsp;·&nbsp; Pricing announced before general release</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/trueload_logo_lg-WHpUWDQo.png" alt="TrueLoad">
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <a href="mailto:jake@ethermsolutions.com" class="footer-link">jake@ethermsolutions.com</a>
+</footer>
+
+<script>
+// Scroll fade-in + bar chart animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      observer.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Animate capacity bars when chart enters view
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.chart-bar-fill').forEach(bar => {
+        const target = bar.dataset.width + '%';
+        setTimeout(() => { bar.style.width = target; }, 200);
+      });
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const chart = document.getElementById('capacity-chart');
+if (chart) chartObserver.observe(chart);
+
+// Fix body style from demo - demo sets body flex centering which we don't want
+// The demo's body style is scoped to its own original page context
+</script>
+
+</body>
+</html>
