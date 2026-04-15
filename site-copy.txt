@@ -1,0 +1,136 @@
+TRUELOAD WEBSITE COPY
+=====================
+Edit the text below and send back to have all changes applied to the site at once.
+Each section is labeled. Do not remove or rename the section headers (lines in ALL CAPS with ===).
+================================================================================
+
+
+NAV
+===
+
+Button: Open App →
+
+
+HERO SECTION
+============
+
+Eyebrow pill: NEC 220.87 Measured Demand Analysis
+
+Headline: Service adequacy, backed by real data.
+
+Subheadline: TrueLoad gives electricians and heat pump installers a fast, defensible way to document existing service capacity — without a load calculation from scratch.
+
+Primary button: Get Started Free →
+Secondary button: See How It Works
+
+
+HOOK SECTION
+============
+
+Headline: Most homes have more capacity than you think they do.
+
+Body: The average U.S. home peaks at just 9.7 kW. A standard 100-amp service delivers 24 kW. That's a 60-amp gap — sitting there unused. Before you recommend a service upgrade, check the data.
+
+Savings callout amount: $5,000+
+Savings callout label: saved for your customer on an upgrade they never needed
+
+Chart title: Avg. U.S. Home — 100A Service Capacity
+Chart bar 1 label: Available Service Capacity
+Chart bar 2 label: Average Home Peak Demand
+Chart callout bold: 60A of headroom remains.
+Chart callout text: Don't lose a job over a service upgrade that doesn't need to happen. Prove it with NEC 220.87.
+
+
+PROBLEM SECTION
+===============
+
+Section label: The Problem
+
+Section headline: Service upgrades slow jobs down and cost customers money
+
+Section body: NEC 220.87 lets you use actual measured demand data to prove the existing service is adequate. The problem is — until now — documenting it has been a manual, time-consuming process.
+
+Card 1 title: Inspectors want documentation
+Card 1 body: AHJs increasingly require a formal calculation before approving heat pump or EV charger installations on existing services. A verbal assurance isn't enough.
+
+Card 2 title: Service upgrades stall projects
+Card 2 body: Recommending a service upgrade when one isn't needed adds thousands in cost and weeks of delay — and can kill a sale before it starts.
+
+Card 3 title: NEC 220.87 is underused
+Card 3 body: The code provision exists, but applying it requires AMI data from the utility and a calculation most contractors don't have a tool for. TrueLoad closes that gap.
+
+
+HOW IT WORKS SECTION
+====================
+
+Section label: How It Works
+
+Section headline: Six steps from job site to approved report
+
+Section body: TrueLoad walks you through the entire NEC 220.87 process — from requesting utility data to printing a report ready for the AHJ.
+
+Step 1 title: Request AMI data from the utility
+Step 1 body: TrueLoad provides a pre-written email template your customer sends to the utility. The utility sends the interval data file directly to you.
+
+Step 2 title: Create a new project
+Step 2 body: One project per job site. Enter the customer information, your preparer details, and the existing service specifications.
+
+Step 3 title: Enter the existing service
+Step 3 body: Main breaker size and service voltage. TrueLoad uses these to determine total service capacity in kVA.
+
+Step 4 title: Add proposed equipment
+Step 4 body: List each piece of new equipment — heat pump, EV charger, water heater — and mark whether it's concurrent with the measured peak.
+
+Step 5 title: Upload the AMI data file
+Step 5 body: Drag and drop the file from the utility — CSV, Excel, or XML. TrueLoad processes it automatically and identifies the peak demand.
+
+Step 6 title: Review results and print the report
+Step 6 body: PASS or FAIL is displayed immediately. Print a formatted report ready for permit submission directly from the browser.
+
+
+WHO IT'S FOR SECTION
+====================
+
+Section label: Who It's For
+
+Headline: Built for professional electricians and heat pumps installers
+
+Body paragraph 1: TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly — not engineers running full Article 220 load calculations.
+
+Body paragraph 2: If you're adding a heat pump, EV charger, or other major load to an existing residential service and want to avoid an unnecessary service upgrade, this is the tool.
+
+Audience chips: Licensed Electricians | Heat Pump Installers | EV Charger Installers | Residential Contractors
+
+Stat 1 value: 220.87
+Stat 1 label: The NEC provision that makes measured demand analysis possible
+
+Stat 2 value: 12 mo
+Stat 2 label: Of utility interval data analyzed to find the true peak demand
+
+Stat 3 value: 35k+
+Stat 3 label: Data points processed per project from utility AMI files
+
+Stat 4 value: 1 PDF
+Stat 4 label: Print-ready report with full calculation for permit submission
+
+
+CTA SECTION
+===========
+
+Badge: Free During Beta
+
+Headline: Ready to run your first project?
+
+Body: TrueLoad is free to use during the current beta period. Sign up, create a project, and have a report ready for the AHJ in under an hour.
+
+Button: Open TrueLoad →
+
+Fine print: Free during beta · No credit card required · Pricing announced before general release
+
+
+FOOTER
+======
+
+Disclaimer: TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+
+Contact link: support@trueloadapp.com
