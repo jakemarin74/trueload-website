@@ -93,7 +93,7 @@ WHO IT'S FOR SECTION
 
 Section label: Who It's For
 
-Headline: Built for professional electricians and heat pumps installers
+Headline: Built for professional electricians and heat pump installers
 
 Body paragraph 1: TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly — not engineers running full Article 220 load calculations.
 
