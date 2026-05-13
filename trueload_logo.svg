@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="420" height="120">
+  <title>TrueLoad — Real Data. Real Fast. Capacity Confirmed.</title>
+
+  <!-- Icon: blue rounded square, 72x72, vertically centered at y=24 -->
+  <rect x="16" y="24" width="72" height="72" rx="12" fill="#185FA5"/>
+
+  <!-- Demand curve — drawn behind peak dot -->
+  <path d="M26,80 L36,75 L45,60 L55,38 L62,61 L78,68"
+        fill="none" stroke="#ffffff" stroke-width="3.2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Peak dot: white halo then yellow center, drawn on top of curve -->
+  <circle cx="55" cy="38" r="7"   fill="#ffffff"/>
+  <circle cx="55" cy="38" r="4.5" fill="#F5C12E"/>
+
+  <!-- Yellow pill: tight to text (186px wide + 22px padding each side = 208px pill)
+       pill_x=104, pill_y=39, pill_w=208, pill_h=42, pill_r=21
+       Vertically centered on icon center (y=60): 60 - 21 = 39 -->
+  <rect x="104" y="39" width="208" height="42" rx="21" fill="#F5C12E"/>
+
+  <!-- Wordmark: centered in pill -->
+  <text x="208" y="60"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="30"
+        font-weight="700"
+        fill="#185FA5"
+        text-anchor="middle"
+        dominant-baseline="central">TrueLoad</text>
+
+  <!-- Tagline: left-aligned with pill, below pill -->
+  <text x="104" y="96"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="11"
+        fill="#666666">Real Data. Real Fast. Capacity Confirmed.</text>
+</svg>
