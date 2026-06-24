@@ -539,12 +539,14 @@ section {
   background: var(--blue);
   color: var(--white);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   padding: 14px 28px;
   border-radius: 10px;
   text-decoration: none;
   width: 100%;
   justify-content: center;
+  white-space: nowrap;
+  min-height: 52px;
   transition: background 0.15s, transform 0.15s;
 }
 .btn-enterprise:hover {
@@ -580,20 +582,10 @@ section {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.nav-pricing-link {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--slate-800);
-  text-decoration: none;
-  margin-right: 20px;
-  transition: color 0.15s;
-}
-.nav-pricing-link:hover { color: var(--blue); }
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: 1fr; }
   .plan-card-featured { transform: none; }
 }
-@media (max-width: 600px) { .nav-pricing-link { display: none; } }
 
 /* ── FOOTER ── */
 footer {
@@ -839,10 +831,7 @@ footer {
   <div class="nav-logo">
     <img src="trueload_logo.svg" alt="TrueLoad">
   </div>
-  <a href="#pricing" class="nav-pricing-link">Pricing</a>
-  <a href="https://app.trueloadapp.com?plan=trial" class="nav-cta">
-    Open App →
-  </a>
+  <a href="#pricing" class="nav-cta">See Pricing</a>
 </nav>
 
 <!-- HERO -->
