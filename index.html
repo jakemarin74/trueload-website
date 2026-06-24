@@ -418,63 +418,182 @@ section {
   line-height: 1.5;
 }
 
-/* ── PRICING / ACCESS ── */
-.access-section {
+/* ── PRICING ── */
+.pricing-section {
   max-width: 1100px;
   margin: 0 auto;
   padding: 100px 24px;
-}
-.access-card {
-  background: linear-gradient(135deg, rgba(26,79,160,0.06) 0%, rgba(26,79,160,0.02) 100%);
-  border: 1px solid rgba(26,79,160,0.15);
-  border-radius: 20px;
-  padding: 64px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
-.access-card::before {
-  content: '';
-  position: absolute;
-  top: -60px; left: 50%;
-  transform: translateX(-50%);
-  width: 400px; height: 200px;
-  background: radial-gradient(ellipse, rgba(26,79,160,0.08), transparent 70%);
-  pointer-events: none;
+.pricing-header {
+  margin-bottom: 56px;
 }
-.access-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(22,163,74,0.2);
-  border: 1px solid rgba(22,163,74,0.4);
-  color: #4ade80;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-}
-.access-card h2 {
+.pricing-header h2 {
   font-size: clamp(34px, 4.5vw, 52px);
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  line-height: 1.15;
+  margin-bottom: 12px;
 }
-.access-card p {
+.pricing-header p {
   font-size: 17px;
   color: var(--slate-600);
-  max-width: 480px;
-  margin: 0 auto 36px;
-  line-height: 1.65;
 }
-.access-note {
-  margin-top: 20px;
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.plan-card {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 36px 32px;
+  text-align: left;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.plan-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.plan-card-featured {
+  border: 1.5px solid rgba(26,79,160,0.3);
+  box-shadow: 0 8px 40px rgba(26,79,160,0.12);
+  transform: scale(1.03);
+}
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(22,163,74,0.15);
+  border: 1px solid rgba(22,163,74,0.35);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.plan-name {
   font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--slate-600);
+  margin-bottom: 12px;
 }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.plan-price-amount {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--slate-900);
+  line-height: 1;
+}
+.plan-price-period {
+  font-size: 15px;
+  color: var(--slate-400);
+  font-weight: 400;
+}
+.plan-subline {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  min-height: 40px;
+}
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--slate-800);
+  line-height: 1.4;
+}
+.plan-check {
+  color: var(--green);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.btn-enterprise {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  width: 100%;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-enterprise:hover {
+  background: var(--blue-dark);
+  transform: translateY(-1px);
+}
+.btn-primary-full {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  width: 100%;
+  justify-content: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary-full:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(245,197,24,0.4);
+}
+.pricing-secondary {
+  font-size: 15px;
+  color: var(--slate-600);
+  margin-top: 8px;
+}
+.pricing-secondary a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.nav-pricing-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-800);
+  text-decoration: none;
+  margin-right: 20px;
+  transition: color 0.15s;
+}
+.nav-pricing-link:hover { color: var(--blue); }
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .plan-card-featured { transform: none; }
+}
+@media (max-width: 600px) { .nav-pricing-link { display: none; } }
 
 /* ── FOOTER ── */
 footer {
@@ -720,7 +839,8 @@ footer {
   <div class="nav-logo">
     <img src="trueload_logo.svg" alt="TrueLoad">
   </div>
-  <a href="https://app.trueloadapp.com" class="nav-cta">
+  <a href="#pricing" class="nav-pricing-link">Pricing</a>
+  <a href="https://app.trueloadapp.com?plan=trial" class="nav-cta">
     Open App →
   </a>
 </nav>
@@ -740,7 +860,7 @@ footer {
   <p class="hero-sub">TrueLoad gives electricians and heat pump installers a fast, defensible way to calculate existing service capacity — without setting foot on site.</p>
 
   <div class="hero-actions">
-    <a href="https://app.trueloadapp.com" class="btn-primary">Get Started Free →</a>
+    <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Get Started Free →</a>
     <a href="#how-it-works" class="btn-secondary">See How It Works</a>
   </div>
 
@@ -921,20 +1041,73 @@ footer {
 
 <div class="divider"></div>
 
-<!-- ACCESS / CTA -->
-<div class="access-section fade-up">
-  <div class="access-card">
-    <div class="access-badge">
-      <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#4ade80"/></svg>
-      Free During Beta
-    </div>
-    <h2>Ready to run your first project?</h2>
-    <p>TrueLoad is free to use during the current beta period. Sign up, create a project, and have a report ready for the AHJ in under an hour.</p>
-    <a href="https://app.trueloadapp.com" class="btn-primary" style="font-size:16px;padding:16px 36px;">
-      Open TrueLoad →
-    </a>
-    <p class="access-note">Free during beta &nbsp;·&nbsp; No credit card required &nbsp;·&nbsp; Pricing announced before general release</p>
+<!-- PRICING -->
+<div class="pricing-section fade-up" id="pricing">
+  <div class="pricing-header">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, transparent pricing</h2>
+    <p>Start free — your first project is on us. Scale as you grow.</p>
   </div>
+
+  <div class="pricing-grid">
+
+    <!-- Pay Per Project -->
+    <div class="plan-card">
+      <div class="plan-name">Pay Per Project</div>
+      <div class="plan-price">
+        <span class="plan-price-amount">$20</span>
+        <span class="plan-price-period">/project</span>
+      </div>
+      <p class="plan-subline">No subscription. Pay only when you need it.</p>
+      <ul class="plan-features">
+        <li><span class="plan-check">✓</span> First project free</li>
+        <li><span class="plan-check">✓</span> AHJ-ready PDF report</li>
+        <li><span class="plan-check">✓</span> Utility AMI data integration</li>
+        <li><span class="plan-check">✓</span> No monthly commitment</li>
+      </ul>
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary-full">Start Free Trial →</a>
+    </div>
+
+    <!-- Unlimited -->
+    <div class="plan-card plan-card-featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Unlimited</div>
+      <div class="plan-price">
+        <span class="plan-price-amount">$59</span>
+        <span class="plan-price-period">/month</span>
+      </div>
+      <p class="plan-subline">Unlimited projects, one flat rate. Break even at 3 projects/month.</p>
+      <ul class="plan-features">
+        <li><span class="plan-check">✓</span> Everything in Pay Per Project</li>
+        <li><span class="plan-check">✓</span> Unlimited projects</li>
+        <li><span class="plan-check">✓</span> Cancel anytime</li>
+        <li><span class="plan-check">✓</span> Priority support</li>
+      </ul>
+      <a href="https://app.trueloadapp.com?plan=unlimited" class="btn-primary-full">Get Started →</a>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="plan-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">
+        <span class="plan-price-amount">Custom</span>
+      </div>
+      <p class="plan-subline">For electrical firms with multiple contractors.</p>
+      <ul class="plan-features">
+        <li><span class="plan-check">✓</span> Everything in Unlimited</li>
+        <li><span class="plan-check">✓</span> Multi-user firm account</li>
+        <li><span class="plan-check">✓</span> Centralized billing</li>
+        <li><span class="plan-check">✓</span> Firm-level project management</li>
+        <li><span class="plan-check">✓</span> Volume pricing</li>
+      </ul>
+      <a href="https://app.trueloadapp.com?plan=enterprise" class="btn-enterprise">Create Enterprise Account →</a>
+    </div>
+
+  </div>
+
+  <p class="pricing-secondary">
+    Not ready to commit? <a href="https://app.trueloadapp.com?plan=trial">Start with a free trial</a> — no credit card required. Questions? Email <a href="mailto:info@ethermsolutions.com">info@ethermsolutions.com</a>
+  </p>
 </div>
 
 <!-- FOOTER -->
