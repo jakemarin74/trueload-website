@@ -66,15 +66,6 @@ main.legal h1 {
 .legal-content a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 .legal-content strong { font-weight: 600; }
 
-.placeholder-note {
-  background: var(--slate-50);
-  border: 1px solid var(--slate-200);
-  border-radius: 12px;
-  padding: 24px 28px;
-  font-size: 16px;
-  color: var(--slate-600);
-}
-
 .legal-footer {
   border-top: 1px solid rgba(0,0,0,0.08);
   padding: 40px 48px;
@@ -107,22 +98,139 @@ main.legal h1 {
 
 <main class="legal">
   <h1>Privacy Policy</h1>
-  <p class="last-updated">Last updated: [pending]</p>
+  <p class="last-updated">Effective: July 2, 2026</p>
 
-  <!-- ============================================================= -->
-  <!-- BEGIN POLICY CONTENT — replace everything between these two   -->
-  <!-- markers with the attorney-approved Privacy Policy text.       -->
-  <!-- Use <h2> for top-level sections, <h3> for subsections,        -->
-  <!-- <p>/<ul>/<ol> for body. Styling is already handled.           -->
-  <!-- Typical sections: Introduction & Scope; Information We Collect -->
-  <!-- (account, project, AMI/utility interval data, payment via     -->
-  <!-- Stripe); How We Use Information; AMI Data Handling & Customer  -->
-  <!-- Consent; Sharing & Disclosure (utilities, Stripe, Supabase,   -->
-  <!-- Resend); Data Retention; Security; Your Rights; Cookies;      -->
-  <!-- Third-Party Services; Children's Privacy; Changes; Contact.   -->
-  <!-- ============================================================= -->
+  <!-- BEGIN POLICY CONTENT -->
   <div class="legal-content">
-    <p class="placeholder-note">This page is being finalized ahead of our public launch. For questions about how we handle your data, contact <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a>.</p>
+    <h2>1. Introduction</h2>
+    <p>This Privacy Policy explains how eTherm Solutions LLC ("TrueLoad," "we," "us," or "our") collects, uses, stores, and shares information when you use the TrueLoad web application at app.trueloadapp.com and related services (collectively, the "Service").</p>
+    <p>TrueLoad is a business-to-business (B2B) service used by licensed electrical contractors and professionals. This Policy covers information about you as a registered user ("Account Holder") as well as information about your customers ("End Customers") that you enter into the Service in the course of performing load calculations.</p>
+    <p>By using the Service, you agree to the practices described in this Policy. If you are entering information about an End Customer, you represent that you have obtained all necessary consents and authorizations from that customer to share their information with TrueLoad as described herein.</p>
+    <p>TrueLoad acts in two roles, depending on the information involved. For your account information and the data you provide about yourself, TrueLoad decides how and why that information is used and acts as the controller. For information you enter about an End Customer, including AMI interval data, you decide the purpose of the processing, and TrueLoad processes that information on your behalf and under your direction as a processor. In that role TrueLoad uses End Customer information only to provide the Service to you.</p>
+
+    <h2>2. Information We Collect</h2>
+    <h3>2.1 Account and Profile Information</h3>
+    <p>When you register for a TrueLoad account, we collect:</p>
+    <ul>
+      <li>Name and email address</li>
+      <li>Company name and business address</li>
+      <li>Electrical contractor license number (if provided)</li>
+      <li>Password (stored in hashed, non-recoverable form via Supabase Auth)</li>
+    </ul>
+    <h3>2.2 Project and Calculation Data</h3>
+    <p>When you use the Service to perform load calculations, we collect the data you enter, including:</p>
+    <ul>
+      <li>End Customer name and service address</li>
+      <li>Electrical service details (service rating, voltage, utility provider)</li>
+      <li>Proposed equipment list (equipment type, nameplate ratings, quantities)</li>
+      <li>AMI interval data files uploaded to the Service (see Section 5 for special handling)</li>
+      <li>Calculation inputs, outputs, and project status</li>
+    </ul>
+    <h3>2.3 Payment Information</h3>
+    <p>Payment transactions are processed by Stripe, Inc. TrueLoad does not collect or store your full credit card number, CVV, or bank account details. We receive from Stripe: the last four digits of your payment card, card brand, and transaction confirmation identifiers. Stripe's privacy practices are governed by Stripe's own Privacy Policy at <a href="https://stripe.com/privacy">stripe.com/privacy</a>.</p>
+    <h3>2.4 Usage and Technical Data</h3>
+    <p>When you use the Service, we and our infrastructure providers may collect technical and usage information, including:</p>
+    <ul>
+      <li>IP address and general location derived from it</li>
+      <li>Browser type and version, and operating system</li>
+      <li>Pages and features used, actions taken, and time spent in the Service</li>
+      <li>Error logs and diagnostic data</li>
+    </ul>
+    <p>We use this information to operate, secure, maintain, and improve the Service, to understand how it is used, and to improve its features, accuracy, reliability, and performance. We do not use it to advertise to you, and we do not sell it, share it, or track you across other websites.</p>
+    <h3>2.5 AMI Authorization Consent Records</h3>
+    <p>When you initiate an AMI data authorization request on behalf of an End Customer, we log:</p>
+    <ul>
+      <li>The End Customer's email address (to send the authorization request)</li>
+      <li>The IP address and timestamp at which the End Customer provided authorization</li>
+      <li>The utility to which the data request was directed</li>
+      <li>The text of the authorization the End Customer agreed to, so the record reflects what they actually approved</li>
+    </ul>
+    <p>This log serves as the authorization record and may be included in or referenced by reports generated by the Service.</p>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Create and manage your account and authenticate your identity</li>
+      <li>Provide, operate, and improve the Service and its calculation features</li>
+      <li>Process payments and manage billing</li>
+      <li>Send transactional emails, including account confirmation, password reset, AMI authorization requests, and utility data request emails</li>
+      <li>Respond to support requests and communications</li>
+      <li>Monitor for unauthorized use, fraud, or violations of our Terms of Service</li>
+      <li>Comply with legal obligations</li>
+      <li>Analyze usage and technical data, including in aggregated or de-identified form, to improve our algorithms, parser accuracy, calculation methodology, and Service performance</li>
+    </ul>
+    <p>We do not sell your personal information or your End Customers' information to third parties. We do not use your project data for advertising purposes.</p>
+
+    <h2>4. Third-Party Service Providers</h2>
+    <p>We share information with the following service providers as necessary to operate the Service. Each provider is bound by contractual obligations to protect the information:</p>
+    <p><strong>Supabase</strong> — Database and authentication infrastructure. Stores all account, project, and AMI data. Data is stored on servers in the United States. <a href="https://supabase.com/privacy">supabase.com/privacy</a></p>
+    <p><strong>Stripe, Inc.</strong> — Payment processing. Receives payment card details directly from your browser; TrueLoad does not pass raw card data to Stripe. <a href="https://stripe.com/privacy">stripe.com/privacy</a></p>
+    <p><strong>Resend</strong> — Transactional email delivery. Processes email addresses for sending account confirmation, password reset, AMI authorization, and utility request emails. <a href="https://resend.com/privacy">resend.com/privacy</a></p>
+    <p><strong>Netlify</strong> — Web hosting and serverless function execution. Processes requests between your browser and our Service. <a href="https://netlify.com/privacy">netlify.com/privacy</a></p>
+    <p>We do not use third-party advertising networks, analytics platforms that track users across websites, or data brokers.</p>
+
+    <h2>5. AMI Interval Data — Special Handling</h2>
+    <p>AMI (Advanced Metering Infrastructure) interval data is electric utility meter data that records a customer's electricity consumption at regular intervals (typically 15 minutes). This data can reveal patterns of activity within a home or business and is therefore treated with heightened care.</p>
+    <h3>5.1 Purpose Limitation</h3>
+    <p>AMI data uploaded to TrueLoad is used exclusively to perform NEC 220.87 load calculations for the specific project for which it was uploaded. We do not aggregate AMI data across customers for commercial purposes, sell AMI data to third parties, or use AMI data to infer lifestyle patterns for any purpose other than performing the requested calculation.</p>
+    <h3>5.2 Account Holder Responsibility</h3>
+    <p>You, as the Account Holder, are responsible for obtaining valid End Customer authorization before uploading any AMI data to the Service. By uploading AMI data, you represent that the End Customer has authorized you to access and share their utility interval data for the purpose of this load calculation.</p>
+    <h3>5.3 Retention</h3>
+    <p>AMI interval data is retained in association with your project as long as your account is active and for up to 30 days after account termination to allow data export. You may delete AMI data from a project at any time within the Service.</p>
+
+    <h2>6. Data Retention</h2>
+    <p>We retain your account information and project data for as long as your account is active. If you delete your account, we will delete or de-identify your personal information within 30 days, except where retention is required by law or for legitimate business purposes (such as transaction records for financial compliance). Aggregated, de-identified data derived from Service usage may be retained indefinitely. TrueLoad maintains this data in de-identified form, does not attempt to re-identify it, and commits to keeping it de-identified.</p>
+    <p>Transaction records (charges, subscription history) are retained for a minimum of seven (7) years in accordance with financial record-keeping requirements.</p>
+
+    <h2>7. Data Security</h2>
+    <p>We implement commercially reasonable technical and organizational measures to protect your information against unauthorized access, disclosure, alteration, or destruction. These measures include:</p>
+    <ul>
+      <li>Encryption of data in transit using TLS 1.2 or higher</li>
+      <li>Passwords stored using industry-standard hashing (never stored in plaintext)</li>
+      <li>Role-based access controls limiting which personnel can access user data</li>
+      <li>Authentication required for functions that access Account Holder or project data; functions an End Customer must reach without a TrueLoad account (such as the AMI authorization page) are protected instead by unique, expiring access tokens</li>
+    </ul>
+    <p>No system is perfectly secure. We cannot guarantee that unauthorized access, hacking, data loss, or other breaches will never occur. If we become aware of a breach that affects your personal information, we will notify you without unreasonable delay and as required by applicable state breach notification law.</p>
+
+    <h2>8. Your Rights and Choices</h2>
+    <h3>8.1 Access and Correction</h3>
+    <p>You may view and update your account profile information at any time within the Service under Account Settings.</p>
+    <h3>8.2 Data Export</h3>
+    <p>You may generate and download your reports as PDF at any time from within the Service. To request a copy of other personal information we hold about you, contact us at <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a> (see Section 8.5).</p>
+    <h3>8.3 Deletion</h3>
+    <p>You may delete individual projects and their associated AMI data from within the Service. To delete your account and all associated data, contact us at <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a>. Deletion of your account will remove your access to the Service and your project data, subject to retention obligations described in Section 6.</p>
+    <h3>8.4 Communications</h3>
+    <p>We send transactional emails (account confirmation, password reset, billing receipts) that are necessary to operate the Service and cannot be opted out of while maintaining an active account. If we introduce marketing or promotional communications in the future, we will provide an opt-out mechanism.</p>
+    <h3>8.5 Vermont and Other State Privacy Rights</h3>
+    <p>Residents of Vermont and certain other states may have additional rights regarding their personal information under applicable state privacy laws. To exercise any such rights, contact us at <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a>. We will respond to verifiable requests within the timeframes required by applicable law.</p>
+    <p>Depending on your state of residence, you may have the right to confirm whether TrueLoad processes your personal information and to access it, to correct it, to delete it, to obtain a copy in a portable format, to obtain a list of the third parties to which TrueLoad has disclosed personal information, and to opt out of targeted advertising, the sale of personal information, and profiling that produces legal or similarly significant effects.</p>
+    <p>TrueLoad does not sell personal information, does not use it for targeted advertising, and does not profile you in a way that produces legal or similarly significant effects. The third parties that receive personal information are listed in Section 4. TrueLoad limits its collection and use of personal information to what is reasonably necessary to provide the Service.</p>
+    <p>AMI interval data is sensitive personal information. TrueLoad processes it only after the utility customer authorizes the release through the consent flow described in Section 5, and only to perform the requested calculation.</p>
+    <p>To exercise a right, contact <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a>. TrueLoad will respond within the time required by the law that applies to you. If TrueLoad denies your request, you may appeal by replying to that decision, and TrueLoad will tell you the outcome. If you remain unsatisfied, you may contact the Attorney General in your state.</p>
+    <h3>8.6 California Residents</h3>
+    <p>TrueLoad provides the following disclosures for California residents. They apply to any California resident who visits the Service or whose personal information TrueLoad collects through the Service.</p>
+    <p><strong>Categories collected.</strong> The categories of personally identifiable information TrueLoad collects are described in Section 2. They include your name, email address, company name and business address, contractor license number if you provide it, project and calculation data, payment identifiers received from Stripe, and usage and device data such as IP address and browser type.</p>
+    <p><strong>Categories shared.</strong> The third parties that receive this information are listed in Section 4. TrueLoad shares information only with the service providers that operate the Service. TrueLoad does not sell personal information and does not share it for cross-context behavioral advertising.</p>
+    <p><strong>Do Not Track.</strong> Some browsers send a Do Not Track signal. The Service does not track users across third-party websites over time, so it does not change its behavior in response to a Do Not Track signal. The Service does not permit third parties to collect personally identifiable information about your activity across different websites when you use it.</p>
+    <p><strong>Reviewing your information.</strong> You may review and request changes to the personal information in your account at any time through Account Settings, as described in Section 8.</p>
+    <p><strong>Broader California rights.</strong> Rights such as access, deletion, correction, and opting out of the sale or sharing of personal information apply only to businesses that meet the size and revenue thresholds set by California law. TrueLoad does not currently meet those thresholds. If that changes, this Policy will be updated to describe the additional rights and how to use them.</p>
+
+    <h2>9. Cookies and Tracking</h2>
+    <p>The Service uses session cookies and local browser storage (localStorage) to maintain your logged-in session and preserve application state between page loads. We do not use third-party tracking cookies or cross-site advertising trackers. We may use first-party analytics to understand and improve how the Service is used. Because the Service does not track you across other websites, it does not respond differently to Do Not Track or Global Privacy Control signals sent by your browser.</p>
+
+    <h2>10. Children's Privacy</h2>
+    <p>The Service is not directed to individuals under the age of 18, and we do not knowingly collect personal information from minors. If you believe a minor has provided us with personal information, contact us at <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a> and we will delete it promptly. TrueLoad does not knowingly collect personal information from any child, including a child under the age of 13. If TrueLoad learns that it has collected personal information from a child, it will delete that information.</p>
+
+    <h2>11. Business Transfers</h2>
+    <p>If eTherm Solutions LLC is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you via email or a notice within the Service of any such transfer and any resulting changes to this Privacy Policy. A transfer of this kind is not a sale of personal information. The successor will be bound by this Policy or will give you notice before any material change to it.</p>
+
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we make material changes, we will notify you by email or by displaying a prominent notice within the Service. The effective date at the top of this page reflects the date of the most recent revision. Continued use of the Service after the effective date of a revised Policy constitutes acceptance of the changes.</p>
+
+    <h2>13. Contact Us</h2>
+    <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us:</p>
+    <p>eTherm Solutions LLC<br>Email: <a href="mailto:support@trueloadapp.com">support@trueloadapp.com</a><br>Website: <a href="https://trueloadapp.com">trueloadapp.com</a></p>
+    <p>We will respond to privacy inquiries within 30 days.</p>
   </div>
   <!-- END POLICY CONTENT -->
 </main>
