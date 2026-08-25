@@ -944,6 +944,34 @@ ${FOOTER_HTML}`;
 }
 
 /* ------------------------------------------------------------------ *
+ * Remove pages for guides that no longer exist
+ *
+ * Generating is not enough. Deleting a guide from content/guides/ used to
+ * leave its published page on the site - unlinked from the index, but still
+ * reachable and still indexable. Two orphans went live that way on
+ * 2026-08-25. Anything under resources/guides/ that the current content does
+ * not account for is removed here.
+ * ------------------------------------------------------------------ */
+
+const guidesOut = path.join(OUT_DIR, 'guides');
+const keep = new Set(guides.map((g) => g.slug));
+
+if (fs.existsSync(guidesOut)) {
+  for (const entry of fs.readdirSync(guidesOut, { withFileTypes: true })) {
+    if (!entry.isDirectory() || keep.has(entry.name)) continue;
+    const dir = path.join(guidesOut, entry.name);
+    // Only ever remove a directory that looks like something this script made.
+    const contents = fs.readdirSync(dir);
+    if (contents.length === 1 && contents[0] === 'index.html') {
+      fs.rmSync(dir, { recursive: true });
+      console.log(`  removed orphaned guide page: resources/guides/${entry.name}/`);
+    } else {
+      console.warn(`  NOT removing resources/guides/${entry.name}/ - unexpected contents: ${contents.join(', ')}`);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * Sitemap
  * ------------------------------------------------------------------ */
 
