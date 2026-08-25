@@ -5,12 +5,12 @@
     {
       "id": "guides",
       "label": "TrueLoad Guides",
-      "blurb": "Plain-English explainers written by us, for the people doing the work."
+      "blurb": "How to use TrueLoad itself \u2014 setup, utility data, and producing a report."
     },
     {
       "id": "code",
       "label": "Code & Standards",
-      "blurb": "The primary sources. Read the code itself before you rely on anyone's summary of it."
+      "blurb": "What the code actually requires \u2014 the primary sources themselves, plus plain-language explanations of them."
     },
     {
       "id": "utility-data",
@@ -28,7 +28,7 @@
     {
       "title": "Understanding NEC 220.87",
       "description": "A two-page plain-language guide: what 220.87 permits, how a measured-demand calculation differs from the traditional method, and the LBNL research behind it. Written for contractors, homeowners and inspectors alike.",
-      "category": "guides",
+      "category": "code",
       "type": "pdf",
       "file": "Understanding-NEC-220-87.pdf",
       "updated": "2026-08-24",
