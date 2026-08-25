@@ -810,8 +810,7 @@ const indexBody = `${navHtml('/', 'Back to Home')}
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-  <div class="section-label">Resource Library</div>
-  <h1>Everything worth knowing about existing load</h1>
+  <h1>Welcome to the TrueLoad Resource Library</h1>
   <p>Guides, code references, and independent research for contractors, inspectors, and homeowners working through service capacity. Free to use, no account required.</p>
 </div>
 
