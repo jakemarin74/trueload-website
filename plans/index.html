@@ -47,11 +47,13 @@ nav {
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
 .nav-back {
   font-size: 14px;
   font-weight: 500;
   color: var(--slate-600);
   text-decoration: none;
+  white-space: nowrap;
   transition: color 0.15s;
 }
 .nav-back:hover { color: var(--slate-900); }
@@ -426,6 +428,8 @@ footer {
 
 @media (max-width: 768px) {
   nav { padding: 14px 20px; }
+  .nav-logo img { height: 52px; }
+  .nav-right { gap: 14px; }
   footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
 }
 </style>
@@ -435,7 +439,10 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
-  <a href="/" class="nav-back">&larr; Back to Home</a>
+  <div class="nav-right">
+    <a href="/resources/" class="nav-back">Resources</a>
+    <a href="/" class="nav-back">&larr; Back to Home</a>
+  </div>
 </nav>
 
 <!-- PAGE HEADER -->
@@ -650,6 +657,7 @@ footer {
     TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
   </p>
   <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
     <a href="/terms/" class="footer-link">Terms of Service</a>
     <a href="/privacy/" class="footer-link">Privacy Policy</a>
     <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>

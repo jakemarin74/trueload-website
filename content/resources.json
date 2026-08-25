@@ -1,0 +1,102 @@
+{
+  "$comment": "This file is the resource library. Edit it to add or remove a PDF or an external link. Guides are NOT listed here - they are markdown files in content/guides/ and get picked up automatically. See README.md for the full instructions.",
+
+  "categories": [
+    {
+      "id": "guides",
+      "label": "TrueLoad Guides",
+      "blurb": "Plain-English explainers written by us, for the people doing the work."
+    },
+    {
+      "id": "code",
+      "label": "Code & Standards",
+      "blurb": "The primary sources. Read the code itself before you rely on anyone's summary of it."
+    },
+    {
+      "id": "utility-data",
+      "label": "Utility Data",
+      "blurb": "Getting interval data out of a utility, and knowing what you are looking at once you have it."
+    },
+    {
+      "id": "research",
+      "label": "Research & Studies",
+      "blurb": "Independent work on panel capacity, electrification, and what upgrades actually cost."
+    }
+  ],
+
+  "resources": [
+    {
+      "title": "TrueLoad User Guide",
+      "description": "The complete walkthrough: setting up a project, requesting utility data, entering new load, and producing the report you hand to the AHJ.",
+      "category": "guides",
+      "type": "pdf",
+      "file": "TrueLoad-User-Guide.pdf",
+      "updated": "2026-04-13",
+      "featured": true
+    },
+
+    {
+      "title": "NFPA 70 (National Electrical Code) — free online access",
+      "description": "The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. Article 220.87 is the section TrueLoad implements.",
+      "category": "code",
+      "type": "link",
+      "url": "https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access",
+      "source": "NFPA",
+      "featured": true
+    },
+
+    {
+      "title": "The Green Button standard",
+      "description": "The industry-standard format for utility usage data. If your utility offers \"Download My Data\", this is what you are getting and what it contains.",
+      "category": "utility-data",
+      "type": "link",
+      "url": "https://www.greenbuttondata.org/",
+      "source": "Green Button Alliance"
+    },
+
+    {
+      "title": "Green Button Download My Data (DMD)",
+      "description": "How the customer-initiated download works, and which utilities have been certified to provide it.",
+      "category": "utility-data",
+      "type": "link",
+      "url": "https://www.greenbuttonalliance.org/green-button-download-my-data-dmd",
+      "source": "Green Button Alliance"
+    },
+
+    {
+      "title": "Sizing Electric Service Panels and Utility Infrastructure",
+      "description": "LBNL technical brief on how service panels have historically been sized, and why the assumptions behind that sizing no longer match how homes actually use electricity.",
+      "category": "research",
+      "type": "link",
+      "url": "https://eta-publications.lbl.gov/sites/default/files/2024-10/electric_service_sizing_technical_brief_2024072_kj-ls.pdf",
+      "source": "Lawrence Berkeley National Laboratory"
+    },
+
+    {
+      "title": "Reducing the Cost of Electrification with Alternatives to Electric Panel Upgrades",
+      "description": "A survey of the options available when a panel looks undersized on paper — including establishing actual measured demand before assuming an upgrade is required.",
+      "category": "research",
+      "type": "link",
+      "url": "https://www.energystar.gov/sites/default/files/asset/document/Reducing%20the%20Cost%20of%20Electrification%20with%20Alternatives%20to%20Electric%20Panel%20Upgrades.pdf",
+      "source": "ENERGY STAR"
+    },
+
+    {
+      "title": "A Comprehensive Survey of Electrical Panel Capacities in U.S. Single-Family Homes",
+      "description": "ACEEE study quantifying how much of the existing housing stock is genuinely capacity-constrained versus how much only appears to be under a worst-case calculation.",
+      "category": "research",
+      "type": "link",
+      "url": "https://www.aceee.org/sites/default/files/proceedings/ssb24/pdfs/A%20Comprehensive%20Survey%20of%20Electrical%20Panel%20Capacities%20in%20U.S.%20Single-Family%20Homes%20and%20Implications%20for%20Nationwide%20Electrification.pdf",
+      "source": "ACEEE"
+    },
+
+    {
+      "title": "Residential Electrification Under Electrical Panel and Service Constraints",
+      "description": "US Department of Energy overview of the panel-constraint problem and the research program addressing it. Good orientation if you are new to the topic.",
+      "category": "research",
+      "type": "link",
+      "url": "https://www.energy.gov/cmei/buildings/articles/affordable-and-equitable-residential-electrification-under-electrical-panel",
+      "source": "U.S. Department of Energy"
+    }
+  ]
+}

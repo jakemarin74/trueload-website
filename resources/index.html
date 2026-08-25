@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit by hand. Your changes will be overwritten.
+  Source:  content/resources.json  +  content/guides/*.md
+  Rebuild: npm run build:resources
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueLoad | Resource Library</title>
+<meta name="description" content="Free guides, code references, and research on NEC 220.87 existing load calculations, getting AMI interval data from your utility, and electrical panel capacity.">
+<link rel="canonical" href="https://trueloadapp.com/resources/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TrueLoad | Resource Library">
+<meta property="og:description" content="Free guides, code references, and research on NEC 220.87 existing load calculations, getting AMI interval data from your utility, and electrical panel capacity.">
+<meta property="og:url" content="https://trueloadapp.com/resources/">
+<meta property="og:image" content="https://trueloadapp.com/trueload_logo_lg.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--slate-900); line-height: 1.6; }
+
+/* Anchored headings clear the sticky nav */
+[id] { scroll-margin-top: 110px; }
+
+/* ── NAV (same as main site) ── */
+nav {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--slate-900); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,197,24,0.35); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.page-header h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── FOOTER (same as main site) ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-logo img { height: 52px; }
+  .nav-right { gap: 14px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+}
+@media (max-width: 600px) {
+  .nav-back { display: none; }
+  .nav-cta { font-size: 13px; padding: 9px 16px; }
+}
+
+/* ── FILTER BAR ── */
+.res-controls {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.res-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.res-chip {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--slate-600);
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 100px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.res-chip:hover { background: var(--slate-50); color: var(--slate-900); }
+.res-chip[aria-pressed="true"] {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+.res-search {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--slate-900);
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 9px 14px;
+  min-width: 240px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.res-search:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26,79,160,0.12);
+}
+.res-search::placeholder { color: var(--slate-400); }
+
+/* ── CATEGORY SECTIONS ── */
+.res-sections { max-width: 1100px; margin: 0 auto; padding: 24px 24px 40px; }
+.res-section { margin-bottom: 56px; }
+.res-section-head { margin-bottom: 22px; }
+.res-section-head h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.res-section-head p { font-size: 15px; color: var(--slate-600); max-width: 640px; }
+
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── CARD ── */
+.res-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 14px;
+  padding: 24px 24px 20px;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+.res-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
+  border-color: rgba(0,0,0,0.16);
+}
+.res-card-featured {
+  border: 1.5px solid rgba(26,79,160,0.3);
+  box-shadow: 0 6px 28px rgba(26,79,160,0.10);
+}
+
+.res-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.res-type {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.res-type-guide { background: rgba(26,79,160,0.10); color: var(--blue); border: 1px solid rgba(26,79,160,0.25); }
+.res-type-pdf   { background: rgba(22,163,74,0.12); color: var(--green); border: 1px solid rgba(22,163,74,0.30); }
+.res-type-link  { background: rgba(0,0,0,0.05);     color: var(--slate-600); border: 1px solid rgba(0,0,0,0.12); }
+
+.res-source {
+  font-size: 12px;
+  color: var(--slate-400);
+  font-weight: 500;
+}
+
+.res-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.res-card h3 a { color: var(--slate-900); text-decoration: none; }
+/* Whole card is the click target */
+.res-card h3 a::after { content: ''; position: absolute; inset: 0; }
+.res-card:hover h3 a { color: var(--blue); }
+
+.res-card p {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+
+.res-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.res-action {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+}
+.res-detail {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--slate-400);
+}
+
+.res-empty {
+  display: none;
+  text-align: center;
+  color: var(--slate-600);
+  font-size: 15px;
+  padding: 60px 24px;
+}
+
+/* ── CTA ── */
+.cta-section { max-width: 1100px; margin: 0 auto; padding: 24px 24px 80px; text-align: center; }
+.cta-section h2 { font-size: clamp(26px, 3.5vw, 34px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; }
+.cta-section p { font-size: 16px; color: var(--slate-600); margin-bottom: 30px; }
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--blue-dark);
+  font-weight: 700; font-size: 15px; padding: 14px 28px;
+  border-radius: 10px; text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800); font-weight: 500; font-size: 15px;
+  padding: 14px 28px; border-radius: 10px; text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.09); border-color: rgba(0,0,0,0.25); }
+
+@media (max-width: 768px) {
+  .res-controls { padding: 0 20px 8px; }
+  .res-search { min-width: 0; width: 100%; }
+  .res-sections { padding: 20px 20px 32px; }
+  .res-grid { grid-template-columns: 1fr; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "TrueLoad Resource Library",
+  "description": "Guides, code references, and research on NEC 220.87 existing load calculations, utility interval data, and electrical panel capacity.",
+  "url": "https://trueloadapp.com/resources/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "eTherm Solutions LLC",
+    "url": "https://trueloadapp.com"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "TrueLoad User Guide",
+        "description": "The complete walkthrough: setting up a project, requesting utility data, entering new load, and producing the report you hand to the AHJ.",
+        "url": "https://trueloadapp.com/resources/files/TrueLoad-User-Guide.pdf"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "NFPA 70 (National Electrical Code) — free online access",
+        "description": "The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. Article 220.87 is the section TrueLoad implements.",
+        "url": "https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "The Green Button standard",
+        "description": "The industry-standard format for utility usage data. If your utility offers \"Download My Data\", this is what you are getting and what it contains.",
+        "url": "https://www.greenbuttondata.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Green Button Download My Data (DMD)",
+        "description": "How the customer-initiated download works, and which utilities have been certified to provide it.",
+        "url": "https://www.greenbuttonalliance.org/green-button-download-my-data-dmd"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Sizing Electric Service Panels and Utility Infrastructure",
+        "description": "LBNL technical brief on how service panels have historically been sized, and why the assumptions behind that sizing no longer match how homes actually use electricity.",
+        "url": "https://eta-publications.lbl.gov/sites/default/files/2024-10/electric_service_sizing_technical_brief_2024072_kj-ls.pdf"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "Reducing the Cost of Electrification with Alternatives to Electric Panel Upgrades",
+        "description": "A survey of the options available when a panel looks undersized on paper — including establishing actual measured demand before assuming an upgrade is required.",
+        "url": "https://www.energystar.gov/sites/default/files/asset/document/Reducing%20the%20Cost%20of%20Electrification%20with%20Alternatives%20to%20Electric%20Panel%20Upgrades.pdf"
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "name": "A Comprehensive Survey of Electrical Panel Capacities in U.S. Single-Family Homes",
+        "description": "ACEEE study quantifying how much of the existing housing stock is genuinely capacity-constrained versus how much only appears to be under a worst-case calculation.",
+        "url": "https://www.aceee.org/sites/default/files/proceedings/ssb24/pdfs/A%20Comprehensive%20Survey%20of%20Electrical%20Panel%20Capacities%20in%20U.S.%20Single-Family%20Homes%20and%20Implications%20for%20Nationwide%20Electrification.pdf"
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "name": "Residential Electrification Under Electrical Panel and Service Constraints",
+        "description": "US Department of Energy overview of the panel-constraint problem and the research program addressing it. Good orientation if you are new to the topic.",
+        "url": "https://www.energy.gov/cmei/buildings/articles/affordable-and-equitable-residential-electrification-under-electrical-panel"
+      }
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  <div class="nav-right">
+    <a href="/" class="nav-back">&larr; Back to Home</a>
+    <a href="https://app.trueloadapp.com" class="nav-cta">Open TrueLoad</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-label">Resource Library</div>
+  <h1>Everything worth knowing about existing load</h1>
+  <p>Guides, code references, and independent research for contractors, inspectors, and homeowners working through service capacity. Free to use, no account required.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="res-controls" id="res-controls">
+  <div class="res-filters">
+      <button type="button" class="res-chip" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="res-chip" data-filter="guides" aria-pressed="false">TrueLoad Guides</button>
+      <button type="button" class="res-chip" data-filter="code" aria-pressed="false">Code &amp; Standards</button>
+      <button type="button" class="res-chip" data-filter="utility-data" aria-pressed="false">Utility Data</button>
+      <button type="button" class="res-chip" data-filter="research" aria-pressed="false">Research &amp; Studies</button>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<div class="res-sections">
+  <section class="res-section" id="guides" data-category="guides">
+    <div class="res-section-head">
+      <h2>TrueLoad Guides</h2>
+      <p>Plain-English explainers written by us, for the people doing the work.</p>
+    </div>
+    <div class="res-grid">
+      <article class="res-card res-card-featured" data-category="guides" data-search="trueload user guide the complete walkthrough: setting up a project, requesting utility data, entering new load, and producing the report you hand to the ahj.">
+        <div class="res-card-top">
+          <span class="res-type res-type-pdf">PDF</span>
+          
+        </div>
+        <h3><a href="/resources/files/TrueLoad-User-Guide.pdf">TrueLoad User Guide</a></h3>
+        <p>The complete walkthrough: setting up a project, requesting utility data, entering new load, and producing the report you hand to the AHJ.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Download &rarr;</span>
+          <span class="res-detail">PDF · 304 KB</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="res-section" id="code" data-category="code">
+    <div class="res-section-head">
+      <h2>Code &amp; Standards</h2>
+      <p>The primary sources. Read the code itself before you rely on anyone's summary of it.</p>
+    </div>
+    <div class="res-grid">
+      <article class="res-card res-card-featured" data-category="code" data-search="nfpa 70 (national electrical code) — free online access the code itself, readable in full at no cost. nfpa publishes every edition of nfpa 70 for free online viewing. article 220.87 is the section trueload implements. nfpa">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">NFPA</span>
+        </div>
+        <h3><a href="https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access" target="_blank" rel="noopener noreferrer">NFPA 70 (National Electrical Code) — free online access</a></h3>
+        <p>The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. Article 220.87 is the section TrueLoad implements.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">nfpa.org</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="res-section" id="utility-data" data-category="utility-data">
+    <div class="res-section-head">
+      <h2>Utility Data</h2>
+      <p>Getting interval data out of a utility, and knowing what you are looking at once you have it.</p>
+    </div>
+    <div class="res-grid">
+      <article class="res-card" data-category="utility-data" data-search="green button download my data (dmd) how the customer-initiated download works, and which utilities have been certified to provide it. green button alliance">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">Green Button Alliance</span>
+        </div>
+        <h3><a href="https://www.greenbuttonalliance.org/green-button-download-my-data-dmd" target="_blank" rel="noopener noreferrer">Green Button Download My Data (DMD)</a></h3>
+        <p>How the customer-initiated download works, and which utilities have been certified to provide it.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">greenbuttonalliance.org</span>
+        </div>
+      </article>
+      <article class="res-card" data-category="utility-data" data-search="the green button standard the industry-standard format for utility usage data. if your utility offers &quot;download my data&quot;, this is what you are getting and what it contains. green button alliance">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">Green Button Alliance</span>
+        </div>
+        <h3><a href="https://www.greenbuttondata.org/" target="_blank" rel="noopener noreferrer">The Green Button standard</a></h3>
+        <p>The industry-standard format for utility usage data. If your utility offers &quot;Download My Data&quot;, this is what you are getting and what it contains.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">greenbuttondata.org</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="res-section" id="research" data-category="research">
+    <div class="res-section-head">
+      <h2>Research &amp; Studies</h2>
+      <p>Independent work on panel capacity, electrification, and what upgrades actually cost.</p>
+    </div>
+    <div class="res-grid">
+      <article class="res-card" data-category="research" data-search="a comprehensive survey of electrical panel capacities in u.s. single-family homes aceee study quantifying how much of the existing housing stock is genuinely capacity-constrained versus how much only appears to be under a worst-case calculation. aceee">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">ACEEE</span>
+        </div>
+        <h3><a href="https://www.aceee.org/sites/default/files/proceedings/ssb24/pdfs/A%20Comprehensive%20Survey%20of%20Electrical%20Panel%20Capacities%20in%20U.S.%20Single-Family%20Homes%20and%20Implications%20for%20Nationwide%20Electrification.pdf" target="_blank" rel="noopener noreferrer">A Comprehensive Survey of Electrical Panel Capacities in U.S. Single-Family Homes</a></h3>
+        <p>ACEEE study quantifying how much of the existing housing stock is genuinely capacity-constrained versus how much only appears to be under a worst-case calculation.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">aceee.org</span>
+        </div>
+      </article>
+      <article class="res-card" data-category="research" data-search="reducing the cost of electrification with alternatives to electric panel upgrades a survey of the options available when a panel looks undersized on paper — including establishing actual measured demand before assuming an upgrade is required. energy star">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">ENERGY STAR</span>
+        </div>
+        <h3><a href="https://www.energystar.gov/sites/default/files/asset/document/Reducing%20the%20Cost%20of%20Electrification%20with%20Alternatives%20to%20Electric%20Panel%20Upgrades.pdf" target="_blank" rel="noopener noreferrer">Reducing the Cost of Electrification with Alternatives to Electric Panel Upgrades</a></h3>
+        <p>A survey of the options available when a panel looks undersized on paper — including establishing actual measured demand before assuming an upgrade is required.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">energystar.gov</span>
+        </div>
+      </article>
+      <article class="res-card" data-category="research" data-search="residential electrification under electrical panel and service constraints us department of energy overview of the panel-constraint problem and the research program addressing it. good orientation if you are new to the topic. u.s. department of energy">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">U.S. Department of Energy</span>
+        </div>
+        <h3><a href="https://www.energy.gov/cmei/buildings/articles/affordable-and-equitable-residential-electrification-under-electrical-panel" target="_blank" rel="noopener noreferrer">Residential Electrification Under Electrical Panel and Service Constraints</a></h3>
+        <p>US Department of Energy overview of the panel-constraint problem and the research program addressing it. Good orientation if you are new to the topic.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">energy.gov</span>
+        </div>
+      </article>
+      <article class="res-card" data-category="research" data-search="sizing electric service panels and utility infrastructure lbnl technical brief on how service panels have historically been sized, and why the assumptions behind that sizing no longer match how homes actually use electricity. lawrence berkeley national laboratory">
+        <div class="res-card-top">
+          <span class="res-type res-type-link">Link</span>
+          <span class="res-source">Lawrence Berkeley National Laboratory</span>
+        </div>
+        <h3><a href="https://eta-publications.lbl.gov/sites/default/files/2024-10/electric_service_sizing_technical_brief_2024072_kj-ls.pdf" target="_blank" rel="noopener noreferrer">Sizing Electric Service Panels and Utility Infrastructure</a></h3>
+        <p>LBNL technical brief on how service panels have historically been sized, and why the assumptions behind that sizing no longer match how homes actually use electricity.</p>
+        <div class="res-card-foot">
+          <span class="res-action">Read it &#8599;</span>
+          <span class="res-detail">eta-publications.lbl.gov</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <p class="res-empty" id="res-empty">No resources match that search.</p>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to run a real calculation?</h2>
+  <p>Turn a year of utility interval data into an AHJ-ready 220.87 report.</p>
+  <div class="cta-actions">
+    <a href="https://app.trueloadapp.com" class="btn-primary">Open TrueLoad &rarr;</a>
+    <a href="/plans/" class="btn-secondary">See plans &amp; pricing</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <a href="/"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
+    <a href="/terms/" class="footer-link">Terms of Service</a>
+    <a href="/privacy/" class="footer-link">Privacy Policy</a>
+    <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.res-section'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.res-card'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.res-chip'));
+  var empty = document.getElementById('res-empty');
+  var activeFilter = 'all';
+  var query = '';
+
+  // The search box is injected rather than shipped in the HTML, so it never
+  // appears as a dead input when scripting is unavailable.
+  var search = document.createElement('input');
+  search.type = 'search';
+  search.className = 'res-search';
+  search.placeholder = 'Search resources\u2026';
+  search.setAttribute('aria-label', 'Search resources');
+  document.getElementById('res-controls').appendChild(search);
+
+  function apply() {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var matchCat = activeFilter === 'all' || card.dataset.category === activeFilter;
+      var matchText = !query || card.dataset.search.indexOf(query) !== -1;
+      var visible = matchCat && matchText;
+      card.style.display = visible ? '' : 'none';
+      if (visible) shown++;
+    });
+    sections.forEach(function (section) {
+      var any = section.querySelectorAll('.res-card:not([style*="none"])').length > 0;
+      section.style.display = any ? '' : 'none';
+    });
+    if (empty) empty.style.display = shown ? 'none' : 'block';
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      apply();
+    });
+  });
+
+  var timer;
+  search.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      query = search.value.trim().toLowerCase();
+      apply();
+    }, 80);
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+name: Build resource library
+
+# Regenerates resources/index.html, the guide pages, and sitemap.xml whenever
+# the content files change, then commits the result back to main so GitHub
+# Pages serves plain static HTML.
+#
+# This is what lets the library be edited from the GitHub web UI: change
+# content/resources.json or drop a file in content/guides/, and the site
+# rebuilds itself. If the content has a mistake in it, this job fails loudly
+# and the live site is left exactly as it was.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'resources/files/**'
+      - 'scripts/build-resources.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/build-resources.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-resources
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the resource library
+        run: npm run build:resources
+
+      - name: Commit the generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add resources sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Generated pages are already up to date - nothing to commit."
+            exit 0
+          fi
+          git commit -m "[auto] Rebuild resource library"
+          git push
