@@ -432,6 +432,12 @@ footer {
   .nav-right { gap: 14px; }
   footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
 }
+/* ── MOBILE NAV: the full logo is 252px wide, so on phones the links drop beneath it ── */
+@media (max-width: 640px) {
+  nav { flex-wrap: wrap; row-gap: 6px; padding: 10px 16px; }
+  .nav-logo img { height: 48px; }
+  .nav-right { width: 100%; justify-content: flex-end; gap: 14px; }
+}
 </style>
 </head>
 <body>
@@ -440,6 +446,7 @@ footer {
 <nav>
   <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
   <div class="nav-right">
+    <a href="/methods/" class="nav-back">Two Methods</a>
     <a href="/resources/" class="nav-back">Resources</a>
     <a href="/" class="nav-back">&larr; Back to Home</a>
   </div>
@@ -466,6 +473,7 @@ footer {
       <p class="plan-subline">No subscription. Pay only when you need it.</p>
       <ul class="plan-features">
         <li><span class="plan-check">✓</span> First project free</li>
+        <li><span class="plan-check">✓</span> Both methods: measured demand and traditional</li>
         <li><span class="plan-check">✓</span> AHJ-ready PDF report</li>
         <li><span class="plan-check">✓</span> Utility AMI data integration</li>
         <li><span class="plan-check">✓</span> No monthly commitment</li>
@@ -536,6 +544,12 @@ footer {
           <td>1 user</td>
           <td>1 user</td>
           <td>Multiple users, one firm account</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Calculation methods</td>
+          <td>Measured demand and traditional</td>
+          <td>Measured demand and traditional</td>
+          <td>Measured demand and traditional</td>
         </tr>
         <tr>
           <td class="col-feature">Billing</td>

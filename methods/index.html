@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueLoad | Measured Demand vs. Traditional Calculation</title>
+<meta name="description" content="When to use NEC 220.87 measured demand and when to use the traditional NEC 220.83 calculation. TrueLoad runs both from one project and produces one AHJ-ready report.">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--slate-900); line-height: 1.6; }
+
+/* ── NAV (same as main site) ── */
+nav {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--slate-900); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 48px;
+  text-align: center;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.page-header h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── THE TWO PATHS ── */
+.paths-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+.paths-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.path-card {
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.path-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.path-card-measured::before { background: linear-gradient(90deg, var(--blue), rgba(26,79,160,0.15)); }
+.path-card-traditional::before { background: linear-gradient(90deg, var(--yellow), rgba(245,197,24,0.15)); }
+.path-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.path-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+}
+.path-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  background: rgba(26,79,160,0.08);
+  border: 1px solid rgba(26,79,160,0.2);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.path-card h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+.path-card > p {
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.path-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.path-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  color: var(--slate-800);
+  line-height: 1.55;
+}
+.path-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.path-card-traditional .path-list li::before { background: var(--yellow); }
+
+/* ── WHY BOTH ── */
+.why-section {
+  background: var(--slate-50);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.why-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+.why-text h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  margin-bottom: 18px;
+}
+.why-text p {
+  font-size: 17px;
+  color: var(--slate-600);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.why-text p:last-child { margin-bottom: 0; }
+.why-callout {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 8px 32px rgba(15,23,42,0.05);
+}
+.why-callout-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+  margin-bottom: 16px;
+}
+.why-quote {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.why-callout p:last-child {
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.65;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── COMPARISON TABLE (same as the plans page) ── */
+.compare-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.compare-header { max-width: 600px; margin-bottom: 40px; }
+.compare-header h2 {
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.compare-header p { font-size: 16px; color: var(--slate-600); }
+.compare-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 16px;
+}
+table.compare-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.compare-table th, .compare-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  vertical-align: top;
+}
+.compare-table th {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+  background: var(--slate-50);
+}
+.compare-table td.col-feature {
+  font-weight: 600;
+  color: var(--slate-900);
+  width: 26%;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table th.measured-col { color: var(--blue); background: rgba(26,79,160,0.06); }
+.compare-table th.traditional-col { color: #a16207; background: rgba(245,197,24,0.10); }
+
+/* ── ONE PROJECT, BOTH PATHS ── */
+.both-section {
+  background: var(--slate-50);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.both-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+.both-header { max-width: 640px; margin-bottom: 56px; }
+.both-header h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+.both-header p { font-size: 17px; color: var(--slate-600); line-height: 1.65; }
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.feature {
+  background: var(--white);
+  padding: 32px 36px;
+}
+.feature h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.feature h3::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+.feature p { font-size: 14px; color: var(--slate-600); line-height: 1.6; }
+
+/* ── FAQ ── */
+.faq-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px 40px;
+}
+.faq-section h2 {
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+.faq-item {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 24px 0;
+}
+.faq-item:last-child { border-bottom: 1px solid rgba(0,0,0,0.08); }
+.faq-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
+.faq-item p { font-size: 15px; color: var(--slate-600); line-height: 1.65; }
+
+/* ── CTA ── */
+.cta-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+.cta-section h2 {
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.cta-section p { font-size: 16px; color: var(--slate-600); margin-bottom: 32px; }
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.09); border-color: rgba(0,0,0,0.25); }
+
+/* ── FOOTER (same as main site) ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .paths-grid { grid-template-columns: 1fr; }
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .feature-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-right { gap: 16px; }
+  .path-card { padding: 28px 24px; }
+  .why-callout { padding: 28px 24px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+}
+/* ── MOBILE NAV: the full logo is 252px wide, so on phones the links drop beneath it ── */
+@media (max-width: 640px) {
+  nav { flex-wrap: wrap; row-gap: 6px; padding: 10px 16px; }
+  .nav-logo img { height: 48px; }
+  .nav-right { width: 100%; justify-content: flex-end; gap: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  <div class="nav-right">
+    <a href="/plans/" class="nav-back">Pricing</a>
+    <a href="/resources/" class="nav-back">Resources</a>
+    <a href="/" class="nav-back">&larr; Back to Home</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-label">Two Methods, One Tool</div>
+  <h1>Measured demand or the traditional calc.<br>Same project, same report.</h1>
+  <p>Which calculation to use when, what each one asks of you, and how TrueLoad runs both without making you choose up front.</p>
+</div>
+
+<!-- THE TWO PATHS -->
+<div class="paths-section">
+  <div class="paths-grid">
+
+    <div class="path-card path-card-measured">
+      <div class="path-card-top">
+        <span class="path-tag">Measured demand</span>
+        <span class="path-code">NEC 220.87</span>
+      </div>
+      <h2>The home's actual peak, from utility interval data</h2>
+      <p>The highest demand the home actually reached over the qualifying period, taken at 125%, plus the proposed new load. Because it replaces an estimate with a measurement, it is usually the lowest defensible number available: peer-reviewed research across nearly 12,000 homes found it roughly 40% lower than the traditional method on average.</p>
+      <ul class="path-list">
+        <li>Needs 12 months of interval data, or the code's 30-day recording exception.</li>
+        <li>Built-in data request. Your customer authorizes the release, the utility sends the file, you drop it in (CSV, Excel or XML).</li>
+        <li>Applies to any existing service: single or three phase, dwelling or not.</li>
+      </ul>
+    </div>
+
+    <div class="path-card path-card-traditional">
+      <div class="path-card-top">
+        <span class="path-tag">Traditional calculation</span>
+        <span class="path-code">NEC 220.83</span>
+      </div>
+      <h2>The code's own method for existing homes, no utility data needed</h2>
+      <p>The existing-dwelling calculation from Article 220: general lighting from floor area, the small-appliance and laundry circuits, and every fastened-in-place appliance at nameplate, with the section's demand percentages applied. Enter the home and get the number in minutes.</p>
+      <ul class="path-list">
+        <li>No data request, no homeowner involvement, no waiting.</li>
+        <li>Applies to a single-family home or one dwelling unit on a 3-wire 120/240 V or 120/208 V service. No minimum service size, so 60 A and 100 A services qualify.</li>
+        <li>Follows the code edition your jurisdiction enforces, including the 2026 edition Massachusetts uses, where the section is numbered 120.83.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHY BOTH -->
+<div class="why-section">
+  <div class="why-inner">
+    <div class="why-text">
+      <div class="section-label">Why both</div>
+      <h2>Interval data is spreading, but it's uneven</h2>
+      <p>Measured demand is the reason TrueLoad exists. It is the number that keeps a 100 A service off the upgrade list, and the one inspectors find hardest to argue with. But it needs the data, and smart meters are going in utility by utility and town by town. In Massachusetts, National Grid's rollout runs through 2027, so one job has a year of interval history and the next has none.</p>
+      <p>That is why the same TrueLoad project also runs the traditional calculation. You don't need a second tool for the homes without data, and you don't have to know which method a job will need before you open it. Use the data when it's there. Run the code's method when it isn't. Hand the inspector the same kind of report either way.</p>
+    </div>
+    <div class="why-callout">
+      <div class="why-callout-label">Why measured wins when you have it</div>
+      <p class="why-quote">The code is estimating when it no longer has to.</p>
+      <p>Traditional demand factors are population averages, calibrated decades ago against a housing stock whose biggest loads were a range and a dryer. They do serious work, but they can't see what one particular house does. Its meter can.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SIDE BY SIDE -->
+<div class="compare-section">
+  <div class="compare-header">
+    <div class="section-label">Side by side</div>
+    <h2>What each method asks of you</h2>
+    <p>Both paths share the same project, the same equipment schedule for the proposed new loads, and the same report workflow.</p>
+  </div>
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="col-feature"></th>
+          <th class="measured-col">Measured demand</th>
+          <th class="traditional-col">Traditional calculation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-feature">Code section</td>
+          <td>NEC 220.87 (120.87 under the 2026 edition)</td>
+          <td>NEC 220.83 (120.83 under the 2026 edition)</td>
+        </tr>
+        <tr>
+          <td class="col-feature">The existing load comes from</td>
+          <td>The home's highest metered demand, at 125%</td>
+          <td>Floor area, circuit counts and the appliance inventory, with the section's demand factors</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Utility data</td>
+          <td>12 months, or the 30-day exception</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td class="col-feature">What you enter about the home</td>
+          <td>The service itself</td>
+          <td>Floor area, circuits and appliances</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Homeowner involvement</td>
+          <td>Usually, to authorize the data release</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Time to a result</td>
+          <td>When the data arrives</td>
+          <td>Minutes</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Applies to</td>
+          <td>Any existing service</td>
+          <td>A dwelling unit on a 3-wire 120/240 V or 120/208 V service</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Typical result</td>
+          <td>Usually the lowest defensible number</td>
+          <td>The code's estimate</td>
+        </tr>
+        <tr>
+          <td class="col-feature">On the report</td>
+          <td>The full 220.87 calculation, the data summary and the methodology notes</td>
+          <td>The full worksheet line by line, with citations, your elections and your inventory attestation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ONE PROJECT, BOTH PATHS -->
+<div class="both-section">
+  <div class="both-inner">
+    <div class="both-header">
+      <div class="section-label">One project, both paths</div>
+      <h2>You don't have to pick a method before you open the job</h2>
+      <p>Every TrueLoad project can run either method, or both. The measured path works exactly as it always has, and the traditional path sits one click away from it.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>TrueLoad suggests a path</h3>
+        <p>From the utility you select on the project. A utility that provides interval data gets a measured-demand recommendation. One that doesn't yet gets the traditional calc. Both stay available either way.</p>
+      </div>
+      <div class="feature">
+        <h3>Switch in one click</h3>
+        <p>Two tabs on the Existing Load step. Choosing one path never removes what's in the other, and your choice is remembered as you move through the project.</p>
+      </div>
+      <div class="feature">
+        <h3>Run the traditional calc while you wait</h3>
+        <p>Data requests take time. Run the traditional calc today. If it passes, you're done. If it doesn't, the measured number is on its way, and it is usually the lower one.</p>
+      </div>
+      <div class="feature">
+        <h3>Every method that ran, side by side</h3>
+        <p>When both are complete, the Results tab lists each method's calculated demand, margin and PASS or FAIL, including any that fail. You choose the report basis, and switching it is one click and free.</p>
+      </div>
+      <div class="feature">
+        <h3>A physical sanity check on the inventory</h3>
+        <p>The traditional method is only as good as the appliance list. Where measured data exists, TrueLoad compares the metered peak with the connected load you entered, because a house cannot draw more than it has. An inventory that is almost certainly missing loads gets flagged.</p>
+      </div>
+      <div class="feature">
+        <h3>One method on the report</h3>
+        <p>The report carries the basis you chose, with its full worksheet. Include the methods comparison only when the method choice itself is being questioned: the report then shows every method that ran, each computed in full under its own section, with a note citing NEC 90.5(B).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="section-label">Common questions</div>
+  <h2>The questions contractors ask first</h2>
+
+  <div class="faq-item">
+    <h3>Do I pay extra for the traditional method?</h3>
+    <p>No. Every plan includes both methods, and so does the free first project. A traditional-only project needs no utility data to unlock its results.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I run the traditional calc on a commercial building, a three-phase service or a whole apartment building?</h3>
+    <p>No, and TrueLoad will say so rather than print a report citing a section that doesn't govern the job. NEC 220.83 covers a dwelling unit on a 3-wire 120/240 V or 120/208 V service. Measured demand has none of those restrictions, so that is the path for everything else. A whole building can also be evaluated one unit at a time.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What if the utility isn't supported yet?</h3>
+    <p>Run the traditional calc now and tell TrueLoad which utility you need; every request goes onto our outreach list. If the customer can export an interval file from the utility's own portal, upload it. The project can re-run through measured demand whenever data becomes available.</p>
+  </div>
+  <div class="faq-item">
+    <h3>My AHJ wants different demand parameters. Now what?</h3>
+    <p>Change them. On the traditional path under the 2020 and 2023 editions, you can restate the first-tier size, the tier and remainder percentages, and how EV charging is treated. Anything you change recalculates immediately and prints on the report as a preparer-stated election beside the section's own values, never as the code's numbers. Under the 2026 edition the table's percentages are code text and stay as written.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Run your next load calc in TrueLoad</h2>
+  <p>Your first project is free, on either path. No credit card required.</p>
+  <div class="cta-actions">
+    <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Get Started Free →</a>
+    <a href="/plans/" class="btn-secondary">See Plans &amp; Pricing</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <a href="/"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
+    <a href="/terms/" class="footer-link">Terms of Service</a>
+    <a href="/privacy/" class="footer-link">Privacy Policy</a>
+    <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

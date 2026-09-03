@@ -47,7 +47,7 @@
 
     {
       "title": "NFPA 70 (National Electrical Code) — free online access",
-      "description": "The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. Article 220.87 is the section TrueLoad implements.",
+      "description": "The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. Sections 220.87 (measured demand) and 220.83 (the traditional calculation for existing dwellings) are the ones TrueLoad implements.",
       "category": "code",
       "type": "link",
       "url": "https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access",

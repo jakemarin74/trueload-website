@@ -977,6 +977,7 @@ if (fs.existsSync(guidesOut)) {
 const urls = [
   { loc: `${SITE}/`, priority: '1.0', changefreq: 'monthly' },
   { loc: `${SITE}/plans/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/methods/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/resources/`, priority: '0.8', changefreq: 'weekly' },
   ...guides.map((g) => ({
     loc: `${SITE}/resources/guides/${g.slug}/`,

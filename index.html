@@ -5,6 +5,7 @@
 <meta name="google-site-verification" content="erP530ELLVugD_rT5MhyaNQYtMNR-qFErgHmSoHEkWg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TrueLoad | Home</title>
+<meta name="description" content="TrueLoad runs NEC 220.87 measured-demand load calculations from utility interval data, and the traditional NEC 220.83 calculation when that data isn't available. One project, one AHJ-ready report.">
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,7 +147,7 @@ nav {
   line-height: 1.1;
   letter-spacing: -0.03em;
   max-width: 820px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .hero h1 em {
   font-style: normal;
@@ -156,8 +157,8 @@ nav {
 .hero-sub {
   font-size: clamp(16px, 2vw, 20px);
   color: var(--slate-600);
-  max-width: 540px;
-  margin: 0 auto 44px;
+  max-width: 620px;
+  margin: 0 auto 36px;
   font-weight: 400;
   line-height: 1.65;
 }
@@ -167,7 +168,7 @@ nav {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 72px;
+  margin-bottom: 40px;
 }
 
 .btn-primary {
@@ -200,6 +201,95 @@ nav {
   transition: background 0.15s, border-color 0.15s;
 }
 .btn-secondary:hover { background: rgba(0,0,0,0.09); border-color: rgba(0,0,0,0.25); }
+
+/* ── HERO PATH STRIP ── */
+.hero-paths {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  position: relative;
+}
+.hero-paths-q {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+  margin-bottom: 14px;
+}
+.hero-paths-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.hero-path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 8px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 14px;
+  padding: 20px 22px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.hero-path:hover {
+  border-color: rgba(26,79,160,0.4);
+  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+  transform: translateY(-2px);
+}
+.hero-path-answer {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.hero-path-answer.yes {
+  background: rgba(22,163,74,0.12);
+  border: 1px solid rgba(22,163,74,0.3);
+  color: var(--green);
+}
+.hero-path-answer.not-yet {
+  background: rgba(245,197,24,0.16);
+  border: 1px solid rgba(245,197,24,0.45);
+  color: #a16207;
+}
+.hero-path-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--slate-900);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  line-height: 1.3;
+}
+.hero-path-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--blue);
+}
+.hero-path-desc {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.55;
+}
+.hero-paths-foot {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-800);
+}
+@media (max-width: 768px) {
+  .hero-paths-grid { grid-template-columns: 1fr; }
+}
 
 /* ── DEMO WRAPPER ── */
 .demo-wrapper {
@@ -290,6 +380,149 @@ section {
   font-size: 15px;
   color: var(--slate-600);
   line-height: 1.65;
+}
+
+/* ── TWO METHODS ── */
+.methods-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.methods-header {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+.methods-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.methods-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  line-height: 1.65;
+}
+.methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.method-card {
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.method-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.method-card-measured::before { background: linear-gradient(90deg, var(--blue), rgba(26,79,160,0.15)); }
+.method-card-traditional::before { background: linear-gradient(90deg, var(--yellow), rgba(245,197,24,0.15)); }
+.method-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.method-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate-600);
+}
+.method-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  background: rgba(26,79,160,0.08);
+  border: 1px solid rgba(26,79,160,0.2);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.method-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+.method-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.method-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  color: var(--slate-600);
+  line-height: 1.6;
+}
+.method-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.method-card-traditional .method-list li::before { background: var(--yellow); }
+.methods-bridge {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.bridge-item {
+  background: var(--white);
+  padding: 28px 30px;
+}
+.bridge-item h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.bridge-item p {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.6;
+}
+.methods-more {
+  margin-top: 28px;
+  font-size: 15px;
+}
+.methods-more a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+.methods-more a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.demo-caption {
+  margin: 48px 0 16px;
+  font-size: 14px;
+  color: var(--slate-600);
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .methods-grid { grid-template-columns: 1fr; }
+  .methods-bridge { grid-template-columns: 1fr; }
+  .method-card { padding: 28px 24px; }
 }
 
 /* ── HOW IT WORKS ── */
@@ -819,6 +1052,15 @@ footer {
   .hook-inner { grid-template-columns: 1fr; gap: 48px; }
 }
 
+/* ── MOBILE NAV: the full logo is 252px wide, so on phones the links drop beneath it ── */
+@media (max-width: 640px) {
+  nav { flex-wrap: wrap; row-gap: 6px; padding: 10px 16px; }
+  .nav-logo img { height: 48px; }
+  .nav-right { width: 100%; justify-content: flex-end; gap: 14px; }
+  .nav-cta { padding: 8px 16px; }
+  .hero { padding-top: 132px; }
+}
+
 /* ── FADE IN ON SCROLL ── */
 .fade-up {
   opacity: 0;
@@ -842,6 +1084,7 @@ footer {
     <img src="trueload_logo.svg" alt="TrueLoad">
   </div>
   <div class="nav-right">
+    <a href="/methods/" class="nav-link">Two Methods</a>
     <a href="/resources/" class="nav-link">Resources</a>
     <a href="#pricing" class="nav-cta">See Pricing</a>
   </div>
@@ -854,16 +1097,33 @@ footer {
 
   <div class="hero-eyebrow">
     <span class="hero-eyebrow-dot"></span>
-    Fast, Reliable Load Calculations
+    Two NEC methods · One tool · One report
   </div>
 
   <h1>Service adequacy,<br>backed by <em>real data.</em></h1>
 
-  <p class="hero-sub">TrueLoad gives electricians and heat pump installers a fast, defensible way to calculate existing service capacity — without setting foot on site.</p>
+  <p class="hero-sub">TrueLoad gives electricians and heat pump installers a fast, defensible way to calculate existing service capacity: from the home's own utility data when it's available, and from the traditional NEC calculation when it isn't. One project, one AHJ-ready report.</p>
 
   <div class="hero-actions">
     <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Get Started Free →</a>
     <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+  </div>
+
+  <div class="hero-paths">
+    <div class="hero-paths-q">Does the utility have interval data for this home?</div>
+    <div class="hero-paths-grid">
+      <a href="#methods" class="hero-path">
+        <span class="hero-path-answer yes">Yes</span>
+        <span class="hero-path-name">Measured demand <span class="hero-path-code">NEC 220.87</span></span>
+        <span class="hero-path-desc">The home's real peak, straight from the meter. Usually the lowest defensible number, on average about 40% lower than a traditional calc.</span>
+      </a>
+      <a href="#methods" class="hero-path">
+        <span class="hero-path-answer not-yet">Not yet</span>
+        <span class="hero-path-name">Traditional calculation <span class="hero-path-code">NEC 220.83</span></span>
+        <span class="hero-path-desc">Floor area and the appliance inventory, with the code's own demand factors applied. No utility data, no waiting.</span>
+      </a>
+    </div>
+    <div class="hero-paths-foot">Same project. Same report. Switch paths in one click.</div>
   </div>
 
 </section>
@@ -921,7 +1181,7 @@ footer {
       Service upgrades slow jobs down and cost customers money
     </h2>
     <p style="font-size:17px;color:var(--slate-600);line-height:1.65;">
-      Using NEC 220.87, TrueLoad uses actual measured demand data to prove the existing service is adequate. Data access and documentation have been the problem - until now.
+      Using NEC 220.87, TrueLoad uses actual measured demand data to prove the existing service is adequate. Where that data isn't available yet, the same project runs the traditional NEC 220.83 calculation instead. Data access and documentation have been the problem - until now.
     </p>
   </div>
   <div class="problem-grid">
@@ -945,12 +1205,66 @@ footer {
 
 <div class="divider"></div>
 
+<!-- TWO METHODS -->
+<div class="methods-section fade-up" id="methods">
+  <div class="methods-header">
+    <div class="section-label">Two Methods, One Tool</div>
+    <h2>Measured when you can.<br>Traditional when you can't.</h2>
+    <p>Smart-meter data is spreading, but it's uneven: one job has a year of interval history, the next has none. TrueLoad handles both from the same project, so you don't need a second tool for the homes without data.</p>
+  </div>
+  <div class="methods-grid">
+    <div class="method-card method-card-measured">
+      <div class="method-card-top">
+        <span class="method-tag">Measured demand</span>
+        <span class="method-code">NEC 220.87</span>
+      </div>
+      <h3>The home's actual peak, from utility interval data</h3>
+      <ul class="method-list">
+        <li>Takes the highest demand the home actually reached, at 125%, plus the proposed new load.</li>
+        <li>Replaces the code's estimate with the home's own record. On average about 40% lower than the traditional method, which is what keeps a 100 A service off the upgrade list.</li>
+        <li>Built-in data request: your customer authorizes the release, the utility sends the file, you drop it in.</li>
+        <li>Applies to any existing service, single or three phase, home or not.</li>
+      </ul>
+    </div>
+    <div class="method-card method-card-traditional">
+      <div class="method-card-top">
+        <span class="method-tag">Traditional calculation</span>
+        <span class="method-code">NEC 220.83</span>
+      </div>
+      <h3>The code's own method for existing homes, no utility data needed</h3>
+      <ul class="method-list">
+        <li>Builds the existing load from floor area, circuit counts and the appliance inventory, with the section's demand factors applied.</li>
+        <li>No data request and no waiting. Enter the home and get the number in minutes.</li>
+        <li>The full worksheet prints on the report, line by line, with its citations and any election you made.</li>
+        <li>Follows the code edition your jurisdiction enforces, including the 2026 edition Massachusetts uses.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="methods-bridge">
+    <div class="bridge-item">
+      <h4>Start every job the same way</h4>
+      <p>TrueLoad suggests a path from the utility you select, and both stay one click apart. If the data exists, request it. If it doesn't, run the traditional calc today.</p>
+    </div>
+    <div class="bridge-item">
+      <h4>A FAIL is not a dead end</h4>
+      <p>If the traditional calc comes up short, request the customer's data and run measured demand in the same project. When both have run, you pick which one the report is based on.</p>
+    </div>
+    <div class="bridge-item">
+      <h4>One report for the inspector</h4>
+      <p>The report carries the method you chose, with its full worksheet and citations. Add the side-by-side methods comparison only when the method choice itself is being questioned.</p>
+    </div>
+  </div>
+  <p class="methods-more"><a href="/methods/">Which method, when? Compare the two in depth →</a></p>
+</div>
+
+<div class="divider"></div>
+
 <!-- HOW IT WORKS -->
 <div class="how-section fade-up" id="how-it-works">
   <div class="how-header">
     <div class="section-label">How It Works</div>
     <h2>Six steps to documented service capacity</h2>
-    <p>TrueLoad walks you through the entire NEC 220.87 process — from requesting utility data to printing a report ready for the AHJ.</p>
+    <p>TrueLoad walks you through the whole process on either path, from establishing the existing load to printing a report ready for the AHJ.</p>
   </div>
   <div class="steps">
     <div class="step">
@@ -970,15 +1284,15 @@ footer {
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-content">
-        <h3>Get AMI data from Utility</h3>
-        <p>One click AMI data request. Your customer authorizes release of data and utility receives request.</p>
+        <h3>Choose the existing-load path</h3>
+        <p>Measured demand if the utility has interval data, traditional calculation if it doesn't. TrueLoad suggests one from the utility you selected, and both stay available.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">04</div>
       <div class="step-content">
-        <h3>Upload the AMI data file</h3>
-        <p>Drag and drop the file from the utility — CSV, Excel, or XML. TrueLoad processes it automatically and identifies the peak demand.</p>
+        <h3>Establish the existing load</h3>
+        <p>Measured: one-click data request, your customer authorizes it, and you drag in the file (CSV, Excel or XML). Traditional: floor area, circuits and the appliance inventory.</p>
       </div>
     </div>
     <div class="step">
@@ -992,10 +1306,12 @@ footer {
       <div class="step-num">06</div>
       <div class="step-content">
         <h3>Review results and print the report</h3>
-        <p>PASS or FAIL is displayed immediately. Print a formatted report ready for permit submission or for your records.</p>
+        <p>PASS or FAIL is displayed immediately. Print a formatted report on the method you chose, ready for permit submission or for your records.</p>
       </div>
     </div>
   </div>
+
+  <p class="demo-caption">Below: the measured-demand path, start to finish.</p>
 
   <!-- ANIMATED DEMO EMBEDDED INLINE -->
   <div class="demo-wrapper fade-up">
@@ -1012,7 +1328,7 @@ footer {
   <div class="who-text">
     <div class="section-label">Who It's For</div>
     <h2>Built for professional electricians and heat pump installers</h2>
-    <p>TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly and reliably.</p>
+    <p>TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly and reliably. It works with or without utility interval data for the home, so one tool covers your existing-home jobs.</p>
     <p>If you're adding a heat pump, EV charger, or other major load to an existing residential service and want to avoid an unnecessary service upgrade, this is the tool.</p>
     <div class="who-chips">
       <span class="chip"><span class="chip-dot"></span>Licensed Electricians</span>
@@ -1063,6 +1379,7 @@ footer {
       <p class="plan-subline">No subscription. Pay only when you need it.</p>
       <ul class="plan-features">
         <li><span class="plan-check">✓</span> First project free</li>
+        <li><span class="plan-check">✓</span> Both methods: measured demand and traditional</li>
         <li><span class="plan-check">✓</span> AHJ-ready PDF report</li>
         <li><span class="plan-check">✓</span> Utility AMI data integration</li>
         <li><span class="plan-check">✓</span> No monthly commitment</li>
