@@ -46,6 +46,15 @@
     },
 
     {
+      "title": "TrueLoad Overview",
+      "description": "A one-page summary of what TrueLoad does and who it is for: why AHJs increasingly want a formal calculation before new load goes on an existing service, how measured demand is established from a year of the home's own interval data, and the four steps from utility file to permit-ready report. Print it or leave it with a customer.",
+      "category": "guides",
+      "type": "pdf",
+      "file": "TrueLoad-Overview.pdf",
+      "updated": "2026-09-10"
+    },
+
+    {
       "title": "NFPA 70 (National Electrical Code) — free online access",
       "description": "The code itself, readable in full at no cost. NFPA publishes every edition of NFPA 70 for free online viewing. TrueLoad implements two of its methods: measured demand from utility interval data, and the traditional calculation for existing dwellings.",
       "category": "code",
