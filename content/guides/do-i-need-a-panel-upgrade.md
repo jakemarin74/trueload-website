@@ -54,7 +54,7 @@ The data comes from the smart meter your utility already installed. You do not n
 
 A measured calculation is honest in both directions. You are more likely to need a larger service if:
 
-- You have a 60-amp service, or an old fuse box or a panel with a known safety problem. Those should be replaced for safety regardless of load.
+- Your panel is an old fuse box, or a model with a known safety problem. Those are worth replacing for safety regardless of load.
 - The home is already all-electric with resistance heat, and you are adding a lot on top.
 - You want several large loads at once, such as two EV chargers plus a heat pump with big backup heat strips.
 - Your measured peak is already close to your service rating.

@@ -7,7 +7,7 @@ updated: 2026-09-21
 order: 4
 ---
 
-"Do a load calc" can mean four different things under NEC Article 220. Section numbers below are from the 2020 and 2023 editions; the 2026 edition renumbers them (220.83 becomes 120.83), and the methods themselves are unchanged. For an existing home, the method you pick often decides whether the job needs a service upgrade, so it is worth knowing all four.
+"Do a load calc" can mean four different things under NEC Article 220. Section numbers and percentages below are from the 2020 and 2023 editions. The 2026 edition moves all of them to Article 120 (220.83 becomes 120.83, 220.87 becomes 120.87) and changes the two optional methods. The changes are noted under each one. For an existing home, the method you pick often decides whether the job needs a service upgrade, so it is worth knowing all four.
 
 ## The four methods at a glance
 
@@ -15,7 +15,7 @@ order: 4
 |---|---|---|---|
 | Standard | Article 220, Parts II and III | Square footage, circuits, every appliance, with separate demand factors for each category | New construction, plan review, any dwelling |
 | Optional, new dwelling | 220.82 | Same inventory. First 10 kVA at 100%, remainder at 40%, plus heating or cooling | New homes, full remodels |
-| Optional, existing dwelling | 220.83 | Same inventory. First 8 kVA at 100%, remainder at 40%, new heating or cooling at 100% | Adding load where there is no usage history |
+| Optional, existing dwelling | 220.83 | Same inventory. First 8 kVA at 100%, remainder at 40%, new heating or cooling at 100% | Adding load to a home with no usage history, any service size |
 | Measured demand | 220.87 | 12 months of recorded maximum demand at 125%, plus the new load | Adding load to any existing service with interval data |
 
 ## 1. The standard method
@@ -24,15 +24,19 @@ The long-form calculation. General lighting at 3 VA per square foot, 1,500 VA pe
 
 ## 2. The optional method for new dwellings, 220.82
 
-A shortcut for a dwelling served by a single 120/240-volt service of 100 amps or more. Total the general loads, take the first 10 kVA at 100 percent and the rest at 40 percent, then add heating or air conditioning under its own list of percentages. Less arithmetic, usually a lower answer than the standard method.
+A shortcut for a dwelling served by a single 3-wire 120/240 V or 208Y/120 V service of 100 amps or more. Total the general loads, take the first 10 kVA at 100 percent and the rest at 40 percent, then add the largest of six heating or air-conditioning selections, each with its own percentage. Less arithmetic, usually a lower answer than the standard method.
+
+**2026 edition (120.82):** lighting drops to 2 VA per square foot, the first tier drops to 8 kVA, and EV chargers come out of the 40 percent pool and are added at 100 percent.
 
 ## 3. The optional method for existing dwellings, 220.83
 
-Written for exactly this situation: can an existing service take additional load? First 8 kVA at 100 percent, remainder at 40 percent, with new heating or cooling taken at 100 percent. It still requires an inventory of every appliance nameplate in the house, and it still models the home rather than observing it.
+Written for exactly this situation: can an existing service take additional load? It covers a dwelling unit on a 3-wire 120/240 V or 208Y/120 V service with no minimum size, so 60 A and 100 A services qualify. First 8 kVA at 100 percent, remainder at 40 percent, with new air conditioning or electric heating taken at 100 percent. It still requires an inventory of every appliance nameplate in the house, and it still models the home rather than observing it.
+
+**2026 edition (120.83):** one table instead of two. Lighting drops to 2 VA per square foot, and new loads get their own percentages: EV chargers and central resistance heat at 80 percent, everything else new, including a heat pump, at 50 percent. For a heat pump job, that makes the traditional method noticeably friendlier than it was under 2023.
 
 ## 4. Measured demand, 220.87
 
-The only method that uses what the home actually does. Get twelve months of maximum demand data, which for most homes means the utility's smart-meter interval file. Take the highest 15-minute peak, multiply by 125 percent, add the new load, and compare with the service rating. Details are in our [plain-language guide to NEC 220.87](/resources/guides/nec-220-87/).
+The only method that uses what the home actually does. Get twelve months of maximum demand data, which for most homes means the utility's smart-meter interval file. Take the highest measured demand, multiply by 125 percent, add the new load, and compare with the service rating. The 2026 edition renumbers it 120.87 and lets you subtract any load being removed. Details are in our [plain-language guide to NEC 220.87](/resources/guides/nec-220-87/).
 
 Lawrence Berkeley National Laboratory's analysis of 11,940 homes found an average measured peak of 9.7 kW, and 220.87 results roughly 40 percent lower than 220.83 on average. We work one house through both in [220.83 vs. 220.87](/resources/guides/nec-220-83-vs-220-87/): 106 amps one way, 81 amps the other, on the same 100-amp service.
 

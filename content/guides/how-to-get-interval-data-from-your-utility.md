@@ -43,7 +43,7 @@ Utility-specific instructions: [Green Mountain Power](/resources/guides/green-mo
 
 ## Route 3: no smart meter, or no data
 
-If there is no interval meter, or the occupants have been there less than a year, 220.87 has an exception: record demand for at least 30 days with a recording power meter on the service, under occupied conditions, and account for the larger of the heating or cooling load and other seasonal loads. That exception is not available in recent code editions where the service has solar or other on-site generation, or uses peak shaving. When this route is impractical, [220.83 is the fallback](/resources/guides/nec-220-83-vs-220-87/), and TrueLoad runs it from the same project, so the job does not wait on data.
+If there is no interval meter, or the occupants have been there less than a year, 220.87 has an exception: record demand continuously for at least 30 days with a recording ammeter or power meter on the highest-loaded phase of the service, while the building is occupied, and account for the larger of the heating or cooling load and other seasonal loads. In the 2023 and 2026 editions that exception is not allowed where the service has a solar PV or wind system, or uses any form of peak load shaving. When this route is impractical, [220.83 is the fallback](/resources/guides/nec-220-83-vs-220-87/), and TrueLoad runs it from the same project, so the job does not wait on data.
 
 ## Reading the file
 
@@ -53,7 +53,7 @@ If there is no interval meter, or the occupants have been there less than a year
 
 ## Pitfalls
 
-- **Hourly data smooths peaks.** An hour that averaged 8 kW may have contained a 15-minute stretch at 10 kW. The code defines demand on a 15-minute basis, so say plainly in your report which interval length you used, and expect some AHJs to ask for 15-minute data or an added margin.
+- **Hourly data smooths peaks.** An hour that averaged 8 kW may have contained a 15-minute stretch at 10 kW. The one-year requirement sets no interval length, but the code's definition of maximum demand (in the 30-day exception) is a 15-minute average. Say plainly in your report which interval length you used, and expect some AHJs to ask for 15-minute data or an added margin.
 - **Solar hides load.** A net meter records what the house draws from the grid after solar has covered part of it. Midday peaks can disappear. You need gross consumption: either a separate "delivered" channel plus the solar production data, or a utility file that already separates them.
 - **Gaps and estimates.** Look for missing intervals, zeroes during outages and flagged estimated reads. A few are normal. A missing January is not.
 - **The wrong twelve months.** If a large load was added or removed during the year, or the house sat empty, the data will not reflect how it is used now.

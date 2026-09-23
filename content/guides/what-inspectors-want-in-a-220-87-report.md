@@ -17,7 +17,7 @@ Most pushback on a [220.87 calculation](/resources/guides/nec-220-87/) is not di
 4. **The interval length.** 15-minute or hourly. If hourly, say so openly. Some AHJs accept it as is, some want a margin, some want 15-minute data. Hiding it is what causes a rejection.
 5. **The peak, with its date and time.** One number, in kW and converted to amps, with the conversion shown. A peak at 6 pm on a January weekday is believable. A reviewer who can see it will trust it.
 6. **The 125 percent factor, shown as its own line.** This is the code's safety margin and the first thing an informed reviewer checks.
-7. **The new load, itemized.** Each piece of equipment with its nameplate value (MCA or kW), and any judgment you made about it. If you treated a load as non-concurrent with the measured peak, such as new air conditioning on a service that peaks in winter, say so and say why. For an EV charger under load management, note the enforced limit and the device enforcing it.
+7. **The new load, itemized.** Each piece of equipment with its nameplate value (MCA or kW), and any judgment you made about it. If you treated a load as non-concurrent with the measured peak, such as new air conditioning on a service that peaks in winter, say so and say why. For an EV charger under an energy management system, note the enforced setpoint and the device enforcing it (2023 NEC 220.70 treats the setpoint as a continuous load).
 8. **The comparison and the result.** Measured peak at 125 percent, plus new load, against the service rating. State the main breaker size, the service voltage, and the remaining capacity.
 
 Add the preparer's name, license number and date. A calculation with a name on it is treated differently from one without.

@@ -340,9 +340,9 @@ footer {
   </header>
 
   <div class="prose">
-<p>When you add load to an existing home, the NEC gives you two practical ways to show the service can take it. Both are legitimate. They routinely give different answers. (Section numbers here are from the 2020 and 2023 editions; the 2026 edition renumbers 220.83 as 120.83 without changing the method.)</p>
+<p>When you add load to an existing home, the NEC gives you two practical ways to show the service can take it. Both are legitimate. They routinely give different answers. (Section numbers and the worked example follow the 2020 and 2023 editions. The 2026 edition moves both sections to Article 120, as 120.83 and 120.87, and changes the traditional method itself. See &quot;Under the 2026 edition&quot; below.)</p>
 <ul>
-<li><strong>220.83</strong> is the <em>optional method for existing dwelling units</em>. It builds the load up from square footage, circuits and appliance nameplates, then applies a demand factor.</li>
+<li><strong>220.83</strong> is the <em>optional method for existing dwelling units</em>. It builds the load up from square footage, circuits and appliance nameplates, then applies a demand factor. It applies to a dwelling unit on a 3-wire 120/240 V or 208Y/120 V service, with no minimum service size, so 60 A and 100 A services qualify.</li>
 <li><strong>220.87</strong> determines the existing load from <em>measured maximum demand</em>, takes it at 125 percent, and adds the new load.</li>
 </ul>
 <h2>How 220.83 works</h2>
@@ -353,9 +353,9 @@ footer {
 <li>Every fastened-in-place appliance, range, dryer and water heater at nameplate</li>
 </ul>
 <p>Then you apply the demand factor: the <strong>first 8 kVA at 100 percent and the remainder at 40 percent</strong>.</p>
-<p>If the job adds air conditioning or electric space heating, which includes a heat pump, that equipment is taken at <strong>100 percent</strong> on top, using the larger of the heating or cooling load.</p>
+<p>If the job adds air conditioning or electric space heating, which includes a heat pump, the calculation switches to 220.83(B): that equipment is taken at <strong>100 percent</strong> on top, and only the larger connected load of air conditioning or space heating is used, not both.</p>
 <h2>How 220.87 works</h2>
-<p>You obtain twelve months of maximum demand data, find the highest 15-minute average, multiply by 1.25, and add the new load at its calculated value. If the total fits within the service rating, you are done. The full requirements are in our <a href="/resources/guides/nec-220-87/">guide to NEC 220.87</a>.</p>
+<p>You obtain twelve months of maximum demand data, find the highest demand, multiply by 1.25, and add the new load. If the total fits within the service rating, you are done. The full requirements are in our <a href="/resources/guides/nec-220-87/">guide to NEC 220.87</a>.</p>
 <h2>The same house, both ways</h2>
 <p>An 1,800 sq ft home with a 100-amp, 240-volt service. Electric range, dryer and water heater. The owner wants to replace an old central AC with a cold-climate heat pump: 7.2 kVA (30 A), no resistance backup.</p>
 <p><strong>220.83</strong></p>
@@ -441,7 +441,7 @@ footer {
 <td><strong>19.3 kW = 81 A</strong></td>
 </tr>
 </tbody></table>
-<p>81 amps on a 100-amp service. The job goes ahead, with about 19 amps to spare. If that peak happened on a summer afternoon, it even includes the old AC that is being removed, so the real margin is larger.</p>
+<p>81 amps on a 100-amp service. The job goes ahead, with about 19 amps to spare. If that peak happened on a summer afternoon, it even includes the old AC that is being removed, so the real margin is larger. Under the 2026 edition you can subtract the removed AC outright.</p>
 <p>The 9.7 kW figure is not cherry-picked: it is the mean measured peak across 11,940 homes in Lawrence Berkeley National Laboratory&#39;s research, which found 220.87 results roughly 40 percent below 220.83 on average. Any individual home can be higher or lower, which is the whole point of measuring it.</p>
 <h2>Side by side</h2>
 <table>
@@ -475,7 +475,7 @@ footer {
 <tr>
 <td>Works without usage history</td>
 <td>Yes</td>
-<td>No</td>
+<td>Only through the 30-day recording exception</td>
 </tr>
 <tr>
 <td>Typical result</td>
@@ -483,6 +483,51 @@ footer {
 <td>Lower</td>
 </tr>
 </tbody></table>
+<h2>Under the 2026 edition</h2>
+<p>The 2026 NEC renumbers the measured-demand method as 120.87 and lets you subtract any load being removed, with the new load determined under Article 120&#39;s calculation rules. The traditional method changes more. 120.83 drops the (A)/(B) split and uses one table:</p>
+<ul>
+<li>General lighting falls from 3 VA to <strong>2 VA per square foot</strong>.</li>
+<li>The first 8 kVA of existing and new load combined is taken at 100 percent, and the rest of the <em>existing</em> load at 40 percent.</li>
+<li>New loads get their own percentages: <strong>new EV chargers at 80 percent</strong>, <strong>new central electric resistance heat at 80 percent</strong>, and <strong>all other new loads, including a heat pump, at 50 percent</strong>.</li>
+</ul>
+<p>The same house under 120.83:</p>
+<table>
+<thead>
+<tr>
+<th>Load</th>
+<th>VA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>General lighting, 1,800 sq ft at 2 VA</td>
+<td>3,600</td>
+</tr>
+<tr>
+<td>Small-appliance, laundry and appliances as above</td>
+<td>28,100</td>
+</tr>
+<tr>
+<td><strong>Total existing load</strong></td>
+<td><strong>31,700</strong></td>
+</tr>
+<tr>
+<td>First 8,000 at 100%</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>Remaining 23,700 existing at 40%</td>
+<td>9,480</td>
+</tr>
+<tr>
+<td>New heat pump at 50%</td>
+<td>3,600</td>
+</tr>
+<tr>
+<td><strong>Calculated load</strong></td>
+<td><strong>21,080 VA = 88 A</strong></td>
+</tr>
+</tbody></table>
+<p>Under 2026 the traditional method passes this job too, where the 2023 version failed it. Check which edition your jurisdiction enforces before you pick a method. Massachusetts, for example, has enforced the 2026 NEC since April 2026.</p>
 <h2>When 220.83 is still the right tool</h2>
 <ul>
 <li>No interval data is available: no smart meter, a utility that will not release it, or new occupants with less than a year of history.</li>

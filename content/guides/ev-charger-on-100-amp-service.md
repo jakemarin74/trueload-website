@@ -26,7 +26,7 @@ A car that drives 40 miles a day needs roughly three hours on a 16-amp charger. 
 
 ## The load calculation
 
-Under [NEC 220.87](/resources/guides/nec-220-87/), a contractor takes your home's highest measured 15-minute peak from the last twelve months, multiplies it by 125 percent, and adds the charger. Using the national average peak of 9.7 kW (about 40 amps) measured by Lawrence Berkeley National Laboratory:
+Under [NEC 220.87](/resources/guides/nec-220-87/), a contractor takes your home's highest measured peak from the last twelve months, multiplies it by 125 percent, and adds the charger. Using the national average peak of 9.7 kW (about 40 amps) measured by Lawrence Berkeley National Laboratory:
 
 | | 32 A charger | 48 A charger |
 |---|---|---|
@@ -39,7 +39,7 @@ The same home run through a traditional nameplate calculation will often come ou
 ## If it is close
 
 - **Turn the charger down.** Dropping from 48 A to 32 A frees 16 amps and still fully charges most cars overnight.
-- **Use load management.** The NEC recognizes energy management systems that monitor the service and throttle or pause the charger when the house is busy. With one in place, the charger's load in the calculation is the limit the system enforces, not the charger's maximum.
+- **Use load management.** An energy management system monitors the service and throttles or pauses the charger when the house is busy. The 2023 NEC (220.70) lets a load calculation use the system's current limit instead of the charger's full rating, counted as a continuous load. Ask whether your inspector accepts that alongside the measured method.
 - **Share a circuit.** Devices that switch a 240-volt circuit between the dryer and the charger avoid adding load at all.
 - **Charge off-peak.** This does not change the code calculation, but most home peaks are in the early evening and most charging happens after midnight. Real-world overlap is small.
 

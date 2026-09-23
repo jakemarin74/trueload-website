@@ -43,7 +43,7 @@ Same house, same heat pump. The strips decide the outcome.
 
 ## Why the traditional calculation often says no
 
-The [220.83 method](/resources/guides/nec-220-83-vs-220-87/) counts every appliance at nameplate and takes new heating equipment at 100 percent on top. In a home with an electric range, dryer and water heater, that commonly lands just over 100 amps even though the main breaker has never come close to tripping. That is a calculated overload, not an observed one, and it is where a measured calculation changes the answer.
+Under the 2020 and 2023 editions, the [220.83 method](/resources/guides/nec-220-83-vs-220-87/) counts every appliance at nameplate and takes new heating equipment at 100 percent on top. (The 2026 edition takes a new heat pump at 50 percent, which helps.) In a home with an electric range, dryer and water heater, that commonly lands just over 100 amps even though the main breaker has never come close to tripping. That is a calculated overload, not an observed one, and it is where a measured calculation changes the answer.
 
 ## If it is close
 
