@@ -4,10 +4,12 @@
  *
  *   content/resources.json   ->  PDFs and external links
  *   content/guides/*.md      ->  one page each, plus a card on the index
+ *   content/calculator.html  ->  the panel capacity calculator (body fragment)
  *
  * Outputs (all generated - never hand-edit):
  *   resources/index.html
  *   resources/guides/<slug>/index.html
+ *   resources/calculator/index.html
  *   sitemap.xml
  *
  * Run with: npm run build:resources
@@ -23,6 +25,7 @@ const SITE = 'https://trueloadapp.com';
 
 const CONTENT_JSON = path.join(ROOT, 'content', 'resources.json');
 const GUIDES_DIR = path.join(ROOT, 'content', 'guides');
+const CALCULATOR_SRC = path.join(ROOT, 'content', 'calculator.html');
 const OUT_DIR = path.join(ROOT, 'resources');
 const FILES_DIR = path.join(OUT_DIR, 'files');
 
@@ -339,6 +342,7 @@ const INDEX_CSS = `
 }
 .res-type-guide { background: rgba(26,79,160,0.10); color: var(--blue); border: 1px solid rgba(26,79,160,0.25); }
 .res-type-pdf   { background: rgba(22,163,74,0.12); color: var(--green); border: 1px solid rgba(22,163,74,0.30); }
+.res-type-tool  { background: rgba(245,197,24,0.18); color: #8a6d00; border: 1px solid rgba(245,197,24,0.55); }
 .res-type-link  { background: rgba(0,0,0,0.05);     color: var(--slate-600); border: 1px solid rgba(0,0,0,0.12); }
 
 .res-source {
@@ -494,8 +498,18 @@ const ARTICLE_CSS = `
 .prose th, .prose td { text-align: left; padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); }
 .prose th { font-weight: 600; color: var(--slate-900); border-bottom-color: rgba(0,0,0,0.16); }
 
+.article-meta a { color: var(--blue); text-decoration: none; }
+.article-meta a:hover { text-decoration: underline; }
+
+.article-related { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); }
+.article-related h2 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 14px; }
+.article-related ul { list-style: none; }
+.article-related li + li { margin-top: 10px; }
+.article-related a { font-size: 17px; font-weight: 600; color: var(--blue); text-decoration: none; }
+.article-related a:hover { text-decoration: underline; }
+
 .article-foot {
-  margin-top: 56px;
+  margin-top: 40px;
   padding: 32px;
   background: var(--slate-50);
   border: 1px solid rgba(0,0,0,0.07);
@@ -560,7 +574,7 @@ const FOOTER_HTML = `
   </div>
 </footer>`.trim();
 
-function page({ title, description, canonical, css, jsonLd, body }) {
+function page({ title, description, canonical, css, jsonLd, body, ogType = 'website' }) {
   return `<!DOCTYPE html>
 <!--
   GENERATED FILE - do not edit by hand. Your changes will be overwritten.
@@ -574,7 +588,8 @@ function page({ title, description, canonical, css, jsonLd, body }) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${esc(canonical)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${ogType}">
+<meta property="og:site_name" content="TrueLoad">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(canonical)}">
@@ -679,6 +694,12 @@ for (const file of guideFiles) {
     fail(`${label}: category "${data.category}" is not defined in content/resources.json. Known categories: ${[...categoryIds].join(', ')}`);
   }
   if (guides.some((g) => g.slug === slug)) fail(`${label}: duplicate slug "${slug}".`);
+  if (data.pdf && !fs.existsSync(path.join(FILES_DIR, String(data.pdf)))) {
+    fail(`${label}: pdf "${data.pdf}" not found in resources/files/.`);
+  }
+  if (data.audience && !['contractor', 'homeowner'].includes(data.audience)) {
+    fail(`${label}: audience must be "contractor" or "homeowner" (got "${data.audience}").`);
+  }
 
   const guide = { ...data, slug, body, file };
   guides.push(guide);
@@ -692,6 +713,22 @@ for (const file of guideFiles) {
   });
 }
 
+// --- the calculator ------------------------------------------------
+const CALCULATOR = {
+  title: 'Panel Capacity Calculator',
+  description:
+    'A quick screening check: will a heat pump, EV charger or other new load fit on the existing electrical service? Uses the NEC 220.87 arithmetic - measured peak at 125 percent plus the new load.',
+  category: 'panel-capacity',
+  href: '/resources/calculator/',
+};
+const hasCalculator = fs.existsSync(CALCULATOR_SRC);
+if (hasCalculator) {
+  if (!categoryIds.has(CALCULATOR.category)) {
+    fail(`content/calculator.html: category "${CALCULATOR.category}" is not defined in content/resources.json.`);
+  }
+  items.push({ ...CALCULATOR, type: 'tool', featured: true, order: 0, detail: 'Free · no account', action: 'Open the calculator', external: false });
+}
+
 if (problems.length) {
   console.error(`\nResource library build failed - ${problems.length} problem${problems.length === 1 ? '' : 's'}:\n`);
   for (const p of problems) console.error(`  · ${p}`);
@@ -703,7 +740,7 @@ if (problems.length) {
  * Render the index
  * ------------------------------------------------------------------ */
 
-const TYPE_LABEL = { guide: 'Guide', pdf: 'PDF', link: 'Link' };
+const TYPE_LABEL = { guide: 'Guide', pdf: 'PDF', link: 'Link', tool: 'Tool' };
 
 function cardHtml(item) {
   const searchKey = [item.title, item.description, item.source].filter(Boolean).join(' ').toLowerCase();
@@ -868,7 +905,7 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(
   path.join(OUT_DIR, 'index.html'),
   page({
-    title: 'TrueLoad | Resource Library',
+    title: 'NEC 220.87 & Panel Capacity Resource Library | TrueLoad',
     description:
       'Free guides, code references, and research on NEC 220.87 existing load calculations, getting AMI interval data from your utility, and electrical panel capacity.',
     canonical: `${SITE}/resources/`,
@@ -888,20 +925,76 @@ for (const guide of guides) {
   const dir = path.join(OUT_DIR, 'guides', guide.slug);
   fs.mkdirSync(dir, { recursive: true });
 
+  const url = `${SITE}/resources/guides/${guide.slug}/`;
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: guide.title,
-    description: guide.description,
-    url: `${SITE}/resources/guides/${guide.slug}/`,
-    author: { '@type': 'Organization', name: 'TrueLoad' },
-    publisher: {
-      '@type': 'Organization',
-      name: 'eTherm Solutions LLC',
-      logo: { '@type': 'ImageObject', url: `${SITE}/trueload_logo_lg.png` },
-    },
-    ...(guide.updated ? { dateModified: guide.updated, datePublished: guide.updated } : {}),
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: guide.title,
+        description: guide.description,
+        url,
+        mainEntityOfPage: url,
+        author: { '@type': 'Organization', name: 'TrueLoad', url: SITE },
+        publisher: {
+          '@type': 'Organization',
+          name: 'eTherm Solutions LLC',
+          logo: { '@type': 'ImageObject', url: `${SITE}/trueload_logo_lg.png` },
+        },
+        ...(guide.updated ? { dateModified: guide.updated, datePublished: guide.published || guide.updated } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'TrueLoad', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` },
+          { '@type': 'ListItem', position: 3, name: guide.title, item: url },
+        ],
+      },
+    ],
   };
+
+  // Same-category guides first, then the rest, so every guide links to others.
+  const related = guides
+    .filter((g) => g.slug !== guide.slug)
+    .sort((a, b) => (b.category === guide.category) - (a.category === guide.category) || sortItems(a, b))
+    .slice(0, 4);
+
+  const metaBits = [
+    guide.updated ? `Updated ${esc(formatDate(guide.updated))}` : '',
+    guide.pdf ? `<a href="/resources/files/${esc(guide.pdf)}">Download the printable PDF</a>` : '',
+  ].filter(Boolean);
+
+  // Homeowners cannot use the product themselves - the ask is to pass it on.
+  const shareHref =
+    'mailto:?subject=' +
+    encodeURIComponent('Can we check my measured load before a panel upgrade?') +
+    '&body=' +
+    encodeURIComponent(
+      `Hi,\n\nBefore we plan on a panel or service upgrade, could we check what my home actually draws? ` +
+        `NEC 220.87 allows the existing load to be based on 12 months of utility smart-meter data instead of a worst-case estimate.\n\n` +
+        `This explains it: ${url}\n\n` +
+        `TrueLoad (${SITE}) is a tool contractors use to run the calculation and produce the report for the inspector. The first project is free.\n\nThanks`,
+    );
+
+  const footHtml =
+    guide.audience === 'homeowner'
+      ? `<div class="article-foot">
+    <h2>Homeowner? Send this to your contractor</h2>
+    <p>TrueLoad is used by the licensed electrician or installer who prepares the calculation. Forward them this page and ask them to check your measured demand before anyone quotes a panel upgrade.</p>
+    <div class="article-foot-actions">
+      <a href="${esc(shareHref)}" class="btn-primary">Email this to your contractor &rarr;</a>
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-secondary">I'm a contractor &mdash; try TrueLoad free</a>
+    </div>
+  </div>`
+      : `<div class="article-foot">
+    <h2>Put it into practice</h2>
+    <p>TrueLoad runs the measured-demand calculation from the utility's interval data, or the traditional calculation when there is none, and produces the report. Your first project is free.</p>
+    <div class="article-foot-actions">
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Try TrueLoad free &rarr;</a>
+      <a href="/resources/" class="btn-secondary">More resources</a>
+    </div>
+  </div>`;
 
   const body = `${navHtml('/resources/', 'Back to Resources')}
 
@@ -910,21 +1003,25 @@ for (const guide of guides) {
     <div class="section-label">TrueLoad Guide</div>
     <h1>${esc(guide.title)}</h1>
     <p class="article-lede">${esc(guide.description)}</p>
-    ${guide.updated ? `<p class="article-meta">Updated ${esc(formatDate(guide.updated))}</p>` : ''}
+    ${metaBits.length ? `<p class="article-meta">${metaBits.join(' &nbsp;&middot;&nbsp; ')}</p>` : ''}
   </header>
 
   <div class="prose">
 ${marked.parse(guide.body).trim()}
   </div>
 
-  <div class="article-foot">
-    <h2>Put it into practice</h2>
-    <p>TrueLoad runs the calculation from your utility's own interval data and produces the report.</p>
-    <div class="article-foot-actions">
-      <a href="https://app.trueloadapp.com" class="btn-primary">Open TrueLoad &rarr;</a>
-      <a href="/resources/" class="btn-secondary">More resources</a>
-    </div>
-  </div>
+  ${
+    related.length
+      ? `<aside class="article-related" aria-label="Related guides">
+    <h2>Keep reading</h2>
+    <ul>
+${related.map((g) => `      <li><a href="/resources/guides/${esc(g.slug)}/">${esc(g.title)}</a></li>`).join('\n')}
+    </ul>
+  </aside>`
+      : ''
+  }
+
+  ${footHtml}
 </article>
 
 ${FOOTER_HTML}`;
@@ -932,9 +1029,10 @@ ${FOOTER_HTML}`;
   fs.writeFileSync(
     path.join(dir, 'index.html'),
     page({
-      title: `TrueLoad | ${guide.title}`,
+      title: `${guide.seoTitle || guide.title} | TrueLoad`,
       description: guide.description,
-      canonical: `${SITE}/resources/guides/${guide.slug}/`,
+      canonical: url,
+      ogType: 'article',
       css: ARTICLE_CSS,
       jsonLd,
       body,
@@ -971,6 +1069,45 @@ if (fs.existsSync(guidesOut)) {
 }
 
 /* ------------------------------------------------------------------ *
+ * The calculator
+ *
+ * content/calculator.html is a body fragment carrying its own <style> and
+ * <script>; this wraps it in the shared chrome.
+ * ------------------------------------------------------------------ */
+
+if (hasCalculator) {
+  const dir = path.join(OUT_DIR, 'calculator');
+  fs.mkdirSync(dir, { recursive: true });
+  const url = `${SITE}${CALCULATOR.href}`;
+  fs.writeFileSync(
+    path.join(dir, 'index.html'),
+    page({
+      title: 'Electrical Panel Capacity Calculator | TrueLoad',
+      description:
+        'Free electrical panel capacity calculator. Check whether a 100-amp or 200-amp service has room for a heat pump, EV charger or water heater using the NEC 220.87 measured-demand method.',
+      canonical: url,
+      css: ARTICLE_CSS,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'TrueLoad Panel Capacity Calculator',
+        description: CALCULATOR.description,
+        url,
+        applicationCategory: 'UtilitiesApplication',
+        operatingSystem: 'Web',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        publisher: { '@type': 'Organization', name: 'eTherm Solutions LLC', url: SITE },
+      },
+      body: `${navHtml('/resources/', 'Back to Resources')}
+
+${fs.readFileSync(CALCULATOR_SRC, 'utf8').trim()}
+
+${FOOTER_HTML}`,
+    }),
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * Sitemap
  * ------------------------------------------------------------------ */
 
@@ -979,6 +1116,7 @@ const urls = [
   { loc: `${SITE}/plans/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/methods/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/resources/`, priority: '0.8', changefreq: 'weekly' },
+  ...(hasCalculator ? [{ loc: `${SITE}${CALCULATOR.href}`, priority: '0.8', changefreq: 'monthly' }] : []),
   ...guides.map((g) => ({
     loc: `${SITE}/resources/guides/${g.slug}/`,
     priority: '0.7',
@@ -1015,4 +1153,5 @@ console.log(
 );
 console.log(`  resources/index.html`);
 for (const g of guides) console.log(`  resources/guides/${g.slug}/index.html`);
+if (hasCalculator) console.log(`  resources/calculator/index.html`);
 console.log(`  sitemap.xml (${urls.length} URLs)`);

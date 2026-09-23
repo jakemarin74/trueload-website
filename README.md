@@ -8,8 +8,15 @@ Pages from the root of `main` at [trueloadapp.com](https://trueloadapp.com).
 | Home | `index.html` |
 | Plans & Pricing | `plans/index.html` |
 | Resource Library | `resources/index.html` — **generated**, see below |
+| Panel Capacity Calculator | `resources/calculator/index.html` — **generated** from `content/calculator.html` |
 | Terms of Service | `terms/index.html` |
 | Privacy Policy | `privacy/index.html` |
+
+`robots.txt` points crawlers at `sitemap.xml`. Each hand-written page carries
+its own `<title>`, meta description, canonical URL and Open Graph tags in its
+`<head>`; the home page also has JSON-LD (Organization, SoftwareApplication,
+FAQPage). **If you change a price or an FAQ answer on the home page, change it
+in the JSON-LD block too** — search engines expect the two to match.
 
 Everything except the resource library is hand-written HTML with its own inline
 `<style>` block. Edit those files directly.
@@ -101,10 +108,26 @@ Front-matter fields:
 | `title` | yes | Page heading and card title |
 | `description` | yes | Card text and the search-result snippet |
 | `category` | yes | Must match a category id in `resources.json` |
+| `seoTitle` | no | Shorter title for the browser tab and search results. Keep it under ~50 characters; ` \| TrueLoad` is appended. Falls back to `title` |
+| `audience` | no | `homeowner` swaps the closing call-to-action for "Send this to your contractor" with a pre-written email. Default is the contractor sign-up CTA |
+| `pdf` | no | Filename in `resources/files/`. Adds a "Download the printable PDF" link under the heading |
 | `updated` | no | `YYYY-MM-DD`. Shown on the page and in the sitemap |
 | `featured` | no | `true` gives the card a highlighted border and sorts it first |
 | `order` | no | Lower numbers sort earlier within a category |
 | `slug` | no | Override the URL if you don't want the filename |
+
+Every guide page also gets a "Keep reading" list linking to up to four other
+guides (same category first), plus Article and breadcrumb structured data.
+Link between guides in the body text too — internal links are a large part of
+how these pages get found.
+
+## The panel capacity calculator
+
+`content/calculator.html` is a body fragment (its own `<style>` and `<script>`).
+The build wraps it in the site chrome and writes `/resources/calculator/`. Its
+card on the index and its sitemap entry are added automatically. Delete the
+file and the page, card and sitemap entry go away on the next build (remove
+`resources/calculator/` by hand).
 
 ## Removing a resource
 

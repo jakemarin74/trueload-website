@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit by hand. Your changes will be overwritten.
+  Source:  content/resources.json  +  content/guides/*.md
+  Rebuild: npm run build:resources
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Get Smart Meter Interval Data From a Utility | TrueLoad</title>
+<meta name="description" content="An NEC 220.87 load calculation needs a year of smart-meter interval data. Here is where to find it, what to ask the utility for, how to read the file, and the pitfalls that make an inspector push back.">
+<link rel="canonical" href="https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TrueLoad">
+<meta property="og:title" content="How to Get Smart Meter Interval Data From a Utility | TrueLoad">
+<meta property="og:description" content="An NEC 220.87 load calculation needs a year of smart-meter interval data. Here is where to find it, what to ask the utility for, how to read the file, and the pitfalls that make an inspector push back.">
+<meta property="og:url" content="https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/">
+<meta property="og:image" content="https://trueloadapp.com/trueload_logo_lg.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--slate-900); line-height: 1.6; }
+
+/* Anchored headings clear the sticky nav */
+[id] { scroll-margin-top: 110px; }
+
+/* ── NAV (same as main site) ── */
+nav {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--slate-900); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,197,24,0.35); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.page-header h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── FOOTER (same as main site) ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-logo img { height: 52px; }
+  .nav-right { gap: 14px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+}
+@media (max-width: 600px) {
+  .nav-back { display: none; }
+  .nav-cta { font-size: 13px; padding: 9px 16px; }
+}
+
+.article-wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px 72px; }
+.article-head { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.article-head h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.article-lede { font-size: 18px; color: var(--slate-600); line-height: 1.6; margin-bottom: 18px; }
+.article-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-400); }
+
+.prose { font-size: 17px; color: var(--slate-800); line-height: 1.75; }
+.prose > * + * { margin-top: 22px; }
+.prose h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--slate-900);
+  margin-top: 48px;
+  margin-bottom: -4px;
+}
+.prose h3 {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin-top: 34px;
+  margin-bottom: -8px;
+}
+.prose a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+.prose a:hover { color: var(--blue-dark); }
+.prose strong { font-weight: 600; color: var(--slate-900); }
+.prose ul, .prose ol { padding-left: 24px; }
+.prose li { margin-top: 10px; }
+.prose li::marker { color: var(--slate-400); }
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--slate-100);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.prose pre {
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+.prose pre code { background: none; border: none; padding: 0; font-size: 14px; }
+.prose blockquote {
+  border-left: 3px solid var(--yellow);
+  background: var(--slate-50);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px;
+  font-size: 18px;
+  color: var(--slate-900);
+  font-weight: 500;
+}
+.prose blockquote > * + * { margin-top: 12px; }
+.prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 44px; }
+.prose hr + p { font-size: 14px; color: var(--slate-600); font-style: italic; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.prose th, .prose td { text-align: left; padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.prose th { font-weight: 600; color: var(--slate-900); border-bottom-color: rgba(0,0,0,0.16); }
+
+.article-meta a { color: var(--blue); text-decoration: none; }
+.article-meta a:hover { text-decoration: underline; }
+
+.article-related { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); }
+.article-related h2 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 14px; }
+.article-related ul { list-style: none; }
+.article-related li + li { margin-top: 10px; }
+.article-related a { font-size: 17px; font-weight: 600; color: var(--blue); text-decoration: none; }
+.article-related a:hover { text-decoration: underline; }
+
+.article-foot {
+  margin-top: 40px;
+  padding: 32px;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  text-align: center;
+}
+.article-foot h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+.article-foot p { font-size: 15px; color: var(--slate-600); margin-bottom: 22px; }
+.article-foot-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--blue-dark);
+  font-weight: 700; font-size: 15px; padding: 13px 26px;
+  border-radius: 10px; text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800); font-weight: 500; font-size: 15px;
+  padding: 13px 26px; border-radius: 10px; text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.25); }
+
+@media (max-width: 768px) {
+  .article-wrap { padding: 36px 20px 56px; }
+  .prose { font-size: 16px; }
+  .article-foot { padding: 28px 20px; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "How to Get 12 Months of Interval Data From Your Utility",
+      "description": "An NEC 220.87 load calculation needs a year of smart-meter interval data. Here is where to find it, what to ask the utility for, how to read the file, and the pitfalls that make an inspector push back.",
+      "url": "https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/",
+      "mainEntityOfPage": "https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/",
+      "author": {
+        "@type": "Organization",
+        "name": "TrueLoad",
+        "url": "https://trueloadapp.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "eTherm Solutions LLC",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://trueloadapp.com/trueload_logo_lg.png"
+        }
+      },
+      "dateModified": "2026-09-21",
+      "datePublished": "2026-09-21"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TrueLoad",
+          "item": "https://trueloadapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://trueloadapp.com/resources/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to Get 12 Months of Interval Data From Your Utility",
+          "item": "https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  <div class="nav-right">
+    <a href="/resources/" class="nav-back">&larr; Back to Resources</a>
+    <a href="https://app.trueloadapp.com" class="nav-cta">Open TrueLoad</a>
+  </div>
+</nav>
+
+<article class="article-wrap">
+  <header class="article-head">
+    <div class="section-label">TrueLoad Guide</div>
+    <h1>How to Get 12 Months of Interval Data From Your Utility</h1>
+    <p class="article-lede">An NEC 220.87 load calculation needs a year of smart-meter interval data. Here is where to find it, what to ask the utility for, how to read the file, and the pitfalls that make an inspector push back.</p>
+    <p class="article-meta">Updated Sep 21, 2026</p>
+  </header>
+
+  <div class="prose">
+<p>A measured-demand load calculation under <a href="/resources/guides/nec-220-87/">NEC 220.87</a> stands on one thing: a year of data showing what the service actually carried. For almost every home with a smart meter, that data already exists. The work is getting it out.</p>
+<h2>What you are asking for</h2>
+<p>Use these words with the utility, because the first person you reach may not know what a load calculation is:</p>
+<ul>
+<li><strong>Interval data</strong> (also called <em>interval usage</em>, <em>load profile data</em> or <em>AMI data</em>), not monthly billing history</li>
+<li><strong>15-minute intervals</strong> if the meter records them, otherwise hourly</li>
+<li><strong>The most recent 12 months</strong>, or more</li>
+<li><strong>kWh per interval</strong> (or kW demand), with timestamps</li>
+<li>In <strong>CSV, Excel or Green Button XML</strong> format</li>
+</ul>
+<p>Monthly bills and daily totals are not enough. The calculation needs the highest short-duration peak, and that is invisible in a monthly kWh figure.</p>
+<h2>Route 1: the customer downloads it</h2>
+<p>Most large utilities offer self-service download in the online account. Look under usage, energy use or &quot;my data&quot; for one of these labels:</p>
+<ul>
+<li><strong>Green Button / Download My Data.</strong> A national standard. The file is XML (sometimes CSV) and contains interval readings. The Green Button Alliance keeps a <a href="https://www.greenbuttonalliance.org/green-button-download-my-data-dmd">list of participating utilities</a>.</li>
+<li><strong>Export usage / Download usage data.</strong> Choose the smallest interval offered and the longest date range. Some portals cap each download at a month or a quarter, so you may need several files.</li>
+</ul>
+<p>This is the fastest route when it works: the homeowner can do it in five minutes and email you the file.</p>
+<h2>Route 2: the utility sends it</h2>
+<p>Smaller utilities, co-ops and municipals often have no download option but will release the data on request. The account holder has to authorize it. A request that works:</p>
+<blockquote>
+<p>I am the account holder for [service address], account number [number]. I authorize [utility] to release my electric interval usage data (15-minute if available, otherwise hourly) for the most recent 12 months to [contractor name, email]. The data will be used for an electrical service load calculation under NEC 220.87. Please send it in CSV or Excel format.</p>
+</blockquote>
+<p>Send it from the email address on the account, or have the customer call and then follow up in writing. Ask for the meter data or AMI group if customer service is unsure. TrueLoad generates this request for you from the project details, so the customer only has to approve it.</p>
+<p>Utility-specific instructions: <a href="/resources/guides/green-mountain-power-interval-data/">Green Mountain Power</a>. More utilities are being added.</p>
+<h2>Route 3: no smart meter, or no data</h2>
+<p>If there is no interval meter, or the occupants have been there less than a year, 220.87 has an exception: record demand for at least 30 days with a recording power meter on the service, under occupied conditions, and account for the larger of the heating or cooling load and other seasonal loads. That exception is not available in recent code editions where the service has solar or other on-site generation, or uses peak shaving. When this route is impractical, <a href="/resources/guides/nec-220-83-vs-220-87/">220.83 is the fallback</a>, and TrueLoad runs it from the same project, so the job does not wait on data.</p>
+<h2>Reading the file</h2>
+<ul>
+<li><strong>kWh to kW.</strong> Interval files usually give energy, not power. For 15-minute data, multiply each kWh value by 4 to get average kW for that interval. For hourly data, kWh equals average kW.</li>
+<li><strong>kW to amps.</strong> On a 120/240-volt single-phase service, amps = kW × 1,000 ÷ 240. A 9.6 kW peak is 40 amps.</li>
+<li><strong>Find the single highest interval</strong> across the full year. That is the maximum demand. Note the date and time, because a reviewer may ask.</li>
+</ul>
+<h2>Pitfalls</h2>
+<ul>
+<li><strong>Hourly data smooths peaks.</strong> An hour that averaged 8 kW may have contained a 15-minute stretch at 10 kW. The code defines demand on a 15-minute basis, so say plainly in your report which interval length you used, and expect some AHJs to ask for 15-minute data or an added margin.</li>
+<li><strong>Solar hides load.</strong> A net meter records what the house draws from the grid after solar has covered part of it. Midday peaks can disappear. You need gross consumption: either a separate &quot;delivered&quot; channel plus the solar production data, or a utility file that already separates them.</li>
+<li><strong>Gaps and estimates.</strong> Look for missing intervals, zeroes during outages and flagged estimated reads. A few are normal. A missing January is not.</li>
+<li><strong>The wrong twelve months.</strong> If a large load was added or removed during the year, or the house sat empty, the data will not reflect how it is used now.</li>
+<li><strong>Multiple meters.</strong> A second meter for an ADU, a well or an off-peak water heater rate means the file you have may not be the whole service.</li>
+</ul>
+<h2>What TrueLoad does with it</h2>
+<p>Upload the CSV, Excel or XML file and TrueLoad reads the intervals, finds the peak, applies the 125 percent factor, adds the proposed equipment and produces a report for the AHJ. <a href="/resources/guides/what-inspectors-want-in-a-220-87-report/">What inspectors want to see in that report</a> is covered separately.</p>
+  </div>
+
+  <aside class="article-related" aria-label="Related guides">
+    <h2>Keep reading</h2>
+    <ul>
+      <li><a href="/resources/guides/green-mountain-power-interval-data/">How to Get Interval Data From Green Mountain Power</a></li>
+      <li><a href="/resources/guides/do-i-need-a-panel-upgrade/">Do I Really Need a Panel Upgrade? What to Ask Before You Pay for One</a></li>
+      <li><a href="/resources/guides/nec-220-87/">NEC 220.87 Explained: Load Calculations From Measured Demand</a></li>
+      <li><a href="/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/">Can a 100-Amp Panel Handle a Heat Pump?</a></li>
+    </ul>
+  </aside>
+
+  <div class="article-foot">
+    <h2>Put it into practice</h2>
+    <p>TrueLoad runs the measured-demand calculation from the utility's interval data, or the traditional calculation when there is none, and produces the report. Your first project is free.</p>
+    <div class="article-foot-actions">
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Try TrueLoad free &rarr;</a>
+      <a href="/resources/" class="btn-secondary">More resources</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-logo">
+    <a href="/"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
+    <a href="/terms/" class="footer-link">Terms of Service</a>
+    <a href="/privacy/" class="footer-link">Privacy Policy</a>
+    <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

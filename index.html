@@ -4,8 +4,121 @@
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="erP530ELLVugD_rT5MhyaNQYtMNR-qFErgHmSoHEkWg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrueLoad | Home</title>
-<meta name="description" content="TrueLoad runs measured-demand load calculations from utility interval data, and the traditional NEC calculation when that data isn't available. One project, one AHJ-ready report, anywhere in the US.">
+<title>Electrical Load Calculation Software for Existing Homes | TrueLoad</title>
+<meta name="description" content="Prove an existing service has room for a heat pump or EV charger. TrueLoad runs the NEC 220.87 measured-demand calculation from utility smart-meter data, or the traditional calculation when there is no data, and prints an AHJ-ready report.">
+<link rel="canonical" href="https://trueloadapp.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TrueLoad">
+<meta property="og:title" content="Electrical Load Calculation Software for Existing Homes | TrueLoad">
+<meta property="og:description" content="Prove an existing service has room for a heat pump or EV charger. TrueLoad runs the NEC 220.87 measured-demand calculation from utility smart-meter data, or the traditional calculation when there is no data, and prints an AHJ-ready report.">
+<meta property="og:url" content="https://trueloadapp.com/">
+<meta property="og:image" content="https://trueloadapp.com/trueload_logo_lg.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://trueloadapp.com/#org",
+      "name": "TrueLoad",
+      "legalName": "eTherm Solutions LLC",
+      "url": "https://trueloadapp.com/",
+      "logo": "https://trueloadapp.com/trueload_logo_lg.png",
+      "email": "info@ethermsolutions.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://trueloadapp.com/#site",
+      "url": "https://trueloadapp.com/",
+      "name": "TrueLoad",
+      "publisher": {
+        "@id": "https://trueloadapp.com/#org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "TrueLoad",
+      "url": "https://trueloadapp.com/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Electrical load calculation software for electricians and heat pump installers. Runs the NEC measured-demand calculation from 12 months of utility interval data, or the traditional existing-dwelling calculation when no data is available, and produces an AHJ-ready report showing whether an existing service has capacity for a heat pump, EV charger or other new load.",
+      "publisher": {
+        "@id": "https://trueloadapp.com/#org"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Pay Per Project",
+          "price": "30",
+          "priceCurrency": "USD",
+          "description": "Per project. First project free."
+        },
+        {
+          "@type": "Offer",
+          "name": "Unlimited",
+          "price": "59",
+          "priceCurrency": "USD",
+          "description": "Per month, unlimited projects."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a measured-demand (NEC 220.87) load calculation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the code's way of sizing the load on an existing service from what the utility meter actually recorded, instead of from nameplate ratings and demand factors. The highest measured peak over the past year is taken at 125 percent, the new load is added, and the total has to fit within the rating of the service."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is that different from a traditional electrical load calculation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A traditional calculation models the home from square footage, appliance nameplates and demand factors. It is a worst-case estimate. Measured demand uses the home's own record. In LBNL research covering 11,940 homes, the measured approach came out roughly 40 percent lower on average."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the utility doesn't have interval data for the home?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run the traditional calculation instead. The same TrueLoad project runs either method, so a home with no smart-meter history still gets a load calculation and a report, in minutes, with no data request."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a 100-amp panel handle a heat pump or an EV charger?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Often, yes. The average U.S. home peaks at about 40 amps on a 100-amp service. Whether a specific home has room depends on its own measured peak and the equipment being added, which is exactly what a measured-demand calculation documents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my inspector accept a measured-demand calculation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is part of the code, not a workaround, and TrueLoad's report shows the data source, the peak, the 125 percent factor and the new load so the math can be checked. The Authority Having Jurisdiction always has the final say, so it is worth a conversation with your AHJ before the first submission."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I'm a homeowner. Can I use TrueLoad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TrueLoad is built for the licensed electrician or installer who prepares and signs the calculation. If you have been told you need a panel upgrade, send your contractor our homeowner guide and ask them to check your measured demand first."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1070,6 +1183,44 @@ footer {
   transform: translateY(0);
 }
 
+/* ── HOMEOWNERS ── */
+.homeowner-section { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
+.homeowner-card {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  padding: 48px;
+}
+.homeowner-card h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+.homeowner-card p { font-size: 17px; color: var(--slate-600); line-height: 1.7; }
+.homeowner-actions { display: flex; flex-direction: column; gap: 12px; align-items: stretch; text-align: center; }
+.homeowner-actions a { justify-content: center; }
+
+/* ── FAQ ── */
+.faq-section { max-width: 820px; margin: 0 auto; padding: 100px 24px; }
+.faq-section .pricing-header { text-align: center; }
+.faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 22px 32px 22px 0;
+  position: relative;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; position: absolute; right: 4px; top: 18px; font-size: 24px; font-weight: 400; color: var(--blue); }
+.faq-item[open] summary::after { content: '\2212'; }
+.faq-item p { font-size: 16px; color: var(--slate-600); line-height: 1.7; padding: 0 32px 24px 0; }
+.faq-item p a { color: var(--blue); }
+@media (max-width: 768px) {
+  .homeowner-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 28px; }
+}
+
 /* ── DEMO INLINE STYLES (scoped) ── */
 .demo-inner * { box-sizing: border-box; }
 </style>
@@ -1176,7 +1327,7 @@ footer {
   <div class="section-label">The Problem</div>
   <div style="max-width:560px; margin-bottom:48px;">
     <h2 style="font-size:clamp(34px,4.5vw,52px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;margin-bottom:16px;">
-      Service upgrades slow jobs down and cost customers money
+      Panel and service upgrades slow jobs down and cost customers money
     </h2>
     <p style="font-size:17px;color:var(--slate-600);line-height:1.65;">
       TrueLoad uses the home's actual measured demand to prove the existing service is adequate. Where that data isn't available yet, the same project runs the traditional NEC calculation instead. Data access and documentation have been the problem - until now.
@@ -1261,7 +1412,7 @@ footer {
 <div class="how-section fade-up" id="how-it-works">
   <div class="how-header">
     <div class="section-label">How It Works</div>
-    <h2>Six steps to documented service capacity</h2>
+    <h2>Six steps to a documented load calculation</h2>
     <p>TrueLoad walks you through the whole process on either path, from establishing the existing load to printing a report ready for the AHJ.</p>
   </div>
   <div class="steps">
@@ -1326,8 +1477,8 @@ footer {
   <div class="who-text">
     <div class="section-label">Who It's For</div>
     <h2>Built for professional electricians and heat pump installers</h2>
-    <p>TrueLoad is designed for licensed electricians and heat pump installers who need to document service adequacy quickly and reliably. It works with or without utility interval data, anywhere in the US, so one tool covers your existing-home jobs.</p>
-    <p>If you're adding a heat pump, EV charger, or other major load to an existing residential service and want to avoid an unnecessary service upgrade, this is the tool.</p>
+    <p>TrueLoad is designed for licensed electricians and heat pump installers who need an existing-service load calculation they can hand to an inspector, quickly and reliably. It works with or without utility interval data, anywhere in the US, so one tool covers your existing-home jobs.</p>
+    <p>If you're adding a heat pump, EV charger, or other major load to an existing residential service and want to avoid an unnecessary panel or service upgrade, this is the tool. New to measured demand? Start with <a href="/resources/guides/nec-220-87/" style="color:var(--blue);">our plain-language guide</a>.</p>
     <div class="who-chips">
       <span class="chip"><span class="chip-dot"></span>Licensed Electricians</span>
       <span class="chip"><span class="chip-dot"></span>Heat Pump Installers</span>
@@ -1426,6 +1577,60 @@ footer {
   <p class="pricing-secondary">
     Not ready to commit? <a href="https://app.trueloadapp.com?plan=trial">Start with a free trial</a> — no credit card required. Want the full breakdown? <a href="/plans/">Compare all plans</a>. Questions? Email <a href="mailto:info@ethermsolutions.com">info@ethermsolutions.com</a>
   </p>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOMEOWNERS -->
+<div class="homeowner-section fade-up" id="homeowners">
+  <div class="homeowner-card">
+    <div>
+      <div class="section-label">For Homeowners</div>
+      <h2>Told you need a panel upgrade?</h2>
+      <p>You may not. Most homes use far less of their electrical service than a worst-case calculation assumes, and the code lets your contractor prove it with your own smart-meter data. TrueLoad is the tool they use to do that. Read the guide, then send it to your electrician or heat pump installer.</p>
+    </div>
+    <div class="homeowner-actions">
+      <a href="/resources/guides/do-i-need-a-panel-upgrade/" class="btn-primary">Read the homeowner guide →</a>
+      <a href="/resources/calculator/" class="btn-secondary">Try the panel capacity calculator</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div class="faq-section fade-up" id="faq">
+  <div class="pricing-header">
+    <div class="section-label">FAQ</div>
+    <h2>Load calculation questions, answered</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>What is a measured-demand (NEC 220.87) load calculation?</summary>
+      <p>It is the code's way of sizing the load on an existing service from what the utility meter actually recorded, instead of from nameplate ratings and demand factors. The highest measured peak over the past year is taken at 125 percent, the new load is added, and the total has to fit within the rating of the service.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How is that different from a traditional electrical load calculation?</summary>
+      <p>A traditional calculation models the home from square footage, appliance nameplates and demand factors. It is a worst-case estimate. Measured demand uses the home's own record. In LBNL research covering 11,940 homes, the measured approach came out roughly 40 percent lower on average.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if the utility doesn't have interval data for the home?</summary>
+      <p>Run the traditional calculation instead. The same TrueLoad project runs either method, so a home with no smart-meter history still gets a load calculation and a report, in minutes, with no data request.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can a 100-amp panel handle a heat pump or an EV charger?</summary>
+      <p>Often, yes. The average U.S. home peaks at about 40 amps on a 100-amp service. Whether a specific home has room depends on its own measured peak and the equipment being added, which is exactly what a measured-demand calculation documents.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Will my inspector accept a measured-demand calculation?</summary>
+      <p>It is part of the code, not a workaround, and TrueLoad's report shows the data source, the peak, the 125 percent factor and the new load so the math can be checked. The Authority Having Jurisdiction always has the final say, so it is worth a conversation with your AHJ before the first submission.</p>
+    </details>
+    <details class="faq-item">
+      <summary>I'm a homeowner. Can I use TrueLoad?</summary>
+      <p>TrueLoad is built for the licensed electrician or installer who prepares and signs the calculation. If you have been told you need a panel upgrade, send your contractor <a href="/resources/guides/do-i-need-a-panel-upgrade/">our homeowner guide</a> and ask them to check your measured demand first.</p>
+    </details>
+  </div>
+  <p class="pricing-secondary" style="text-align:center;margin-top:32px;">More in the <a href="/resources/">Resource Library</a>, including <a href="/resources/guides/nec-220-83-vs-220-87/">measured demand vs. the traditional calculation</a> and <a href="/resources/guides/how-to-get-interval-data-from-your-utility/">how to get interval data from a utility</a>.</p>
 </div>
 
 <!-- FOOTER -->

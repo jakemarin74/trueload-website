@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit by hand. Your changes will be overwritten.
+  Source:  content/resources.json  +  content/guides/*.md
+  Rebuild: npm run build:resources
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can a 100 Amp Panel Handle a Heat Pump? | TrueLoad</title>
+<meta name="description" content="Usually yes. A heat pump draws less than most people expect, and most 100-amp services have more room than a worst-case calculation shows. Here are the real numbers, what actually causes problems, and how to document it for a permit.">
+<link rel="canonical" href="https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TrueLoad">
+<meta property="og:title" content="Can a 100 Amp Panel Handle a Heat Pump? | TrueLoad">
+<meta property="og:description" content="Usually yes. A heat pump draws less than most people expect, and most 100-amp services have more room than a worst-case calculation shows. Here are the real numbers, what actually causes problems, and how to document it for a permit.">
+<meta property="og:url" content="https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/">
+<meta property="og:image" content="https://trueloadapp.com/trueload_logo_lg.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--slate-900); line-height: 1.6; }
+
+/* Anchored headings clear the sticky nav */
+[id] { scroll-margin-top: 110px; }
+
+/* ── NAV (same as main site) ── */
+nav {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--slate-900); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,197,24,0.35); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.page-header h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── FOOTER (same as main site) ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-logo img { height: 52px; }
+  .nav-right { gap: 14px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+}
+@media (max-width: 600px) {
+  .nav-back { display: none; }
+  .nav-cta { font-size: 13px; padding: 9px 16px; }
+}
+
+.article-wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px 72px; }
+.article-head { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.article-head h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.article-lede { font-size: 18px; color: var(--slate-600); line-height: 1.6; margin-bottom: 18px; }
+.article-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-400); }
+
+.prose { font-size: 17px; color: var(--slate-800); line-height: 1.75; }
+.prose > * + * { margin-top: 22px; }
+.prose h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--slate-900);
+  margin-top: 48px;
+  margin-bottom: -4px;
+}
+.prose h3 {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin-top: 34px;
+  margin-bottom: -8px;
+}
+.prose a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+.prose a:hover { color: var(--blue-dark); }
+.prose strong { font-weight: 600; color: var(--slate-900); }
+.prose ul, .prose ol { padding-left: 24px; }
+.prose li { margin-top: 10px; }
+.prose li::marker { color: var(--slate-400); }
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--slate-100);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.prose pre {
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+.prose pre code { background: none; border: none; padding: 0; font-size: 14px; }
+.prose blockquote {
+  border-left: 3px solid var(--yellow);
+  background: var(--slate-50);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px;
+  font-size: 18px;
+  color: var(--slate-900);
+  font-weight: 500;
+}
+.prose blockquote > * + * { margin-top: 12px; }
+.prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 44px; }
+.prose hr + p { font-size: 14px; color: var(--slate-600); font-style: italic; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.prose th, .prose td { text-align: left; padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.prose th { font-weight: 600; color: var(--slate-900); border-bottom-color: rgba(0,0,0,0.16); }
+
+.article-meta a { color: var(--blue); text-decoration: none; }
+.article-meta a:hover { text-decoration: underline; }
+
+.article-related { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); }
+.article-related h2 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 14px; }
+.article-related ul { list-style: none; }
+.article-related li + li { margin-top: 10px; }
+.article-related a { font-size: 17px; font-weight: 600; color: var(--blue); text-decoration: none; }
+.article-related a:hover { text-decoration: underline; }
+
+.article-foot {
+  margin-top: 40px;
+  padding: 32px;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  text-align: center;
+}
+.article-foot h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+.article-foot p { font-size: 15px; color: var(--slate-600); margin-bottom: 22px; }
+.article-foot-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--blue-dark);
+  font-weight: 700; font-size: 15px; padding: 13px 26px;
+  border-radius: 10px; text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800); font-weight: 500; font-size: 15px;
+  padding: 13px 26px; border-radius: 10px; text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.25); }
+
+@media (max-width: 768px) {
+  .article-wrap { padding: 36px 20px 56px; }
+  .prose { font-size: 16px; }
+  .article-foot { padding: 28px 20px; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Can a 100-Amp Panel Handle a Heat Pump?",
+      "description": "Usually yes. A heat pump draws less than most people expect, and most 100-amp services have more room than a worst-case calculation shows. Here are the real numbers, what actually causes problems, and how to document it for a permit.",
+      "url": "https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/",
+      "mainEntityOfPage": "https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/",
+      "author": {
+        "@type": "Organization",
+        "name": "TrueLoad",
+        "url": "https://trueloadapp.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "eTherm Solutions LLC",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://trueloadapp.com/trueload_logo_lg.png"
+        }
+      },
+      "dateModified": "2026-09-21",
+      "datePublished": "2026-09-21"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TrueLoad",
+          "item": "https://trueloadapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://trueloadapp.com/resources/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Can a 100-Amp Panel Handle a Heat Pump?",
+          "item": "https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  <div class="nav-right">
+    <a href="/resources/" class="nav-back">&larr; Back to Resources</a>
+    <a href="https://app.trueloadapp.com" class="nav-cta">Open TrueLoad</a>
+  </div>
+</nav>
+
+<article class="article-wrap">
+  <header class="article-head">
+    <div class="section-label">TrueLoad Guide</div>
+    <h1>Can a 100-Amp Panel Handle a Heat Pump?</h1>
+    <p class="article-lede">Usually yes. A heat pump draws less than most people expect, and most 100-amp services have more room than a worst-case calculation shows. Here are the real numbers, what actually causes problems, and how to document it for a permit.</p>
+    <p class="article-meta">Updated Sep 21, 2026</p>
+  </header>
+
+  <div class="prose">
+<p><strong>Short answer: in most homes, yes.</strong> The heat pump itself is rarely the problem. What pushes a 100-amp service over the line is usually large electric resistance backup heat, or a worst-case load calculation that overstates what the home already uses.</p>
+<h2>What a heat pump actually draws</h2>
+<p>Always use the nameplate of the equipment being installed. As a rough guide:</p>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Typical circuit</th>
+<th>Approximate load</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Single-zone mini-split</td>
+<td>15–20 A, 240 V</td>
+<td>1–3 kW</td>
+</tr>
+<tr>
+<td>Multi-zone mini-split</td>
+<td>25–40 A, 240 V</td>
+<td>3–6 kW</td>
+</tr>
+<tr>
+<td>Central ducted heat pump, 2–4 ton</td>
+<td>25–50 A, 240 V</td>
+<td>4–8 kW</td>
+</tr>
+<tr>
+<td>Electric resistance backup strips</td>
+<td>30–100 A, 240 V</td>
+<td>5–20 kW</td>
+</tr>
+<tr>
+<td>Heat pump water heater, 240 V</td>
+<td>30 A</td>
+<td>up to 4.5 kW with elements on</td>
+</tr>
+</tbody></table>
+<p>Two things stand out. A heat pump replacing a central air conditioner often adds very little, because the AC it replaces drew a similar amount. And the backup heat strips can draw more than the rest of the house combined.</p>
+<h2>What a 100-amp service can deliver</h2>
+<p>100 amps at 240 volts is <strong>24 kW</strong>. Lawrence Berkeley National Laboratory measured the annual peak of 11,940 homes and found an average of <strong>9.7 kW</strong>, around 40 amps. The typical home leaves more than half of a 100-amp service unused at its busiest moment of the year.</p>
+<h2>Running the numbers</h2>
+<p>Under <a href="/resources/guides/nec-220-87/">NEC 220.87</a>, the measured peak is taken at 125 percent and the new load is added:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Heat pump only</th>
+<th>Heat pump + 10 kW strips</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Measured peak, 9.7 kW at 125%</td>
+<td>50 A</td>
+<td>50 A</td>
+</tr>
+<tr>
+<td>3-ton heat pump</td>
+<td>30 A</td>
+<td>30 A</td>
+</tr>
+<tr>
+<td>Backup strips</td>
+<td>—</td>
+<td>42 A</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>80 A, fits</strong></td>
+<td><strong>122 A, does not fit</strong></td>
+</tr>
+</tbody></table>
+<p>Same house, same heat pump. The strips decide the outcome.</p>
+<h2>Why the traditional calculation often says no</h2>
+<p>The <a href="/resources/guides/nec-220-83-vs-220-87/">220.83 method</a> counts every appliance at nameplate and takes new heating equipment at 100 percent on top. In a home with an electric range, dryer and water heater, that commonly lands just over 100 amps even though the main breaker has never come close to tripping. That is a calculated overload, not an observed one, and it is where a measured calculation changes the answer.</p>
+<h2>If it is close</h2>
+<ul>
+<li><strong>Size backup heat honestly.</strong> A cold-climate heat pump in a reasonably tight home may need small strips or none. Ask for a proper heating load calculation rather than a default 15 or 20 kW kit.</li>
+<li><strong>Stage or lock out the strips</strong> so they cannot run alongside other big loads, where the equipment and your AHJ allow it.</li>
+<li><strong>Choose a 120-volt heat pump water heater</strong> if water heating is part of the project.</li>
+<li><strong>Use a load-management device</strong> on a flexible load such as an EV charger.</li>
+<li><strong>Remember what is coming out.</strong> Removing an old AC, electric furnace or resistance water heater frees capacity.</li>
+</ul>
+<h2>For contractors: documenting it for the permit</h2>
+<p>Inspectors increasingly want a formal calculation before approving a heat pump on an existing service. With twelve months of utility interval data, the 220.87 calculation takes minutes and does not require a site visit to inventory appliances. <a href="/resources/guides/what-inspectors-want-in-a-220-87-report/">What inspectors want to see in a 220.87 report</a> covers the submission itself.</p>
+<p>Want a quick check first? Try the <a href="/resources/calculator/">panel capacity calculator</a>.</p>
+<hr>
+<p>Figures here are typical values for illustration. Use the nameplate data for the actual equipment, and the code edition adopted in your jurisdiction. The AHJ has the final say.</p>
+  </div>
+
+  <aside class="article-related" aria-label="Related guides">
+    <h2>Keep reading</h2>
+    <ul>
+      <li><a href="/resources/guides/do-i-need-a-panel-upgrade/">Do I Really Need a Panel Upgrade? What to Ask Before You Pay for One</a></li>
+      <li><a href="/resources/guides/ev-charger-on-100-amp-service/">Can I Install an EV Charger on a 100-Amp Service?</a></li>
+      <li><a href="/resources/guides/how-to-get-interval-data-from-your-utility/">How to Get 12 Months of Interval Data From Your Utility</a></li>
+      <li><a href="/resources/guides/nec-220-87/">NEC 220.87 Explained: Load Calculations From Measured Demand</a></li>
+    </ul>
+  </aside>
+
+  <div class="article-foot">
+    <h2>Homeowner? Send this to your contractor</h2>
+    <p>TrueLoad is used by the licensed electrician or installer who prepares the calculation. Forward them this page and ask them to check your measured demand before anyone quotes a panel upgrade.</p>
+    <div class="article-foot-actions">
+      <a href="mailto:?subject=Can%20we%20check%20my%20measured%20load%20before%20a%20panel%20upgrade%3F&amp;body=Hi%2C%0A%0ABefore%20we%20plan%20on%20a%20panel%20or%20service%20upgrade%2C%20could%20we%20check%20what%20my%20home%20actually%20draws%3F%20NEC%20220.87%20allows%20the%20existing%20load%20to%20be%20based%20on%2012%20months%20of%20utility%20smart-meter%20data%20instead%20of%20a%20worst-case%20estimate.%0A%0AThis%20explains%20it%3A%20https%3A%2F%2Ftrueloadapp.com%2Fresources%2Fguides%2Fcan-a-100-amp-panel-handle-a-heat-pump%2F%0A%0ATrueLoad%20(https%3A%2F%2Ftrueloadapp.com)%20is%20a%20tool%20contractors%20use%20to%20run%20the%20calculation%20and%20produce%20the%20report%20for%20the%20inspector.%20The%20first%20project%20is%20free.%0A%0AThanks" class="btn-primary">Email this to your contractor &rarr;</a>
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-secondary">I'm a contractor &mdash; try TrueLoad free</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-logo">
+    <a href="/"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
+    <a href="/terms/" class="footer-link">Terms of Service</a>
+    <a href="/privacy/" class="footer-link">Privacy Policy</a>
+    <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

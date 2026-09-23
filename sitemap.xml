@@ -21,6 +21,65 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://trueloadapp.com/resources/calculator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/can-a-100-amp-panel-handle-a-heat-pump/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/do-i-need-a-panel-upgrade/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/electrical-load-calculation-for-an-existing-home/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/ev-charger-on-100-amp-service/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/green-mountain-power-interval-data/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/how-to-get-interval-data-from-your-utility/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/nec-220-87/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueloadapp.com/resources/guides/what-inspectors-want-in-a-220-87-report/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://trueloadapp.com/terms/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dist/
+Disallow: /email-assets/
+
+Sitemap: https://trueloadapp.com/sitemap.xml

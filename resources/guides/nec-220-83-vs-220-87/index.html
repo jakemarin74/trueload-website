@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit by hand. Your changes will be overwritten.
+  Source:  content/resources.json  +  content/guides/*.md
+  Rebuild: npm run build:resources
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEC 220.83 vs 220.87 for Existing Dwellings | TrueLoad</title>
+<meta name="description" content="Both methods apply to existing dwellings and both are in the code. One models the house from nameplates, the other measures it. A worked example shows why the same 100-amp service can fail 220.83 and pass 220.87.">
+<link rel="canonical" href="https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TrueLoad">
+<meta property="og:title" content="NEC 220.83 vs 220.87 for Existing Dwellings | TrueLoad">
+<meta property="og:description" content="Both methods apply to existing dwellings and both are in the code. One models the house from nameplates, the other measures it. A worked example shows why the same 100-amp service can fail 220.83 and pass 220.87.">
+<meta property="og:url" content="https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/">
+<meta property="og:image" content="https://trueloadapp.com/trueload_logo_lg.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a4fa0;
+  --blue-dark: #133d80;
+  --blue-light: #dbeafe;
+  --yellow: #f5c518;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--slate-900); line-height: 1.6; }
+
+/* Anchored headings clear the sticky nav */
+[id] { scroll-margin-top: 110px; }
+
+/* ── NAV (same as main site) ── */
+nav {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-logo img { height: 72px; display: block; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--slate-900); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,197,24,0.35); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.page-header h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 17px;
+  color: var(--slate-600);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── FOOTER (same as main site) ── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo img { height: 72px; display: block; }
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--slate-600);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.footer-link {
+  font-size: 13px;
+  color: var(--slate-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--slate-900); }
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-logo img { height: 52px; }
+  .nav-right { gap: 14px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+}
+@media (max-width: 600px) {
+  .nav-back { display: none; }
+  .nav-cta { font-size: 13px; padding: 9px 16px; }
+}
+
+.article-wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px 72px; }
+.article-head { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.article-head h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.article-lede { font-size: 18px; color: var(--slate-600); line-height: 1.6; margin-bottom: 18px; }
+.article-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-400); }
+
+.prose { font-size: 17px; color: var(--slate-800); line-height: 1.75; }
+.prose > * + * { margin-top: 22px; }
+.prose h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--slate-900);
+  margin-top: 48px;
+  margin-bottom: -4px;
+}
+.prose h3 {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--slate-900);
+  margin-top: 34px;
+  margin-bottom: -8px;
+}
+.prose a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+.prose a:hover { color: var(--blue-dark); }
+.prose strong { font-weight: 600; color: var(--slate-900); }
+.prose ul, .prose ol { padding-left: 24px; }
+.prose li { margin-top: 10px; }
+.prose li::marker { color: var(--slate-400); }
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--slate-100);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.prose pre {
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+.prose pre code { background: none; border: none; padding: 0; font-size: 14px; }
+.prose blockquote {
+  border-left: 3px solid var(--yellow);
+  background: var(--slate-50);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px;
+  font-size: 18px;
+  color: var(--slate-900);
+  font-weight: 500;
+}
+.prose blockquote > * + * { margin-top: 12px; }
+.prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 44px; }
+.prose hr + p { font-size: 14px; color: var(--slate-600); font-style: italic; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.prose th, .prose td { text-align: left; padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.prose th { font-weight: 600; color: var(--slate-900); border-bottom-color: rgba(0,0,0,0.16); }
+
+.article-meta a { color: var(--blue); text-decoration: none; }
+.article-meta a:hover { text-decoration: underline; }
+
+.article-related { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); }
+.article-related h2 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 14px; }
+.article-related ul { list-style: none; }
+.article-related li + li { margin-top: 10px; }
+.article-related a { font-size: 17px; font-weight: 600; color: var(--blue); text-decoration: none; }
+.article-related a:hover { text-decoration: underline; }
+
+.article-foot {
+  margin-top: 40px;
+  padding: 32px;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  text-align: center;
+}
+.article-foot h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+.article-foot p { font-size: 15px; color: var(--slate-600); margin-bottom: 22px; }
+.article-foot-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--blue-dark);
+  font-weight: 700; font-size: 15px; padding: 13px 26px;
+  border-radius: 10px; text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,197,24,0.4); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid rgba(0,0,0,0.15);
+  color: var(--slate-800); font-weight: 500; font-size: 15px;
+  padding: 13px 26px; border-radius: 10px; text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.25); }
+
+@media (max-width: 768px) {
+  .article-wrap { padding: 36px 20px 56px; }
+  .prose { font-size: 16px; }
+  .article-foot { padding: 28px 20px; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "NEC 220.83 vs. 220.87: Which Load Calculation for an Existing Home?",
+      "description": "Both methods apply to existing dwellings and both are in the code. One models the house from nameplates, the other measures it. A worked example shows why the same 100-amp service can fail 220.83 and pass 220.87.",
+      "url": "https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/",
+      "mainEntityOfPage": "https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/",
+      "author": {
+        "@type": "Organization",
+        "name": "TrueLoad",
+        "url": "https://trueloadapp.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "eTherm Solutions LLC",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://trueloadapp.com/trueload_logo_lg.png"
+        }
+      },
+      "dateModified": "2026-09-21",
+      "datePublished": "2026-09-21"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TrueLoad",
+          "item": "https://trueloadapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://trueloadapp.com/resources/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "NEC 220.83 vs. 220.87: Which Load Calculation for an Existing Home?",
+          "item": "https://trueloadapp.com/resources/guides/nec-220-83-vs-220-87/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  <div class="nav-right">
+    <a href="/resources/" class="nav-back">&larr; Back to Resources</a>
+    <a href="https://app.trueloadapp.com" class="nav-cta">Open TrueLoad</a>
+  </div>
+</nav>
+
+<article class="article-wrap">
+  <header class="article-head">
+    <div class="section-label">TrueLoad Guide</div>
+    <h1>NEC 220.83 vs. 220.87: Which Load Calculation for an Existing Home?</h1>
+    <p class="article-lede">Both methods apply to existing dwellings and both are in the code. One models the house from nameplates, the other measures it. A worked example shows why the same 100-amp service can fail 220.83 and pass 220.87.</p>
+    <p class="article-meta">Updated Sep 21, 2026</p>
+  </header>
+
+  <div class="prose">
+<p>When you add load to an existing home, the NEC gives you two practical ways to show the service can take it. Both are legitimate. They routinely give different answers. (Section numbers here are from the 2020 and 2023 editions; the 2026 edition renumbers 220.83 as 120.83 without changing the method.)</p>
+<ul>
+<li><strong>220.83</strong> is the <em>optional method for existing dwelling units</em>. It builds the load up from square footage, circuits and appliance nameplates, then applies a demand factor.</li>
+<li><strong>220.87</strong> determines the existing load from <em>measured maximum demand</em>, takes it at 125 percent, and adds the new load.</li>
+</ul>
+<h2>How 220.83 works</h2>
+<p>You total the home&#39;s &quot;other loads&quot;:</p>
+<ul>
+<li>General lighting and receptacles at 3 VA per square foot</li>
+<li>1,500 VA for each small-appliance branch circuit and each laundry circuit</li>
+<li>Every fastened-in-place appliance, range, dryer and water heater at nameplate</li>
+</ul>
+<p>Then you apply the demand factor: the <strong>first 8 kVA at 100 percent and the remainder at 40 percent</strong>.</p>
+<p>If the job adds air conditioning or electric space heating, which includes a heat pump, that equipment is taken at <strong>100 percent</strong> on top, using the larger of the heating or cooling load.</p>
+<h2>How 220.87 works</h2>
+<p>You obtain twelve months of maximum demand data, find the highest 15-minute average, multiply by 1.25, and add the new load at its calculated value. If the total fits within the service rating, you are done. The full requirements are in our <a href="/resources/guides/nec-220-87/">guide to NEC 220.87</a>.</p>
+<h2>The same house, both ways</h2>
+<p>An 1,800 sq ft home with a 100-amp, 240-volt service. Electric range, dryer and water heater. The owner wants to replace an old central AC with a cold-climate heat pump: 7.2 kVA (30 A), no resistance backup.</p>
+<p><strong>220.83</strong></p>
+<table>
+<thead>
+<tr>
+<th>Load</th>
+<th>VA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>General lighting, 1,800 sq ft at 3 VA</td>
+<td>5,400</td>
+</tr>
+<tr>
+<td>Two small-appliance circuits + laundry</td>
+<td>4,500</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>12,000</td>
+</tr>
+<tr>
+<td>Dryer</td>
+<td>5,000</td>
+</tr>
+<tr>
+<td>Water heater</td>
+<td>4,500</td>
+</tr>
+<tr>
+<td>Dishwasher</td>
+<td>1,200</td>
+</tr>
+<tr>
+<td>Disposal</td>
+<td>900</td>
+</tr>
+<tr>
+<td><strong>Total other loads</strong></td>
+<td><strong>33,500</strong></td>
+</tr>
+<tr>
+<td>First 8,000 at 100%</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>Remaining 25,500 at 40%</td>
+<td>10,200</td>
+</tr>
+<tr>
+<td>New heat pump at 100%</td>
+<td>7,200</td>
+</tr>
+<tr>
+<td><strong>Calculated load</strong></td>
+<td><strong>25,400 VA = 106 A</strong></td>
+</tr>
+</tbody></table>
+<p>106 amps on a 100-amp service. On paper, this job needs a service upgrade.</p>
+<p><strong>220.87</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Measured 12-month peak from the utility meter</td>
+<td>9.7 kW</td>
+</tr>
+<tr>
+<td>At 125%</td>
+<td>12.1 kW</td>
+</tr>
+<tr>
+<td>New heat pump</td>
+<td>7.2 kW</td>
+</tr>
+<tr>
+<td><strong>Calculated load</strong></td>
+<td><strong>19.3 kW = 81 A</strong></td>
+</tr>
+</tbody></table>
+<p>81 amps on a 100-amp service. The job goes ahead, with about 19 amps to spare. If that peak happened on a summer afternoon, it even includes the old AC that is being removed, so the real margin is larger.</p>
+<p>The 9.7 kW figure is not cherry-picked: it is the mean measured peak across 11,940 homes in Lawrence Berkeley National Laboratory&#39;s research, which found 220.87 results roughly 40 percent below 220.83 on average. Any individual home can be higher or lower, which is the whole point of measuring it.</p>
+<h2>Side by side</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>220.83</th>
+<th>220.87</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input</td>
+<td>Square footage, circuits, nameplates</td>
+<td>12 months of interval data from the meter</td>
+</tr>
+<tr>
+<td>Site visit needed</td>
+<td>Yes, to inventory appliances</td>
+<td>Not for the existing load</td>
+</tr>
+<tr>
+<td>Reflects occupant behavior</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Safety margin</td>
+<td>Built into demand factors</td>
+<td>Explicit 125% on the measured peak</td>
+</tr>
+<tr>
+<td>Works without usage history</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Typical result</td>
+<td>Higher</td>
+<td>Lower</td>
+</tr>
+</tbody></table>
+<h2>When 220.83 is still the right tool</h2>
+<ul>
+<li>No interval data is available: no smart meter, a utility that will not release it, or new occupants with less than a year of history.</li>
+<li>A major load was added within the last year and the data does not reflect it yet.</li>
+<li>Solar or battery peak-shaving is masking the true load at the meter and you cannot account for it.</li>
+<li>Your AHJ has told you they want it.</li>
+</ul>
+<h2>When to reach for 220.87</h2>
+<ul>
+<li>220.83 comes out over the service rating and nobody has ever seen the main trip.</li>
+<li>The customer is about to be quoted thousands for an upgrade on the strength of a worst-case estimate.</li>
+<li>You want to qualify the job before rolling a truck. The existing-load half of 220.87 can be done entirely from the utility file.</li>
+</ul>
+<p>In practice the two are not either/or. TrueLoad runs both from the same project: run the traditional calculation the day you open the job, and if it passes you are done. If it fails, request the customer&#39;s interval data and run measured demand in the same project, which is usually the lower number. When both have run, you pick which one the report is based on. <a href="/methods/">How the two paths work together.</a></p>
+<hr>
+<p>This guide paraphrases the code for explanation. Work from the NEC edition adopted in your jurisdiction, and remember the AHJ decides what is acceptable.</p>
+  </div>
+
+  <aside class="article-related" aria-label="Related guides">
+    <h2>Keep reading</h2>
+    <ul>
+      <li><a href="/resources/guides/nec-220-87/">NEC 220.87 Explained: Load Calculations From Measured Demand</a></li>
+      <li><a href="/resources/guides/what-inspectors-want-in-a-220-87-report/">What Inspectors Want to See in a 220.87 Load Calculation</a></li>
+      <li><a href="/resources/guides/electrical-load-calculation-for-an-existing-home/">Electrical Load Calculation for an Existing Home: The Four Methods</a></li>
+      <li><a href="/resources/guides/do-i-need-a-panel-upgrade/">Do I Really Need a Panel Upgrade? What to Ask Before You Pay for One</a></li>
+    </ul>
+  </aside>
+
+  <div class="article-foot">
+    <h2>Put it into practice</h2>
+    <p>TrueLoad runs the measured-demand calculation from the utility's interval data, or the traditional calculation when there is none, and produces the report. Your first project is free.</p>
+    <div class="article-foot-actions">
+      <a href="https://app.trueloadapp.com?plan=trial" class="btn-primary">Try TrueLoad free &rarr;</a>
+      <a href="/resources/" class="btn-secondary">More resources</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-logo">
+    <a href="/"><img src="/trueload_logo.svg" alt="TrueLoad"></a>
+  </div>
+  <p class="footer-disclaimer">
+    TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
+  </p>
+  <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <a href="/resources/" class="footer-link">Resources</a>
+    <a href="/terms/" class="footer-link">Terms of Service</a>
+    <a href="/privacy/" class="footer-link">Privacy Policy</a>
+    <a href="mailto:info@ethermsolutions.com" class="footer-link">info@ethermsolutions.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,6 +3,11 @@
 
   "categories": [
     {
+      "id": "panel-capacity",
+      "label": "Panel Capacity & Upgrades",
+      "blurb": "Will the existing service take a heat pump or an EV charger? Plain answers for contractors and homeowners, and a calculator to check."
+    },
+    {
       "id": "guides",
       "label": "Using TrueLoad",
       "blurb": "How to use TrueLoad itself \u2014 setup, utility data, and producing a report."
@@ -25,16 +30,6 @@
   ],
 
   "resources": [
-    {
-      "title": "Understanding NEC 220.87",
-      "description": "A two-page plain-language guide: what 220.87 permits, how a measured-demand calculation differs from the traditional method, and the LBNL research behind it. Written for contractors, homeowners and inspectors alike.",
-      "category": "code",
-      "type": "pdf",
-      "file": "Understanding-NEC-220-87.pdf",
-      "updated": "2026-08-24",
-      "featured": true
-    },
-
     {
       "title": "TrueLoad User Guide",
       "description": "The complete walkthrough: setting up a project, requesting utility data, entering new load, and producing the report you hand to the AHJ.",
