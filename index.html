@@ -422,9 +422,9 @@ nav {
 
 /* Embed the demo iframe-style */
 .demo-inner {
-  background: #f0f2f0;
+  background: #f9fafb;
   width: 100%;
-  height: 640px;
+  aspect-ratio: 900 / 640;
 }
 
 /* ── SECTION COMMON ── */
@@ -1676,8 +1676,6 @@ const chartObserver = new IntersectionObserver((entries) => {
 const chart = document.getElementById('capacity-chart');
 if (chart) chartObserver.observe(chart);
 
-// Fix body style from demo - demo sets body flex centering which we don't want
-// The demo's body style is scoped to its own original page context
 </script>
 
 </body>

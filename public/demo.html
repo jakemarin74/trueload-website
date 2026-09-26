@@ -1,933 +1,975 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrueLoad – Animated Demo</title>
+<meta name="robots" content="noindex">
+<title>TrueLoad Demo</title>
 <style>
+/*
+  A recreation of the TrueLoad app (app.trueloadapp.com) running the measured-
+  demand path on the app's own guided-demo job: Dave Smith, 45 Elm Street,
+  Burlington VT, 200 A, Burlington Electric Department interval data.
+
+  The app is drawn at desktop width (W below) with the app's Tailwind colours
+  and spacing, then scaled as one piece to fit the iframe — so it reads as the
+  real app shrunk down rather than a mobile re-layout. Numbers match what the
+  app's calculation produces for this job.
+*/
+:root {
+  --blue-50:#eff6ff; --blue-100:#dbeafe; --blue-400:#60a5fa; --blue-500:#3b82f6; --blue-600:#2563eb; --blue-700:#1d4ed8; --blue-800:#1e40af;
+  --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb; --gray-300:#d1d5db; --gray-400:#9ca3af; --gray-500:#6b7280; --gray-600:#4b5563; --gray-700:#374151; --gray-900:#111827;
+  --green-50:#f0fdf4; --green-100:#dcfce7; --green-200:#bbf7d0; --green-500:#22c55e; --green-600:#16a34a; --green-700:#15803d; --green-800:#166534; --green-900:#14532d;
+  --amber-50:#fffbeb; --amber-200:#fde68a; --amber-900:#78350f; --red-600:#dc2626;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,.05);
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 12px; font-family: system-ui, -apple-system, sans-serif; }
-.app-wrap { background: #f0f2f0; border-radius: 12px; overflow: hidden; font-size: 14px; color: #1e293b; border: 1px solid #d1d5db; max-width: 900px; width: 100%; }
-.app-header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; min-width: 0; }
-.logo-lockup { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.logo-right { display: flex; flex-direction: column; gap: 2px; }
-.logo-pill { background: #f5c518; border-radius: 8px; padding: 3px 10px; display: inline-block; }
-.logo-pill-text { font-size: 18px; font-weight: 800; color: #1a4fa0; letter-spacing: -0.5px; line-height: 1; }
-.logo-tagline { font-size: 9px; color: #64748b; padding-left: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
-.header-center { text-align: center; min-width: 0; flex: 1; overflow: hidden; }
-.project-name { font-size: 13px; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.autosave-label { font-size: 10px; color: #94a3b8; margin-top: 1px; white-space: nowrap; }
-.header-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-.btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; line-height: 1; white-space: nowrap; }
-@media (max-width: 500px) {
-  .logo-tagline { display: none; }
-  .header-center { display: none; }
-  .btn-outline, .btn-icon { display: none; }
-  .btn { padding: 6px 10px; font-size: 11px; }
-  .logo-lockup svg { width: 36px; height: 36px; }
-}
-.btn-green { background: #22c55e; color: #fff; transition: background 0.2s, transform 0.1s; }
-.btn-green.pressed { background: #16a34a; transform: scale(0.94); }
-.btn-blue  { background: #1a4fa0; color: #fff; }
-.btn-outline { background: #fff; color: #374151; border: 1px solid #d1d5db; }
-.btn-icon { background: #fff; color: #374151; border: 1px solid #d1d5db; padding: 7px 10px; border-radius: 8px; }
-.tab-bar { background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; padding: 0 4px; align-items: flex-end; overflow: hidden; }
-.tab {
-  flex: 1;
-  text-align: center;
-  font-size: 8px;
-  color: #64748b;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 8px 2px 7px;
-  transition: font-size 0.35s cubic-bezier(0.34,1.2,0.64,1), flex 0.35s cubic-bezier(0.34,1.2,0.64,1), color 0.25s, border-color 0.25s, padding 0.35s cubic-bezier(0.34,1.2,0.64,1), font-weight 0.2s;
-  transform-origin: bottom center;
-  line-height: 1.2;
-  min-width: 0;
-}
-.tab.active {
-  flex: 2.5;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1a4fa0;
-  border-bottom: 2px solid #1a4fa0;
-  padding: 10px 6px 7px;
-  overflow: visible;
-  text-overflow: clip;
-}
-.tab.near {
-  flex: 1.2;
-  font-size: 9px;
-  color: #475569;
-  padding: 9px 3px 7px;
-}
-.tab.dimmed { color: #b0bac4; }
-.app-body { padding: 24px; background: #f0f2f0; position: relative; min-height: 440px; }
-.scene { position: absolute; inset: 24px; opacity: 0; transform: translateX(18px); transition: opacity 0.45s ease, transform 0.45s ease; pointer-events: none; overflow: hidden; }
-.scene.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
-.scene.exit { opacity: 0; transform: translateX(-18px); }
-.form-card { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
-.form-card-title { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
-.field-label { font-size: 12px; color: #374151; margin-bottom: 5px; }
-.field-input { width: 100%; background: #fff; border: 1px solid #d1d5db; border-radius: 6px; padding: 7px 10px; font-size: 13px; color: #374151; min-height: 34px; margin-bottom: 12px; }
-.field-input.focused { border-color: #1a4fa0; box-shadow: 0 0 0 3px rgba(26,79,160,0.12); }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.typing-cursor { display: inline-block; width: 1.5px; height: 12px; background: #374151; margin-left: 1px; animation: blink 0.75s infinite; vertical-align: middle; }
-@keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
-.load-link { font-size: 13px; color: #1a4fa0; display: flex; align-items: center; gap: 4px; }
-.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-.svc-tile { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
-.svc-tile-lbl { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
-.svc-tile-val { font-size: 22px; font-weight: 600; color: #1e293b; }
-.svc-tile-unit { font-size: 13px; font-weight: 400; color: #64748b; }
-.upload-zone { border: 2px dashed #93c5fd; border-radius: 10px; background: #eff6ff; padding: 28px 20px; text-align: center; transition: all 0.4s; margin-bottom: 14px; position: relative; }
-.upload-zone.hovering { border-color: #1a4fa0; background: #dbeafe; transform: scale(1.01); box-shadow: 0 4px 20px rgba(26,79,160,0.15); }
-.upload-zone.active { border-color: #1a4fa0; background: #dbeafe; }
-.upload-zone.done { border: 2px solid #22c55e; background: #f0fdf4; }
-.prog-wrap { background: #e2e8f0; border-radius: 4px; height: 5px; margin: 10px 0 4px; overflow: hidden; display: none; }
-.prog-fill { height: 100%; background: #1a4fa0; border-radius: 4px; width: 0%; transition: width 0.06s linear; }
-.ami-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; opacity: 0; transition: opacity 0.6s; }
-.ami-stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; text-align: center; }
-.ami-val { font-size: 16px; font-weight: 600; color: #1a4fa0; }
-.ami-lbl { font-size: 11px; color: #94a3b8; margin-top: 3px; }
-.equip-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.equip-table th { text-align: left; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; padding: 0 10px 8px; border-bottom: 1px solid #e2e8f0; }
-.equip-table td { padding: 10px; border-bottom: 1px solid #f1f5f9; color: #334155; }
-.equip-row { opacity: 0; transform: translateY(6px); transition: opacity 0.5s, transform 0.5s; }
-.equip-row.show { opacity: 1; transform: translateY(0); }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-.b-blue { background: #dbeafe; color: #1d4ed8; }
-.b-green { background: #dcfce7; color: #15803d; }
-.result-banner { background: #dcfce7; border: 1.5px solid #16a34a; border-radius: 10px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; opacity: 0; transform: translateY(12px) scale(0.96); transition: opacity 0.55s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1); }
-.result-banner.show { opacity: 1; transform: translateY(0) scale(1); }
-.result-icon { width: 42px; height: 42px; border-radius: 50%; background: #16a34a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.result-label { font-size: 22px; font-weight: 700; color: #15803d; }
-.result-sub { font-size: 12px; color: #475569; margin-top: 2px; }
-.calc-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; }
-.calc-lbl { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
-.calc-table { width: 100%; font-size: 13px; border-collapse: collapse; }
-.calc-table tr { border-bottom: 1px solid #f1f5f9; }
-.calc-table td { padding: 7px 0; transition: color 0.3s, background 0.3s; }
-.calc-table td:last-child { text-align: right; font-weight: 500; }
-.calc-table td:first-child { color: #64748b; }
-.calc-total td { border-top: 2px solid #e2e8f0; font-weight: 600; color: #1e293b; }
-.calc-margin td { color: #15803d; font-weight: 600; }
-.calc-margin.highlight td { background: #dcfce7; border-radius: 4px; }
-.report-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
-.report-top { background: #1a4fa0; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
-.report-section { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
-.report-section.show { opacity: 1; transform: translateY(0); }
-.step-dots { display: flex; justify-content: center; gap: 8px; padding: 10px 10px 12px; background: #fff; border-top: 1px solid #e2e8f0; align-items: center; }
-.dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.dot { height: 6px; border-radius: 3px; background: #e2e8f0; transition: background 0.3s, width 0.3s; width: 24px; }
-.dot.active { background: #1a4fa0; width: 36px; }
-.dot.done { background: #22c55e; }
-.dot-label { font-size: 9px; color: #94a3b8; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; transition: color 0.3s; white-space: nowrap; }
-.dot-label.active { color: #1a4fa0; }
-.dot-label.done { color: #16a34a; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--gray-50); }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--gray-900); -webkit-font-smoothing: antialiased; }
+svg.ic { display: inline-block; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
 
-/* animated cursor */
-.ani-cursor {
-  position: fixed;
-  width: 20px; height: 20px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.ani-cursor svg { width: 20px; height: 20px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.35)); }
+#stage { position: absolute; top: 0; left: 0; transform-origin: top left; overflow: hidden; background: var(--gray-50); }
 
-/* new project modal overlay */
-.modal-overlay {
-  position: absolute; inset: 0;
-  background: rgba(15,23,42,0.38);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 100;
-}
-.modal-overlay.show { opacity: 1; }
-.modal-box {
-  background: #fff; border-radius: 12px; padding: 28px 28px 22px;
-  width: 340px; box-shadow: 0 16px 48px rgba(0,0,0,0.2);
-  transform: scale(0.92) translateY(10px);
-  transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), opacity 0.3s;
-  opacity: 0;
-}
-.modal-overlay.show .modal-box { transform: scale(1) translateY(0); opacity: 1; }
-.modal-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 18px; }
-.modal-label { font-size: 12px; color: #374151; margin-bottom: 6px; }
-.modal-input { width: 100%; border: 1.5px solid #1a4fa0; border-radius: 7px; padding: 9px 12px; font-size: 14px; color: #1e293b; background: #f8fafc; box-shadow: 0 0 0 3px rgba(26,79,160,0.1); min-height: 38px; margin-bottom: 20px; }
-.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
-.modal-btn-cancel { background: #fff; border: 1px solid #d1d5db; color: #374151; border-radius: 7px; padding: 8px 16px; font-size: 13px; cursor: pointer; }
-.modal-btn-create { background: #1a4fa0; color: #fff; border: none; border-radius: 7px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-.modal-btn-create.pressed { background: #15803d; }
+/* ── Chrome: header, tabs, progress ── */
+.header { background: #fff; border-bottom: 1px solid var(--gray-200); }
+.header-in { padding: 8px 32px; display: flex; align-items: center; justify-content: space-between; }
+.header-in img { height: 48px; width: auto; display: block; }
+.h-actions { display: flex; align-items: center; gap: 8px; }
+.h-name { font-size: 14px; font-weight: 500; margin-right: 8px; }
+.btn-projects { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--blue-600); color: #fff; border-radius: 6px; font-size: 16px; }
+.btn-save { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 6px; font-size: 14px; color: var(--gray-600); }
+.btn-gear { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; background: var(--gray-100); color: var(--gray-700); }
 
-/* scene zoom/pan wrapper */
-.zoom-pan { transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), transform-origin 0.7s; transform-origin: top left; }
+.tabbar { background: #fff; border-bottom: 1px solid var(--gray-200); }
+.tabbar-in { padding: 0 32px; display: flex; gap: 32px; }
+.tab { display: flex; align-items: center; gap: 8px; padding: 16px; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 500; color: var(--gray-600); white-space: nowrap; transition: color .25s, border-color .25s; }
+.tab.active { border-color: var(--blue-600); color: var(--blue-600); }
+.tab.disabled { color: var(--gray-400); }
+.sdot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); transition: background .3s; }
+.sdot.blue { background: var(--blue-500); }
+.sdot.green { background: var(--green-500); }
 
-/* drag file card */
-.drag-file {
-  position: absolute;
-  background: #fff; border: 1.5px solid #93c5fd; border-radius: 8px;
-  padding: 8px 14px; display: flex; align-items: center; gap: 8px;
-  font-size: 12px; font-weight: 500; color: #1a4fa0;
-  box-shadow: 0 4px 14px rgba(26,79,160,0.2);
-  pointer-events: none; opacity: 0; z-index: 50;
-  white-space: nowrap;
-  transition: opacity 0.3s, box-shadow 0.3s;
-}
-.drag-file.hovering { box-shadow: 0 8px 24px rgba(26,79,160,0.3); border-color: #1a4fa0; }
+.progress { background: #fff; border-bottom: 1px solid var(--gray-200); padding: 8px 32px; }
+.progress-in { display: flex; align-items: center; gap: 12px; }
+.p-count { font-size: 14px; font-weight: 500; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+.p-count.done { color: var(--green-700); }
+.p-track { flex: 1; height: 6px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.p-fill { height: 100%; border-radius: 999px; background: var(--blue-600); transition: width .4s, background .3s; }
+.p-fill.done { background: var(--green-600); }
+.p-next { font-size: 12px; color: var(--blue-600); font-weight: 500; white-space: nowrap; }
 
-/* inline add-equipment form row */
-.inline-form-row { background: #f8fafc; border-radius: 8px; padding: 10px 10px; margin-top: 10px; border: 1.5px dashed #93c5fd; opacity: 0; transform: translateY(-6px); transition: opacity 0.4s, transform 0.4s; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.inline-form-row.show { opacity: 1; transform: translateY(0); }
-.inline-field { border: 1px solid #d1d5db; border-radius: 5px; padding: 5px 8px; font-size: 12px; color: #374151; background: #fff; min-width: 60px; }
-.inline-field.wide { min-width: 140px; }
-.inline-field.focused { border-color: #1a4fa0; box-shadow: 0 0 0 2px rgba(26,79,160,0.12); }
+/* ── Main scroll area ── */
+#viewport { position: relative; overflow: hidden; }
+#page { padding: 32px; transition: transform .8s cubic-bezier(.4,0,.2,1); will-change: transform; }
+.scene { display: none; }
+.scene.on { display: block; animation: sceneIn .35s ease; }
+@keyframes sceneIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.stack > * + * { margin-top: 24px; }
 
-/* add btn highlight */
-.add-equip-btn { transition: background 0.2s, transform 0.1s, box-shadow 0.2s; }
-.add-equip-btn.pressed { background: #1e40af !important; transform: scale(0.94); }
-.add-equip-btn.highlight { box-shadow: 0 0 0 3px rgba(26,79,160,0.3); }
+.card { background: #fff; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); padding: 24px; }
+.h2 { font-size: 20px; font-weight: 600; color: var(--gray-900); display: flex; align-items: center; gap: 8px; }
+.qm { color: var(--gray-400); }
+.lbl { display: block; font-size: 14px; font-weight: 500; color: var(--gray-700); margin-bottom: 4px; }
+.req { color: var(--red-600); }
+.inp { width: 100%; min-height: 42px; padding: 8px 12px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 16px; color: var(--gray-900); background: #fff; display: flex; align-items: center; transition: box-shadow .2s, border-color .2s; }
+.inp.ph { color: var(--gray-400); }
+.inp.focus { border-color: transparent; box-shadow: 0 0 0 2px var(--blue-500); }
+.inp .caret { display: none; width: 1.5px; height: 18px; background: var(--gray-900); margin-left: 1px; animation: blink .8s infinite; }
+.inp.focus .caret { display: inline-block; }
+@keyframes blink { 50% { opacity: 0; } }
+.sel { justify-content: space-between; }
+.help { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fld + .fld, .g2 + .fld, .fld + .g2, .g2 + .g2 { margin-top: 16px; }
+.btn-sm { padding: 6px 12px; font-size: 14px; color: var(--gray-700); border: 1px solid var(--gray-300); border-radius: 6px; background: #fff; }
+.btn-soft { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 14px; color: var(--blue-700); background: var(--blue-50); border-radius: 6px; }
+.btn-blue { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--blue-600); color: #fff; border-radius: 6px; font-size: 14px; font-weight: 500; transition: background .15s, transform .12s; }
+.btn-green { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--green-600); color: #fff; border-radius: 6px; font-size: 14px; font-weight: 500; }
+.pressed { transform: scale(.95); filter: brightness(.9); }
+.fade { opacity: 0; transition: opacity .5s; }
+.fade.in { opacity: 1; }
 
-/* report mini-bar chart */
-.mini-bar-chart { display: flex; align-items: flex-end; gap: 3px; height: 40px; padding: 0 2px; }
-.mini-bar { background: #bfdbfe; border-radius: 2px 2px 0 0; flex: 1; transition: height 0.5s ease; }
-.mini-bar.peak { background: #1a4fa0; }
+/* Utility dropdown */
+.combo { position: relative; }
+.menu { position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: #fff; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); padding: 4px 0; font-size: 14px; z-index: 5; opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; pointer-events: none; }
+.menu.open { opacity: 1; transform: none; }
+.menu .mh { font-size: 12px; color: var(--gray-500); padding: 6px 12px; }
+.menu .mi { padding: 8px 12px; color: var(--gray-700); }
+.menu .mi.hl { background: var(--blue-50); color: var(--blue-800); }
 
-/* margin row flash */
-@keyframes marginFlash {
-  0%   { background: transparent; }
-  30%  { background: #dcfce7; }
-  70%  { background: #dcfce7; }
-  100% { background: transparent; }
-}
-.margin-flash td { animation: marginFlash 1.2s ease forwards; }
+/* ── Existing Load ── */
+.edition { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-600); margin-bottom: 16px; }
+.edition .box { border: 1px solid var(--gray-300); border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 6px; color: var(--gray-900); background: #fff; }
+.infobar { background: var(--blue-50); border: 1px solid var(--blue-100); border-radius: 8px; padding: 12px 16px; font-size: 14px; color: var(--gray-700); margin-bottom: 16px; }
+.infobar b { color: var(--blue-800); }
+.chooser { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.choice { background: #fff; border: 1px solid var(--gray-200); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); transition: border-color .2s, box-shadow .2s; }
+.choice.hover { border-color: var(--blue-400); box-shadow: 0 0 0 3px var(--blue-100); }
+.choice-t { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.choice-t small { font-size: 12px; font-weight: 400; color: var(--gray-500); }
+.pill-rec { font-size: 12px; font-weight: 500; color: var(--blue-700); background: var(--blue-100); border-radius: 999px; padding: 2px 8px; }
+.choice p { font-size: 14px; color: var(--gray-600); line-height: 1.5; }
+.seg { display: flex; border: 1px solid var(--gray-300); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+.seg > div { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; font-size: 14px; font-weight: 600; }
+.seg .on { background: var(--blue-600); color: #fff; }
+.seg .on small { color: #dbeafe; }
+.seg .off { background: #fff; color: var(--gray-600); }
+.seg small { font-size: 12px; font-weight: 400; color: var(--gray-400); }
+.num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--blue-600); color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+.num.ok { background: var(--green-600); }
+.drop { border: 2px dashed var(--gray-300); border-radius: 8px; padding: 24px; text-align: center; margin-top: 16px; transition: border-color .2s, background .2s; }
+.drop.over { border-color: var(--blue-500); background: var(--blue-50); }
+.drop .t { color: var(--blue-600); font-weight: 500; margin-top: 8px; }
+.drop .s { font-size: 14px; color: var(--gray-500); margin-top: 8px; }
+.prog2 { height: 6px; background: var(--gray-200); border-radius: 999px; overflow: hidden; margin: 12px auto 0; max-width: 360px; display: none; }
+.prog2 div { height: 100%; width: 0; background: var(--blue-600); }
+.filechip { position: absolute; z-index: 40; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-300); border-radius: 8px; padding: 10px 14px; font-size: 14px; font-weight: 500; color: var(--gray-700); box-shadow: 0 10px 25px rgba(0,0,0,.15); opacity: 0; pointer-events: none; }
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.stat { display: flex; align-items: flex-start; gap: 12px; }
+.stat .ib { padding: 12px; border-radius: 8px; background: var(--gray-100); color: var(--gray-600); display: flex; }
+.stat .ib.blue { background: var(--blue-100); color: var(--blue-700); }
+.stat .k { font-size: 14px; color: var(--gray-600); }
+.stat .v { font-size: 24px; font-weight: 700; }
+.stat .vs { font-size: 14px; font-weight: 500; margin-top: 2px; }
+.stat .sub { font-size: 12px; color: var(--gray-500); }
+.qdot { width: 40px; height: 40px; border-radius: 50%; background: var(--green-500); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chart-sec { margin-top: 20px; border-top: 1px solid var(--gray-100); padding-top: 16px; }
+.chart-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.chart-head h3 { font-size: 16px; font-weight: 600; }
+.chart-head span { font-size: 12px; color: var(--gray-500); }
+.checks { margin-top: 8px; display: flex; gap: 20px; font-size: 14px; color: var(--gray-700); }
+.checks b { color: var(--green-600); }
+.checks a { color: var(--blue-600); text-decoration: underline; }
+#yearline { transition: stroke-dashoffset 2.2s ease-in-out; }
+#yeararea { transition: opacity .8s ease .9s; }
+.peakmark { opacity: 0; transition: opacity .4s; }
+.peakmark.in { opacity: 1; }
+
+/* ── New Loads ── */
+.amber { margin: 16px 0; padding: 12px; background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 6px; font-size: 14px; color: var(--amber-900); }
+table { border-collapse: collapse; width: 100%; }
+.eq th { text-align: left; padding: 12px; font-size: 14px; font-weight: 600; color: var(--gray-700); background: var(--gray-50); border-bottom: 1px solid var(--gray-200); white-space: nowrap; }
+.eq td { padding: 12px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+.eq .ci { white-space: nowrap; min-height: 30px; padding: 4px 8px; border: 1px solid var(--gray-300); border-radius: 4px; font-size: 14px; display: flex; align-items: center; background: #fff; transition: box-shadow .2s, border-color .2s; }
+.eq .ci.ph { color: var(--gray-400); }
+.eq .ci.focus { border-color: transparent; box-shadow: 0 0 0 2px var(--blue-500); }
+.eq .ci .caret { display: none; width: 1.5px; height: 15px; background: var(--gray-900); margin-left: 1px; animation: blink .8s infinite; }
+.eq .ci.focus .caret { display: inline-block; }
+.eqrow { opacity: 0; transition: opacity .4s; }
+.eqrow.in { opacity: 1; }
+.cbx { width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--gray-300); background: #fff; display: flex; align-items: center; justify-content: center; color: #fff; transition: background .2s, border-color .2s; }
+.cbx.on { background: var(--blue-600); border-color: var(--blue-600); opacity: .75; }
+.reason { border-radius: 4px; padding: 6px; background: var(--gray-50); font-size: 12px; color: var(--gray-500); font-style: italic; line-height: 1.6; margin-top: 6px; opacity: 0; transition: opacity .4s; }
+.reason.in { opacity: 1; }
+.ovr { font-size: 12px; color: var(--blue-600); text-decoration: underline; margin-top: 6px; }
+.trash { color: var(--red-600); padding: 8px; }
+
+/* ── Results ── */
+.pass { padding: 24px; border-radius: 8px; border: 2px solid var(--green-500); background: var(--green-50); display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; opacity: 0; transform: scale(.97); transition: opacity .5s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.pass.in { opacity: 1; transform: none; }
+.pass h3 { font-size: 24px; font-weight: 700; color: var(--green-900); line-height: 1.2; }
+.pass p { font-size: 14px; color: var(--green-800); margin-top: 4px; }
+.sumbox { padding: 16px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); }
+.sumbox h4 { font-weight: 600; margin-bottom: 12px; font-size: 16px; }
+.kv { display: flex; justify-content: space-between; font-size: 14px; }
+.kv + .kv { margin-top: 8px; }
+.kv span:first-child { color: var(--gray-600); }
+.kv span:last-child { font-weight: 500; }
+.calc { font-size: 14px; }
+.calc td { padding: 8px 0; border-top: 1px solid var(--gray-200); }
+.calc tr:first-child td { border-top: 0; }
+.calc td:first-child { color: var(--gray-600); }
+.calc td:last-child { text-align: right; font-weight: 500; }
+.calc tr.adj td { background: var(--blue-50); font-weight: 600; color: var(--gray-900); }
+.calc tr.cap td { background: var(--gray-50); font-weight: 600; color: var(--gray-900); }
+.calc tr.mar td { font-weight: 700; color: var(--gray-900); transition: background .5s; }
+.calc tr.mar td:last-child { color: var(--green-700); }
+.calc tr.mar.in td { background: var(--green-100); }
+.calc tr td:first-child { padding-left: 4px; }
+.calc tr td:last-child { padding-right: 4px; }
+.det th { padding: 8px; font-weight: 600; color: var(--gray-700); background: var(--gray-50); border-bottom: 1px solid var(--gray-200); font-size: 14px; }
+.det td { padding: 8px; font-size: 14px; border-top: 1px solid var(--gray-100); }
+.yes { display: inline-block; padding: 4px 8px; background: var(--blue-100); color: var(--blue-800); border-radius: 4px; font-size: 12px; font-weight: 500; }
+
+/* ── Report modal ── */
+#report { position: absolute; inset: 0; z-index: 60; background: #fff; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .4s; }
+#report.open { opacity: 1; }
+.rbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--gray-900); border-bottom: 1px solid var(--gray-700); color: #fff; font-size: 18px; font-weight: 600; }
+.rbar .x { color: var(--gray-400); padding: 8px; }
+.rbody { flex: 1; overflow: hidden; position: relative; }
+.rdoc { max-width: 816px; margin: 0 auto; padding: 20px; font-family: "Times New Roman", Times, serif; line-height: 1.6; color: #000; transition: transform 6s cubic-bezier(.45,0,.55,1); }
+.rdoc h1 { font-size: 24px; text-align: center; text-transform: uppercase; margin: 16px 0 12px; }
+.rdoc h2 { font-size: 18.5px; border-bottom: 2px solid #000; margin: 24px 0 10px; padding-bottom: 2px; }
+.rdoc h3 { font-size: 16px; margin: 16px 0 8px; }
+.rdoc .ident { text-align: center; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 16px; }
+.rdoc .ident b { font-size: 16px; }
+.rdoc .ident div + div { color: #374151; font-size: 14.5px; }
+.rdoc .rbox { border: 3px solid #22c55e; background: #f0fdf4; text-align: center; padding: 20px; }
+.rdoc .rbox h2 { color: #166534; border: 0; margin: 0 0 6px; font-size: 18.5px; }
+.rdoc .rbox p { font-size: 14.5px; }
+.rdoc table td, .rdoc table th { border: 1px solid #000; padding: 8px; font-size: 15px; }
+.rdoc table th { background: #f0f0f0; text-align: left; }
+.rdoc td.l { font-weight: 700; width: 60%; }
+.rdoc td.r { text-align: right; }
+.rdoc tr.hi td { background: #eff6ff; }
+.rdoc tr.tot td { background: #f3f4f6; }
+.rdoc tr.mg td { background: #dcfce7; font-weight: 700; }
+.rdoc .note { font-size: 13.5px; color: #374151; margin-top: 8px; }
+.rdoc .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 15px; }
+.rdoc .cols h3 { margin-top: 0; }
+.ractions { display: flex; align-items: center; gap: 12px; padding: 16px 24px; background: var(--gray-900); border-top: 1px solid var(--gray-700); }
+.ractions span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #fff; background: #4b5563; transition: transform .12s, filter .12s; }
+.ractions span.pri { background: var(--blue-600); }
+
+/* ── Guide card (the app's own demo card) ── */
+#guide { position: absolute; right: 24px; bottom: 24px; width: 330px; z-index: 80; background: #fff; border-radius: 10px; box-shadow: 0 20px 25px -5px rgba(0,0,0,.12), 0 8px 10px -6px rgba(0,0,0,.1); border: 1px solid var(--gray-200); overflow: hidden; transition: opacity .3s, transform .3s; }
+#guide.swap { opacity: 0; transform: translateY(6px); }
+#guide.left { right: auto; left: 24px; }
+#guide .gbar { height: 3px; background: var(--gray-100); }
+#guide .gbar div { height: 100%; width: 0; background: var(--blue-600); }
+#guide .gin { padding: 14px 16px 16px; }
+#guide .gs { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--blue-600); }
+#guide .gt { font-size: 16px; font-weight: 700; margin-top: 4px; }
+#guide .gb { font-size: 13.5px; color: var(--gray-700); line-height: 1.5; margin-top: 4px; }
+
+/* ── Cursor ── */
+#cursor { position: absolute; left: 0; top: 0; z-index: 90; width: 22px; height: 22px; pointer-events: none; opacity: 0; transition: opacity .25s; }
+#cursor svg { width: 22px; height: 22px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.35)); transition: transform .12s; }
+#cursor.down svg { transform: scale(.82); }
+.ripple { position: absolute; z-index: 89; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 2px solid var(--blue-500); pointer-events: none; animation: rip .5s ease-out forwards; }
+@keyframes rip { from { transform: scale(.3); opacity: .9; } to { transform: scale(1.3); opacity: 0; } }
 </style>
 </head>
 <body>
 
-<!-- animated cursor (fixed overlay) -->
-<div class="ani-cursor" id="ani-cursor">
-  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 2L17 10L10 12L7 18L3 2Z" fill="white" stroke="#1a4fa0" stroke-width="1.4" stroke-linejoin="round"/>
-  </svg>
-</div>
-
-<div class="app-wrap" id="app-wrap">
-  <div class="app-header" id="app-header">
-    <div class="logo-lockup">
-      <svg width="54" height="54" viewBox="0 0 54 54" fill="none">
-        <rect width="54" height="54" rx="12" fill="#1a4fa0"/>
-        <path d="M 9 40 C 14 38, 18 28, 27 13" stroke="white" stroke-width="3.2" stroke-linecap="round" fill="none"/>
-        <line x1="27" y1="13" x2="44" y2="40" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
-        <circle cx="27" cy="13" r="5" fill="#f5c518"/>
-      </svg>
-      <div class="logo-right">
-        <div class="logo-pill"><span class="logo-pill-text">TrueLoad</span></div>
-        <span class="logo-tagline">Real Data. Real Fast. Capacity Confirmed.</span>
-      </div>
+<div id="stage">
+<div id="app">
+  <div class="header"><div class="header-in">
+    <img src="/trueload_logo.svg" alt="TrueLoad">
+    <div class="h-actions">
+      <span class="h-name" id="hname">Sample job — 45 Elm Street</span>
+      <span class="btn-projects"><i data-ic="folder" data-s="20"></i>Projects</span>
+      <span class="btn-save"><i data-ic="save" data-s="16"></i><span id="saved">Saved 9:41 AM</span></span>
+      <span class="btn-gear"><i data-ic="gear" data-s="20"></i></span>
     </div>
-    <div class="header-center">
-      <div class="project-name" id="header-project-name">Smith – 45 Elm Street</div>
-      <div class="autosave-label">Auto-saved at 1:33:15 PM</div>
-    </div>
-    <div class="header-actions">
-      <span class="btn btn-green" id="new-btn">+ New</span>
-      <span class="btn btn-blue">Projects</span>
-      <span class="btn btn-outline">Save</span>
-      <span class="btn-icon">⚙</span>
-    </div>
-  </div>
+  </div></div>
 
-  <div class="tab-bar">
-    <div class="tab" id="tab-0">Project Info</div>
-    <div class="tab" id="tab-1">Service Info</div>
-    <div class="tab" id="tab-2">AMI Data</div>
-    <div class="tab dimmed" id="tab-3">Equipment</div>
-    <div class="tab dimmed" id="tab-4">Results</div>
-    <div class="tab dimmed" id="tab-5">Report</div>
-  </div>
+  <div class="tabbar"><div class="tabbar-in">
+    <div class="tab active" id="t-project"><i data-ic="file" data-s="20"></i>Project Info<span class="sdot" id="d-project"></span></div>
+    <div class="tab" id="t-service"><i data-ic="zap" data-s="20"></i>Service Info<span class="sdot blue" id="d-service"></span></div>
+    <div class="tab" id="t-ami"><i data-ic="db" data-s="20"></i>Existing Load<span class="sdot" id="d-ami"></span></div>
+    <div class="tab" id="t-equip"><i data-ic="clip" data-s="20"></i>New Loads<span class="sdot green" id="d-equip"></span></div>
+    <div class="tab disabled" id="t-results"><i data-ic="bar" data-s="20"></i>Results</div>
+    <div class="tab"><i data-ic="help" data-s="20"></i>Help</div>
+  </div></div>
 
-  <div class="app-body" id="app-body">
+  <div class="progress"><div class="progress-in">
+    <span class="p-count" id="pcount">2 of 10 required fields</span>
+    <div class="p-track"><div class="p-fill" id="pfill" style="width:20%"></div></div>
+    <span class="p-next" id="pnext">Next: Customer name</span>
+  </div></div>
 
-    <!-- SCENE 0: Project Info -->
-    <div class="scene" id="scene-0">
-      <!-- modal overlay for New Project -->
-      <div class="modal-overlay" id="new-project-modal">
-        <div class="modal-box">
-          <div class="modal-title">New Project</div>
-          <div class="modal-label">Project Name</div>
-          <div class="modal-input" id="modal-proj-input"><span class="typing-cursor"></span></div>
-          <div class="modal-actions">
-            <span class="modal-btn-cancel">Cancel</span>
-            <span class="modal-btn-create" id="modal-create-btn">Create Project</span>
-          </div>
+  <div id="viewport"><div id="page">
+
+    <!-- PROJECT INFO -->
+    <div class="scene stack" id="sc-project">
+      <div class="card">
+        <div class="h2" style="margin-bottom:16px">Customer Information <i class="qm" data-ic="help" data-s="14"></i></div>
+        <div class="fld"><span class="lbl">Customer Name <span class="req">*</span></span><div class="inp" id="f-name"><span class="tx"></span><span class="caret"></span></div></div>
+        <div class="fld"><span class="lbl">Address <span class="req">*</span></span><div class="inp" id="f-addr"><span class="tx"></span><span class="caret"></span></div></div>
+        <div class="g2">
+          <div><span class="lbl">City/Town</span><div class="inp" id="f-city"><span class="tx"></span><span class="caret"></span></div></div>
+          <div><span class="lbl">State</span><div class="inp ph" id="f-state"><span class="tx">Two-letter code</span><span class="caret"></span></div></div>
+        </div>
+        <div class="g2">
+          <div><span class="lbl">ZIP Code <span class="req">*</span></span><div class="inp" id="f-zip"><span class="tx"></span><span class="caret"></span></div></div>
+          <div><span class="lbl">Email</span><div class="inp" id="f-email"><span class="tx"></span><span class="caret"></span></div></div>
+        </div>
+        <div class="g2">
+          <div><span class="lbl">Phone</span><div class="inp ph"><span class="tx">(xxx) xxx-xxxx</span></div></div>
+          <div></div>
         </div>
       </div>
-
-      <div id="scene0-inner" class="zoom-pan">
-        <div class="form-card" id="customer-card">
-          <div class="form-card-title">Customer Information</div>
-          <div class="field-label">Customer Name</div>
-          <div class="field-input" id="f-name"><span class="typing-cursor"></span></div>
-          <div class="field-label">Address</div>
-          <div class="field-input">45 Elm Street</div>
-          <div class="grid2">
-            <div><div class="field-label">City/Town</div><div class="field-input">Burlington</div></div>
-            <div><div class="field-label">State</div><div class="field-input">VT</div></div>
-          </div>
-          <div class="grid2">
-            <div><div class="field-label">ZIP Code</div><div class="field-input">05401</div></div>
-            <div><div class="field-label">Email</div><div class="field-input">s.smith@email.com</div></div>
-          </div>
+      <div class="card" id="prep-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div class="h2">Preparer Information</div>
+          <div style="display:flex;gap:8px;align-items:center"><span class="btn-sm">Edit</span><span class="btn-soft"><i data-ic="gear" data-s="16"></i>Edit Profile Settings</span><i class="qm" data-ic="help" data-s="14"></i></div>
         </div>
-        <div class="form-card" id="preparer-card">
-          <div class="form-card-title">Preparer Information <span class="load-link">↻ Load My Details</span></div>
-          <div class="grid2">
-            <div><div class="field-label">Prepared By</div><div class="field-input" id="f-preparer"><span class="typing-cursor"></span></div></div>
-            <div><div class="field-label">License Number</div><div class="field-input" id="f-license"><span class="typing-cursor"></span></div></div>
-          </div>
+        <div class="fade" id="prep-sum" style="font-size:14px;line-height:1.6">
+          <div style="font-weight:500">Les Watts, Licensed Electrician · Lic. EL-00492 · les@sampleelectric.com</div>
+          <div style="color:var(--gray-600)">Sample Electric Co. · 12 Church St · Burlington, VT · 05401</div>
+          <div style="color:var(--gray-600)">Report date Sep 24, 2026</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="h2" style="margin-bottom:16px">Authority Having Jurisdiction</div>
+        <div class="g2">
+          <div><span class="lbl">AHJ Jurisdiction <i class="qm" data-ic="help" data-s="14"></i></span><div class="inp" id="f-ahj"><span class="tx"></span><span class="caret"></span></div></div>
+          <div><span class="lbl">Permit/Application Number <i class="qm" data-ic="help" data-s="14"></i></span><div class="inp"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- SCENE 1: Service Info -->
-    <div class="scene" id="scene-1">
-      <div class="form-card">
-        <div class="form-card-title">Service Info</div>
-        <div class="svc-grid">
-          <div class="svc-tile"><div class="svc-tile-lbl">Service Rating</div><div class="svc-tile-val" id="svc-rating">—</div></div>
-          <div class="svc-tile"><div class="svc-tile-lbl">Voltage</div><div class="svc-tile-val" id="svc-voltage">—</div></div>
-          <div class="svc-tile"><div class="svc-tile-lbl">Panel Bus Rating</div><div class="svc-tile-val" id="svc-bus">—</div></div>
-          <div class="svc-tile"><div class="svc-tile-lbl">Service Type</div><div class="svc-tile-val" id="svc-type" style="font-size:17px;margin-top:4px;">—</div></div>
-        </div>
-        <div class="field-label">Service Voltage Description</div>
-        <div class="field-input">120/240V single-phase</div>
+    <!-- SERVICE INFO -->
+    <div class="scene stack" id="sc-service">
+      <div class="card">
+        <div class="h2" style="margin-bottom:16px">Existing Electrical Service</div>
+        <div class="fld"><span class="lbl">Service Configuration <span class="req">*</span> <i class="qm" data-ic="help" data-s="14"></i></span><div class="inp sel"><span>120/240V single-phase</span><i data-ic="chev" data-s="16" style="color:var(--gray-500)"></i></div><div class="help">Capacity calculated as 240V × amps.</div></div>
+        <div class="fld" style="max-width:540px"><span class="lbl">Service Rating (Main Breaker) <span class="req">*</span> <i class="qm" data-ic="help" data-s="14"></i></span><div class="inp ph" id="f-rating"><span class="tx">Amps</span><span class="caret"></span></div><div class="help">Example: 100, 150, 200, 400</div></div>
       </div>
-    </div>
-
-    <!-- SCENE 2: AMI Data -->
-    <div class="scene" id="scene-2">
-      <div class="form-card" style="position:relative;">
-        <div class="form-card-title">AMI Data Upload</div>
-        <div class="upload-zone" id="upload-zone">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin:0 auto 10px;display:block;" id="upload-icon">
-            <circle cx="18" cy="18" r="17" fill="#dbeafe"/>
-            <path d="M18 24V14M18 14L14 18M18 14L22 18" stroke="#1a4fa0" stroke-width="2" stroke-linecap="round"/>
-            <path d="M11 25v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="#1a4fa0" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          <div id="upload-lbl" style="font-size:14px;color:#1a4fa0;font-weight:500;">Drop CSV, Excel, or XML file here</div>
-          <div id="upload-sub" style="font-size:12px;color:#94a3b8;margin-top:4px;">or click to browse — any format accepted</div>
-          <div class="prog-wrap" id="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
-          <div id="prog-pct" style="font-size:12px;color:#1a4fa0;display:none;margin-top:4px;"></div>
-        </div>
-        <!-- animated drag file card -->
-        <div class="drag-file" id="drag-file">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="2" y="1" width="10" height="13" rx="2" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
-            <path d="M5 5h6M5 8h6M5 11h4" stroke="#1a4fa0" stroke-width="1" stroke-linecap="round"/>
-          </svg>
-          GMP_AMI_Data_2024.csv
-        </div>
-        <div class="ami-stats" id="ami-stats">
-          <div class="ami-stat"><div class="ami-val" id="ami-pts">—</div><div class="ami-lbl">Data Points</div></div>
-          <div class="ami-stat"><div class="ami-val" id="ami-peak">—</div><div class="ami-lbl">Peak Demand</div></div>
-          <div class="ami-stat"><div class="ami-val">12 mo</div><div class="ami-lbl">Data Period</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCENE 3: Equipment -->
-    <div class="scene" id="scene-3">
-      <div class="form-card" style="padding:16px 20px;">
-        <div class="form-card-title">Equipment</div>
-        <table class="equip-table">
-          <thead><tr><th>Equipment Name</th><th>Type</th><th>MCA</th><th>kVA</th><th>Concurrent</th></tr></thead>
-          <tbody id="equip-body"></tbody>
-        </table>
-        <!-- inline add form -->
-        <div class="inline-form-row" id="inline-form">
-          <input class="inline-field wide" id="equip-name-input" placeholder="Equipment name" readonly>
-          <input class="inline-field" id="equip-mca-input" placeholder="MCA" readonly style="min-width:52px;">
-          <input class="inline-field" id="equip-kva-input" placeholder="kVA" readonly style="min-width:52px;">
-          <span class="badge b-blue" style="font-size:11px;opacity:0;transition:opacity 0.3s;" id="equip-type-badge">Heat Pump</span>
-          <span class="badge b-green" style="font-size:11px;opacity:0;transition:opacity 0.3s;" id="equip-conc-badge">Yes</span>
-        </div>
-        <div style="margin-top:14px;">
-          <span class="btn btn-blue add-equip-btn" id="add-equip-btn" style="font-size:12px;padding:6px 14px;">+ Add Equipment</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCENE 4: Results -->
-    <div class="scene" id="scene-4">
-      <div class="result-banner" id="result-banner">
-        <div class="result-icon">✓</div>
-        <div>
-          <div class="result-label">PASS</div>
-          <div class="result-sub">Existing service has adequate capacity for the proposed new loads under NEC 220.87.</div>
-        </div>
-      </div>
-      <div class="calc-card">
-        <div class="calc-lbl">NEC 220.87 Load Calculation</div>
-        <table class="calc-table">
-          <tbody>
-            <tr><td>Existing Demand</td><td id="c1">—</td></tr>
-            <tr><td>125% of Existing Demand</td><td id="c2">—</td></tr>
-            <tr><td>New Concurrent Load</td><td id="c3">—</td></tr>
-            <tr class="calc-total"><td>Adjusted Demand</td><td id="c4">—</td></tr>
-            <tr><td>Service Capacity</td><td id="c5">—</td></tr>
-            <tr class="calc-margin" id="margin-row"><td>Available Margin</td><td id="c6">—</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- SCENE 5: Report -->
-    <div class="scene" id="scene-5">
-      <div class="report-card">
-        <div class="report-top">
-          <div>
-            <div style="color:#fff;font-weight:600;font-size:15px;">TrueLoad Measured Demand Report</div>
-            <div style="color:rgba(255,255,255,0.65);font-size:12px;margin-top:2px;">NEC 220.87 Service Adequacy Evaluation</div>
-          </div>
-          <div class="logo-pill" style="padding:4px 14px;"><span class="logo-pill-text" style="font-size:16px;">TrueLoad</span></div>
-        </div>
-
-        <!-- Section 1: Customer & Project Info -->
-        <div class="report-section" id="rs1" style="padding:14px 20px 10px;border-bottom:1px solid #e2e8f0;">
-          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;">Customer &amp; Project Info</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;">
-            <div style="color:#64748b;">Customer: <span style="color:#1e293b;font-weight:500;">Sarah Smith</span></div>
-            <div style="color:#64748b;">Address: <span style="color:#1e293b;font-weight:500;">45 Elm St, Burlington VT</span></div>
-            <div style="color:#64748b;">Preparer: <span style="color:#1e293b;font-weight:500;">J. Marin, Lic. Electrician</span></div>
-            <div style="color:#64748b;">Date: <span style="color:#1e293b;font-weight:500;">04/14/2026</span></div>
-          </div>
-        </div>
-
-        <!-- Section 2: Service Data Summary -->
-        <div class="report-section" id="rs2" style="padding:10px 20px;border-bottom:1px solid #e2e8f0;display:flex;gap:16px;align-items:center;">
-          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;min-width:100px;">Service Data</div>
-          <div style="display:flex;gap:16px;font-size:12px;">
-            <span style="color:#64748b;">Rating: <b style="color:#1e293b;">200A</b></span>
-            <span style="color:#64748b;">Voltage: <b style="color:#1e293b;">240V</b></span>
-            <span style="color:#64748b;">Capacity: <b style="color:#1e293b;">38.4 kVA</b></span>
-            <span style="color:#64748b;">Type: <b style="color:#1e293b;">Overhead</b></span>
-          </div>
-        </div>
-
-        <!-- Section 3: AMI chart preview -->
-        <div class="report-section" id="rs3" style="padding:10px 20px;border-bottom:1px solid #e2e8f0;display:flex;gap:16px;align-items:center;">
-          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;min-width:100px;">AMI Demand Data</div>
-          <div style="flex:1;">
-            <div class="mini-bar-chart" id="mini-chart">
-              <div class="mini-bar" style="height:55%"></div>
-              <div class="mini-bar" style="height:48%"></div>
-              <div class="mini-bar" style="height:62%"></div>
-              <div class="mini-bar" style="height:70%"></div>
-              <div class="mini-bar peak" style="height:100%"></div>
-              <div class="mini-bar" style="height:80%"></div>
-              <div class="mini-bar" style="height:68%"></div>
-              <div class="mini-bar" style="height:73%"></div>
-              <div class="mini-bar" style="height:58%"></div>
-              <div class="mini-bar" style="height:65%"></div>
-              <div class="mini-bar" style="height:52%"></div>
-              <div class="mini-bar" style="height:45%"></div>
+      <div class="card">
+        <div class="h2" style="margin-bottom:16px">Utility Provider</div>
+        <div class="fld"><span class="lbl">Utility Provider <span class="req">*</span> <i class="qm" data-ic="help" data-s="14"></i> <span style="font-size:12px;font-weight:400;color:var(--gray-500)">(serving this ZIP first — type to search anywhere)</span></span>
+          <div class="combo">
+            <div class="inp sel ph" id="f-util"><span style="display:flex;align-items:center;gap:8px"><i data-ic="search" data-s="16" style="color:var(--gray-400)"></i><span class="tx">Search or select a utility</span></span><i data-ic="chev" data-s="16" style="color:var(--gray-500)"></i></div>
+            <div class="menu" id="util-menu">
+              <div class="mh">Serves ZIP 05401</div>
+              <div class="mi" id="util-bed">Burlington Electric Department</div>
+              <div class="mi">Green Mountain Power</div>
+              <div class="mi">Other (not listed)</div>
             </div>
-            <div style="font-size:10px;color:#94a3b8;margin-top:4px;">35,040 data points · 12 months · Peak: 14.2 kW</div>
+          </div>
+        </div>
+        <div class="fld"><span class="lbl">Utility Account Number <span style="font-size:12px;font-weight:400;color:var(--gray-500)">(optional)</span></span><div class="inp ph">e.g. 123456789</div></div>
+      </div>
+    </div>
+
+    <!-- EXISTING LOAD -->
+    <div class="scene" id="sc-ami">
+      <div class="edition">Code edition <span class="box">NEC 2023 · default for VT <i data-ic="chev" data-s="14"></i></span><i class="qm" data-ic="help" data-s="14"></i></div>
+      <div class="infobar"><b>Burlington Electric Department</b> provides interval data by email request, usually 2–5 business days.</div>
+
+      <div id="ami-choose" class="chooser">
+        <div class="choice" id="choice-measured">
+          <div class="choice-t"><i data-ic="activity" data-s="18" style="color:var(--blue-600)"></i>Measured demand <small>NEC 220.87</small><span class="pill-rec">Recommended</span></div>
+          <p>Uses the home's own utility data — the strongest number available, on average about 40% lower than a traditional calculation. Needs 12 months of interval data (or the 30-day exception).</p>
+        </div>
+        <div class="choice">
+          <div class="choice-t"><i data-ic="home" data-s="18" style="color:var(--blue-600)"></i>Traditional calculation <small>NEC 220.83</small></div>
+          <p>The code's calculation method, built from the home's appliances and floor area. No utility data, no waiting — works for every home, done in minutes.</p>
+        </div>
+      </div>
+
+      <div id="ami-measured" style="display:none">
+        <div class="seg">
+          <div class="on"><i data-ic="activity" data-s="16"></i>Measured demand <small id="seg-sub">Utility interval data</small></div>
+          <div class="off"><i data-ic="home" data-s="16"></i>Traditional calculation <small>Dwelling profile</small></div>
+        </div>
+        <div id="ami-before" class="stack">
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:10px"><span class="num">1</span><div class="h2">Get the interval data</div><span class="btn-blue" style="margin-left:auto"><i data-ic="send" data-s="15"></i>Get data</span></div>
+            <p style="font-size:14px;color:var(--gray-600);margin-top:12px">Nothing sent yet. Get data shows how Burlington Electric Department shares interval data and sends your customer the link.</p>
+          </div>
+          <div class="card" style="position:relative">
+            <div style="display:flex;align-items:center;gap:10px"><span class="num">2</span><div class="h2">Upload AMI Data</div></div>
+            <div class="drop" id="drop">
+              <i data-ic="upload" data-s="40" style="color:var(--gray-400)"></i>
+              <div class="t" id="drop-t">Choose one or more files</div>
+              <div class="s" id="drop-s">or drag and drop files here — select multiple for automatic merging</div>
+              <div class="prog2" id="prog2"><div></div></div>
+            </div>
+            <div style="font-size:12px;color:var(--blue-600);margin-top:12px">Accepted file formats</div>
+            <div style="font-size:14px;color:var(--gray-500);margin-top:8px;display:flex;align-items:center;gap:4px"><i data-ic="chev" data-s="14"></i>Advanced Options</div>
+            <div style="font-size:14px;color:var(--blue-600);margin-top:8px">No data file available? Enter demand manually.</div>
           </div>
         </div>
 
-        <!-- Section 4: NEC 220.87 Calc table -->
-        <div class="report-section" id="rs4" style="padding:10px 20px;border-bottom:1px solid #e2e8f0;">
-          <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;">NEC 220.87 Calculation</div>
-          <table style="width:100%;font-size:11px;border-collapse:collapse;">
-            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px 0;color:#64748b;">Existing Demand</td><td style="text-align:right;font-weight:500;">11.8 kVA</td></tr>
-            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px 0;color:#64748b;">125% Existing Demand</td><td style="text-align:right;font-weight:500;">14.8 kVA</td></tr>
-            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px 0;color:#64748b;">New Concurrent Load</td><td style="text-align:right;font-weight:500;">6.0 kVA</td></tr>
-            <tr style="border-bottom:2px solid #e2e8f0;font-weight:600;"><td style="padding:4px 0;">Adjusted Demand</td><td style="text-align:right;">20.8 kVA</td></tr>
-            <tr><td style="padding:4px 0;color:#64748b;">Service Capacity</td><td style="text-align:right;font-weight:500;">38.4 kVA</td></tr>
-            <tr><td style="padding:4px 0;color:#15803d;font-weight:600;">Available Margin</td><td style="text-align:right;color:#15803d;font-weight:700;">+17.6 kVA</td></tr>
+        <div id="ami-after" class="card" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+            <div class="h2" style="gap:10px"><span class="num ok"><i data-ic="check" data-s="18"></i></span>Interval data loaded</div>
+            <div style="display:flex;gap:12px"><span class="btn-blue">Continue to Results <i data-ic="arrow" data-s="16"></i></span><span class="btn-sm" style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px">Replace or delete <i data-ic="chev" data-s="16"></i></span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="ib blue"><i data-ic="activity" data-s="20"></i></span><div><div class="k">Peak demand</div><div class="v" id="st-peak">0.00 kW</div><div class="sub">Jan 15, 2026</div><div class="sub">6:30 PM · Winter</div></div></div>
+            <div class="stat"><span class="ib"><i data-ic="db" data-s="20"></i></span><div><div class="k">Data points</div><div class="v" id="st-pts">0</div></div></div>
+            <div class="stat"><span class="ib"><i data-ic="cal" data-s="20"></i></span><div><div class="k">Measurement period</div><div class="vs">Sep 24, 2025 - Sep 24, 2026</div></div></div>
+            <div class="stat"><span class="ib"><i data-ic="clock" data-s="20"></i></span><div><div class="k">Data interval</div><div class="vs">15 minutes</div></div></div>
+            <div class="stat"><span class="qdot"><i data-ic="check2" data-s="22"></i></span><div><div class="k">Data quality</div><div class="vs" style="color:var(--green-700)">Data Ready <span style="font-size:12px;color:var(--gray-400)">▾</span></div></div></div>
+          </div>
+          <div class="chart-sec">
+            <div class="chart-head"><h3>Daily peak demand</h3><span>Highest 15-minute reading each day · hover or use the arrow keys for any day</span></div>
+            <div id="yearchart"></div>
+            <div class="checks fade" id="checks"><span><b>✓</b> 365 days, all four seasons</span><span><b>✓</b> No gaps</span><a>All checks</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW LOADS -->
+    <div class="scene" id="sc-equip">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="h2">New Loads <i class="qm" data-ic="help" data-s="14"></i></div>
+          <span class="btn-blue" id="add-eq" style="padding:10px 16px;font-size:16px;font-weight:400"><i data-ic="plus" data-s="20"></i>Add Equipment</span>
+        </div>
+        <div class="amber">Peak demand was in <b>Winter</b>. Concurrency is set automatically per row; use Override where this installation differs.</div>
+        <table class="eq">
+          <thead><tr><th>Equipment Name</th><th>Type <span class="req">*</span></th><th>Source <span class="req">*</span></th><th>Qty</th><th>Amps <span class="req">*</span></th><th>kW <span class="req">*</span></th><th>Voltage</th><th>Concurrent?</th><th></th></tr></thead>
+          <tbody id="eq-body"></tbody>
+        </table>
+        <div id="eq-empty" style="text-align:center;padding:48px 0;color:var(--gray-500)">No equipment added yet.<div style="font-size:14px;margin-top:8px">Click "Add Equipment" to start building your equipment schedule.</div></div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="scene" id="sc-results">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <div class="h2">Service Adequacy Evaluation Results</div>
+          <div style="display:flex;gap:8px;align-items:center"><span class="btn-blue" id="gen-report" style="font-size:16px;font-weight:400"><i data-ic="file" data-s="20"></i>Generate Report</span><span class="btn-green" style="font-size:16px;font-weight:400"><i data-ic="checksq" data-s="20"></i>Mark Complete</span><i class="qm" data-ic="help" data-s="14"></i></div>
+        </div>
+        <div class="pass" id="pass">
+          <i data-ic="check" data-s="32" style="color:var(--green-600)"></i>
+          <div><h3>Service Adequacy: PASS</h3><p>The existing service has adequate capacity for the proposed new loads under NEC 220.87.</p></div>
+        </div>
+        <div class="g2 fade" id="sumboxes" style="gap:24px;margin-bottom:24px">
+          <div class="sumbox"><h4>Existing Demand</h4>
+            <div class="kv"><span>Max Recorded Demand:</span><span>10.05 kW</span></div>
+            <div class="kv"><span>Max Demand (kVA):</span><span>10.05 kVA</span></div>
+            <div class="kv"><span>Peak Season:</span><span>Winter</span></div>
+            <div class="kv"><span>Peak Time:</span><span>1/15/2026, 6:30:00 PM</span></div>
+          </div>
+          <div class="sumbox"><h4>Service Capacity</h4>
+            <div class="kv"><span>Service Rating:</span><span>200 A @ 240V</span></div>
+            <div class="kv"><span>Service Capacity:</span><span>48.00 kVA</span></div>
+            <div class="kv"><span>Utilization: <i class="qm" data-ic="help" data-s="12"></i></span><span>45.7%</span></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--gray-200);padding-top:24px">
+          <h4 style="font-weight:600;margin-bottom:16px">NEC 220.87 Load Calculation Summary</h4>
+          <table class="calc"><tbody>
+            <tr><td>Existing Demand <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">10.05 kVA</td></tr>
+            <tr><td>125% of Existing Demand (NEC 220.87) <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">12.57 kVA</td></tr>
+            <tr><td>New Concurrent Load (Added) <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">9.36 kVA</td></tr>
+            <tr class="adj"><td>Adjusted Demand <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">21.93 kVA · 91.4 A</td></tr>
+            <tr class="cap"><td>Service Capacity <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">48.00 kVA</td></tr>
+            <tr class="mar" id="mar"><td>Available Margin <i class="qm" data-ic="help" data-s="12"></i></td><td class="cv">26.07 kVA · 108.6 A</td></tr>
+          </tbody></table>
+        </div>
+        <div style="margin-top:24px;border-top:1px solid var(--gray-200);padding-top:24px">
+          <h4 style="font-weight:600;margin-bottom:12px">Equipment Detail</h4>
+          <table class="det">
+            <thead><tr><th style="text-align:left">Equipment</th><th style="text-align:right">kVA</th><th style="text-align:center">Concurrent</th></tr></thead>
+            <tbody>
+              <tr><td>Heat Pump — Main Floor</td><td style="text-align:right">5.76</td><td style="text-align:center"><span class="yes">Yes</span></td></tr>
+              <tr><td>Heat Pump Water Heater</td><td style="text-align:right">3.60</td><td style="text-align:center"><span class="yes">Yes</span></td></tr>
+              <tr style="background:var(--gray-50);font-weight:600"><td>Total All New Equipment</td><td style="text-align:right">9.36</td><td></td></tr>
+              <tr style="background:var(--blue-50);font-weight:600"><td>Total Concurrent New Equipment</td><td style="text-align:right">9.36</td><td></td></tr>
+            </tbody>
           </table>
         </div>
-
-        <!-- Section 5: Final determination + preparer -->
-        <div class="report-section" id="rs5" style="padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:30px;height:30px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#16a34a;font-size:16px;">✓</div>
-            <div>
-              <div style="font-weight:700;color:#15803d;font-size:13px;">PASS — Service Adequate</div>
-              <div style="font-size:11px;color:#64748b;">Available margin: +17.6 kVA · Ready for AHJ submission</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:11px;color:#374151;font-weight:600;">J. Marin</div>
-            <div style="font-size:10px;color:#94a3b8;">Lic. Electrician · EL-00492</div>
-            <span class="btn btn-blue" id="print-btn" style="font-size:11px;padding:5px 14px;margin-top:6px;display:inline-flex;">Print Report</span>
-          </div>
-        </div>
-      </div>
-      <div style="margin-top:10px;background:#fef9c3;border:1px solid #fde68a;border-radius:8px;padding:8px 14px;font-size:11px;color:#78350f;line-height:1.5;">
-        Complete PDF report — ready to submit to the AHJ. This evaluation covers service capacity under NEC 220.87 only. Final approval remains with the Authority Having Jurisdiction.
+        <div style="margin-top:24px;padding:16px;background:var(--gray-50);border:1px solid var(--gray-300);border-radius:6px;font-size:14px;color:var(--gray-700)"><b>Important:</b> This evaluation addresses service capacity only under NEC 220.87 and does not waive any other Code requirements including conductor sizing, overcurrent protection, branch circuits, or other applicable standards. Final approval remains subject to the Authority Having Jurisdiction.</div>
       </div>
     </div>
 
+  </div></div>
+
+  <!-- REPORT MODAL -->
+  <div id="report">
+    <div class="rbar">Load Analysis Report <span class="x"><i data-ic="x" data-s="20"></i></span></div>
+    <div class="rbody"><div class="rdoc" id="rdoc">
+      <h1>NEC 220.87 Service Adequacy Evaluation Report</h1>
+      <div class="ident"><div><b>45 Elm Street, Burlington, VT, 05401</b></div><div>Dave Smith · 9/24/2026</div></div>
+      <div class="rbox"><h2>SERVICE ADEQUACY DETERMINATION: PASS</h2><p>The existing service has adequate capacity for the proposed new loads under NEC 220.87.</p></div>
+      <h2>NEC 220.87 Load Calculation Summary</h2>
+      <table>
+        <tr><td class="l">Existing Maximum Demand (from AMI data)</td><td class="r">10.05 kVA</td></tr>
+        <tr><td class="l">125% of Existing Demand (per NEC 220.87)</td><td class="r">12.57 kVA</td></tr>
+        <tr><td class="l">New Concurrent Load (Added Equipment)</td><td class="r">9.36 kVA</td></tr>
+        <tr class="hi"><td class="l">Adjusted Demand (125% Existing + New Concurrent)</td><td class="r">21.93 kVA</td></tr>
+        <tr class="tot"><td class="l">Service Capacity (200A @ 120/240V single-phase)</td><td class="r">48.00 kVA</td></tr>
+        <tr class="mg"><td class="l">Available Margin</td><td class="r">26.07 kVA</td></tr>
+        <tr><td class="l">Service Utilization</td><td class="r">45.7%</td></tr>
+      </table>
+      <p class="note">Basis: Burlington Electric Department AMI interval data, Sep 24, 2025 - Sep 24, 2026, 15-minute intervals. Measured peak demand 10.05 kW on Jan 15, 2026, 6:30 PM (Winter). Supporting detail follows.</p>
+      <h2>Existing Service and Measured Demand</h2>
+      <div class="cols">
+        <div><h3>Existing Service</h3><div><b>Voltage:</b> 120/240V single-phase</div><div><b>Rating:</b> 200 Amperes</div><div><b>Capacity:</b> 48.00 kVA</div></div>
+        <div><h3>AMI Measurement</h3><div><b>Provider:</b> Burlington Electric Department</div><div><b>Interval:</b> 15 minutes</div><div><b>Peak Demand:</b> 10.05 kW (10.05 kVA)</div><div><b>Peak Time:</b> Jan 15, 2026, 6:30 PM (Winter)</div></div>
+      </div>
+      <h3>Daily Peak Demand</h3>
+      <div id="reportchart"></div>
+      <p class="note" style="font-style:italic">Figure 1. Highest 15-minute demand recorded each day (35,040 readings). Maximum demand 10.05 kW on Thursday, January 15, 2026 at 6:30 PM (Winter). No gaps in the record.</p>
+      <h2>Equipment Schedule - Proposed New Loads</h2>
+      <table>
+        <tr><th>Equipment Name</th><th>Type</th><th>Source</th><th>Qty</th><th>Voltage</th><th>Amps</th><th>kVA</th><th>Concurrent</th></tr>
+        <tr><td>Heat Pump — Main Floor</td><td>Heat Pump</td><td>Nameplate</td><td>1</td><td>240V</td><td>24</td><td>5.76</td><td>Yes</td></tr>
+        <tr><td>Heat Pump Water Heater</td><td>Water Heater</td><td>Nameplate</td><td>1</td><td>240V</td><td>15</td><td>3.60</td><td>Yes</td></tr>
+      </table>
+    </div></div>
+    <div class="ractions"><span class="pri" id="print-btn"><i data-ic="printer" data-s="16"></i>Print</span><span><i data-ic="mail" data-s="16"></i>Download &amp; Email</span></div>
   </div>
 
-  <div class="step-dots" id="dots"></div>
+  <div id="guide"><div class="gbar"><div id="gbar"></div></div><div class="gin"><div class="gs" id="gs"></div><div class="gt" id="gt"></div><div class="gb" id="gb"></div></div></div>
+
+  <div id="cursor"><svg viewBox="0 0 22 22"><path d="M4 2.5 L4 18 L8.2 14.2 L11 20.2 L13.6 19 L10.9 13.2 L16.6 13 Z" fill="#111827" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+  <div class="filechip" id="filechip"><i data-ic="file" data-s="18" style="color:var(--blue-600)"></i>BED_interval_data_45Elm.csv</div>
+</div>
 </div>
 
 <script>
-const N = 6;
-const DURATIONS = [9500, 4500, 6500, 7000, 6500, 6500];
-const DOT_LABELS = ['Project', 'Service', 'AMI Data', 'Equipment', 'Results', 'Report'];
-let cur = 0, timer = null;
-let sceneTimers = [];
-
-function clearSceneTimers() {
-  sceneTimers.forEach(t => clearTimeout(t));
-  sceneTimers = [];
+/* ── Icons (lucide paths) ─────────────────────────────────────────────── */
+const ICONS = {
+  file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  db: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+  clip: '<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+  bar: '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+  help: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+  folder: '<path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/>',
+  save: '<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/>',
+  gear: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  chev: '<path d="m6 9 6 6 6-6"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+  send: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+  upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+  check: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
+  check2: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  cal: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  arrow: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/>',
+  checksq: '<path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+  printer: '<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
+  mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  tick: '<path d="M20 6 9 17l-5-5"/>',
+};
+function icon(name, size, extra) {
+  return `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24"${extra || ''}>${ICONS[name]}</svg>`;
 }
-function st(fn, ms) { sceneTimers.push(setTimeout(fn, ms)); }
-function si(fn, ms) { const id = setInterval(fn, ms); sceneTimers.push(id); return id; }
+function hydrateIcons(root) {
+  root.querySelectorAll('i[data-ic]').forEach(i => {
+    const wrap = document.createElement('span');
+    wrap.innerHTML = icon(i.dataset.ic, +i.dataset.s || 16);
+    const svg = wrap.firstChild;
+    if (i.getAttribute('style')) svg.setAttribute('style', i.getAttribute('style'));
+    if (i.className) svg.classList.add(...i.className.split(' ').filter(Boolean));
+    i.replaceWith(svg);
+  });
+}
 
-function dots() {
-  const c = document.getElementById('dots');
-  c.innerHTML = '';
-  for (let i = 0; i < N; i++) {
-    const w = document.createElement('div');
-    w.className = 'dot-wrap';
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === cur ? ' active' : i < cur ? ' done' : '');
-    const l = document.createElement('div');
-    l.className = 'dot-label' + (i === cur ? ' active' : i < cur ? ' done' : '');
-    l.textContent = DOT_LABELS[i];
-    w.appendChild(d); w.appendChild(l);
-    c.appendChild(w);
+/* ── Sample year: one reading per day, the daily peak ─────────────────── */
+// Deterministic, so the chart is the same on every loop. Shaped like the
+// app's sample house: electric heat, a winter-evening peak of 10.05 kW on
+// Jan 15, a mild summer.
+const START = new Date(2025, 8, 24);
+const DAYS = 365;
+const PEAK_IDX = 113; // Jan 15, 2026
+function rng(seed) { let a = seed; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const DAILY = (() => {
+  const r = rng(0x7c0ad), out = [];
+  for (let d = 0; d < DAYS; d++) {
+    const dt = new Date(START); dt.setDate(dt.getDate() + d);
+    const phase = (dt.getMonth() + dt.getDate() / 31) / 12;
+    const winter = (Math.cos(2 * Math.PI * phase) + 1) / 2;
+    const summer = Math.exp(-Math.pow((phase - 0.58) / 0.07, 2));
+    let v = 2.7 + 4.9 * Math.pow(winter, 1.5) + 1.4 * summer + (r() * 1.5 - 0.5);
+    if (Math.abs(d - PEAK_IDX) <= 3) v += 1.1 - Math.abs(d - PEAK_IDX) * 0.25;
+    out.push(Math.min(v, 9.3));
   }
-}
+  out[PEAK_IDX] = 10.05;
+  return out;
+})();
 
-function tabs(idx) {
-  for (let i = 0; i < N; i++) {
-    const el = document.getElementById('tab-' + i);
-    if (!el) return;
-    el.classList.remove('active', 'near', 'dimmed');
-    if (i === idx) el.classList.add('active');
-    else if (Math.abs(i - idx) === 1) el.classList.add('near');
-    else if (i > idx) el.classList.add('dimmed');
+function buildChart(el, width, height, ink) {
+  const P = ink
+    ? { line: '#111', area: 'rgba(0,0,0,0.06)', grid: '#cfcfcf', base: '#999', text: '#333', strong: '#000', marker: '#000', band: 'rgba(0,0,0,0.04)' }
+    : { line: '#2563eb', area: 'rgba(37,99,235,0.10)', grid: '#e5e7eb', base: '#d1d5db', text: '#6b7280', strong: '#111827', marker: '#1d4ed8', band: 'rgba(17,24,39,0.035)' };
+  const m = { l: 48, r: 16, t: 30, b: 28 };
+  const pw = width - m.l - m.r, ph = height - m.t - m.b, top = 12;
+  const x = d => m.l + (d / (DAYS - 1)) * pw;
+  const y = v => m.t + ph - (v / top) * ph;
+  const dayOf = (yy, mm, dd) => Math.round((new Date(yy, mm, dd) - START) / 864e5);
+  let s = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="display:block;font-family:inherit">`;
+  // Winter band + season labels
+  const seasons = [['FALL', 0, dayOf(2025, 11, 1)], ['WINTER', dayOf(2025, 11, 1), dayOf(2026, 2, 1)], ['SPRING', dayOf(2026, 2, 1), dayOf(2026, 5, 1)], ['SUMMER', dayOf(2026, 5, 1), dayOf(2026, 8, 1)], ['FALL', dayOf(2026, 8, 1), DAYS - 1]];
+  seasons.forEach(([name, a, b]) => {
+    if (name === 'WINTER') s += `<rect x="${x(a)}" y="${m.t}" width="${x(b) - x(a)}" height="${ph}" fill="${P.band}"/>`;
+    s += `<text x="${(x(a) + x(b)) / 2}" y="${m.t - 8}" text-anchor="middle" font-size="11" letter-spacing=".04em" fill="${P.text}">${name}</text>`;
+  });
+  for (let v = 2; v <= top; v += 2) {
+    s += `<line x1="${m.l}" x2="${width - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="${P.grid}" stroke-width="1"/>`;
+    s += `<text x="40" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="${P.text}">${v === top ? v + ' kW' : v}</text>`;
   }
+  s += `<line x1="${m.l}" x2="${width - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="${P.base}"/>`;
+  // Month ticks and labels
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  let first = true;
+  for (let k = 0; k < 13; k++) {
+    const mm = (8 + k) % 12, yy = 2025 + Math.floor((8 + k) / 12);
+    const a = Math.max(0, dayOf(yy, mm, 1)), b = Math.min(DAYS - 1, dayOf(yy, mm + 1, 1));
+    if (b <= a) continue;
+    if (dayOf(yy, mm, 1) > 0) s += `<line x1="${x(a)}" x2="${x(a)}" y1="${y(0)}" y2="${y(0) + 5}" stroke="${P.base}"/>`;
+    if (x(b) - x(a) < 40) continue;
+    const lab = MON[mm] + (first || mm === 0 ? ' ' + yy : '');
+    first = false;
+    s += `<text x="${(x(a) + x(b)) / 2}" y="${height - 8}" text-anchor="middle" font-size="11" fill="${P.text}">${lab}</text>`;
+  }
+  const pts = DAILY.map((v, d) => `${x(d).toFixed(1)},${y(v).toFixed(1)}`);
+  s += `<path id="${ink ? 'r' : ''}yeararea" d="M${x(0)},${y(0)} L${pts.join(' L')} L${x(DAYS - 1)},${y(0)} Z" fill="${P.area}"${ink ? '' : ' style="opacity:0"'}/>`;
+  s += `<path id="${ink ? 'r' : ''}yearline" d="M${pts.join(' L')}" fill="none" stroke="${P.line}" stroke-width="2" stroke-linejoin="round"/>`;
+  const px = x(PEAK_IDX), py = y(DAILY[PEAK_IDX]);
+  s += `<g class="peakmark${ink ? ' in' : ''}" id="${ink ? 'r' : ''}peakmark"><circle cx="${px}" cy="${py}" r="6" fill="${P.marker}" stroke="#fff" stroke-width="2"/>`;
+  s += `<text x="${px + 12}" y="${py + 4}" font-size="14" font-weight="700" fill="${P.strong}">10.05 kW</text>`;
+  s += `<text x="${px + 12}" y="${py + 19}" font-size="11" fill="${P.text}">Peak · Jan 15 · 6:30 PM · Winter</text></g>`;
+  el.innerHTML = s + '</svg>';
 }
 
-function go(next) {
-  clearSceneTimers();
-  const prev = cur;
-  cur = next % N;
-  const pe = document.getElementById('scene-' + prev);
-  const ne = document.getElementById('scene-' + cur);
-  if (pe) { pe.classList.add('exit'); setTimeout(() => pe.classList.remove('active', 'exit'), 480); }
-  setTimeout(() => { if (ne) ne.classList.add('active'); }, 80);
-  dots(); tabs(cur); anim(cur);
-  if (timer) clearTimeout(timer);
-  timer = setTimeout(() => go(cur + 1), DURATIONS[cur]);
+/* ── Stage scaling ─────────────────────────────────────────────────────── */
+const W = 1200;
+const stage = document.getElementById('stage');
+let SCALE = 1;
+function fit() {
+  SCALE = window.innerWidth / W;
+  stage.style.width = W + 'px';
+  stage.style.height = (window.innerHeight / SCALE) + 'px';
+  stage.style.transform = `scale(${SCALE})`;
+  const chromeH = document.querySelector('.header').offsetHeight + document.querySelector('.tabbar').offsetHeight + document.querySelector('.progress').offsetHeight;
+  document.getElementById('viewport').style.height = (window.innerHeight / SCALE - chromeH) + 'px';
+}
+window.addEventListener('resize', fit);
+
+/* ── Timeline helpers ──────────────────────────────────────────────────── */
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let cursor = null;
+let cx = 900, cy = 700;
+
+function rel(el) {
+  const s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+  return { x: (r.left - s.left) / SCALE, y: (r.top - s.top) / SCALE, w: r.width / SCALE, h: r.height / SCALE };
+}
+async function moveTo(el, dur = 650, ox = 0.5, oy = 0.5) {
+  const r = rel(el);
+  const tx = r.x + r.w * ox, ty = r.y + r.h * oy;
+  cursor.style.opacity = '1';
+  cursor.style.transition = `opacity .25s, transform ${dur}ms cubic-bezier(.45,0,.2,1)`;
+  cursor.style.transform = `translate(${tx - 4}px, ${ty - 2}px)`;
+  cx = tx; cy = ty;
+  await sleep(dur);
+}
+async function click(el, dur, ox, oy) {
+  await moveTo(el, dur, ox, oy);
+  cursor.classList.add('down');
+  const rp = document.createElement('div');
+  rp.className = 'ripple';
+  rp.style.left = cx + 'px'; rp.style.top = cy + 'px';
+  $('app').appendChild(rp);
+  setTimeout(() => rp.remove(), 600);
+  el.classList.add('pressed');
+  await sleep(140);
+  cursor.classList.remove('down');
+  el.classList.remove('pressed');
+  await sleep(120);
+}
+function hideCursor() { cursor.style.opacity = '0'; }
+
+async function type(el, text, speed = 55) {
+  const tx = el.querySelector('.tx');
+  el.classList.add('focus');
+  el.classList.remove('ph');
+  tx.textContent = '';
+  for (const ch of text) { tx.textContent += ch; await sleep(speed + Math.random() * 30); }
+  await sleep(150);
+  el.classList.remove('focus');
+}
+function setVal(el, text) { el.classList.remove('ph'); el.querySelector('.tx').textContent = text; }
+
+let scrollY = 0;
+async function scrollTo(y, wait = 850) {
+  scrollY = y;
+  $('page').style.transform = `translateY(${-y}px)`;
+  await sleep(wait);
+}
+function scrollInstant(y) {
+  const p = $('page');
+  p.style.transition = 'none';
+  scrollY = y; p.style.transform = `translateY(${-y}px)`;
+  p.offsetHeight; p.style.transition = '';
 }
 
-function anim(idx) { [a0, a1, a2, a3, a4, a5][idx](); }
+const REQUIRED = 10;
+let filled = 2;
+const NEXT = { 2: 'Customer name', 3: 'Property address', 4: 'ZIP code', 5: 'Prepared by', 7: 'Service rating', 8: 'Utility provider', 9: 'Measured demand data' };
+function progress(n) {
+  filled = n;
+  const done = n >= REQUIRED;
+  const c = $('pcount'), f = $('pfill');
+  c.classList.toggle('done', done);
+  c.innerHTML = done ? icon('check2', 16) + 'All required fields complete' : `${n} of ${REQUIRED} required fields`;
+  f.style.width = (n / REQUIRED * 100) + '%';
+  f.classList.toggle('done', done);
+  $('pnext').textContent = done ? '' : 'Next: ' + (NEXT[n] || '');
+}
+function dot(id, state) { const d = $('d-' + id); d.className = 'sdot' + (state ? ' ' + state : ''); }
 
-/* ── Cursor helpers ─────────────────────────────── */
-const cursorEl = document.getElementById('ani-cursor');
-let cursorAnim = null;
-
-function moveCursorTo(targetEl, cb, duration) {
-  const appRect = document.getElementById('app-wrap').getBoundingClientRect();
-  const tRect = targetEl.getBoundingClientRect();
-  const tx = tRect.left + tRect.width / 2 - appRect.left;
-  const ty = tRect.top + tRect.height / 2 - appRect.top;
-
-  cursorEl.style.position = 'absolute';
-  cursorEl.style.left = (tx - 80) + 'px';
-  cursorEl.style.top = (ty + 40) + 'px';
-  cursorEl.style.opacity = '1';
-  cursorEl.style.transition = 'none';
-
-  const appWrap = document.getElementById('app-wrap');
-  appWrap.style.position = 'relative';
-
-  setTimeout(() => {
-    cursorEl.style.transition = `left ${duration || 600}ms cubic-bezier(0.4,0,0.2,1), top ${duration || 600}ms cubic-bezier(0.4,0,0.2,1)`;
-    cursorEl.style.left = tx + 'px';
-    cursorEl.style.top = ty + 'px';
-    setTimeout(() => { if (cb) cb(); }, duration || 600);
-  }, 30);
+function showTab(id) {
+  ['project', 'service', 'ami', 'equip', 'results'].forEach(t => {
+    $('t-' + t).classList.toggle('active', t === id);
+    const sc = $('sc-' + t);
+    sc.classList.toggle('on', t === id);
+  });
+  scrollInstant(0);
 }
 
-function hideCursor() {
-  cursorEl.style.transition = 'opacity 0.3s';
-  cursorEl.style.opacity = '0';
+const STEPS = 6;
+let stepStart = 0;
+async function guide(n, stage, title, body, dur, side) {
+  const g = $('guide');
+  g.classList.add('swap');
+  await sleep(250);
+  g.classList.toggle('left', side === 'left');
+  $('gs').textContent = `Step ${n} of ${STEPS} · ${stage}`;
+  $('gt').textContent = title;
+  $('gb').textContent = body;
+  const bar = $('gbar');
+  bar.style.transition = 'none'; bar.style.width = '0';
+  bar.offsetHeight;
+  bar.style.transition = `width ${dur}ms linear`; bar.style.width = '100%';
+  g.classList.remove('swap');
 }
 
-function clickEffect(targetEl, cb) {
-  moveCursorTo(targetEl, () => {
-    cursorEl.style.transform = 'scale(0.75)';
-    setTimeout(() => {
-      cursorEl.style.transform = 'scale(1)';
-      if (cb) cb();
-    }, 160);
-  }, 550);
+async function countUp(el, to, ms, fmt) {
+  const t0 = performance.now();
+  return new Promise(res => {
+    function f(t) {
+      const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(to * e);
+      if (k < 1) requestAnimationFrame(f); else res();
+    }
+    requestAnimationFrame(f);
+  });
 }
 
-/* ── Scene 0: Project Info ──────────────────────── */
-function a0() {
-  const modal = document.getElementById('new-project-modal');
-  const modalInput = document.getElementById('modal-proj-input');
-  const createBtn = document.getElementById('modal-create-btn');
-  const newBtn = document.getElementById('new-btn');
-  const inner = document.getElementById('scene0-inner');
-  const fName = document.getElementById('f-name');
-  const fPreparer = document.getElementById('f-preparer');
-  const fLicense = document.getElementById('f-license');
-
-  // Reset state
-  modal.classList.remove('show');
-  inner.style.transform = 'none';
-  inner.style.transformOrigin = 'top left';
-  fName.innerHTML = '';
-  fPreparer.innerHTML = '';
-  fLicense.innerHTML = '';
+/* ── Scenes ────────────────────────────────────────────────────────────── */
+async function sceneProject() {
+  showTab('project');
+  guide(1, 'Project Info', 'Start with the job', 'Customer and property address. Your preparer details fill in from your Company Profile.', 10500);
+  await sleep(700);
+  await click($('f-name'), 700);
   hideCursor();
+  await type($('f-name'), 'Dave Smith'); progress(3); $('hname').textContent = 'Dave Smith — 45 Elm Street'; dot('project', 'blue');
+  await type($('f-addr'), '45 Elm Street'); progress(4);
+  await type($('f-city'), 'Burlington', 45);
+  await type($('f-state'), 'VT', 90);
+  await type($('f-zip'), '05401', 80); progress(5);
+  await type($('f-email'), 'dsmith@example.com', 35);
+  await scrollTo(470);
+  $('prep-sum').classList.add('in'); progress(7); dot('project', 'green');
+  await sleep(700);
+  await type($('f-ahj'), 'City of Burlington', 40);
+  await sleep(900);
+}
 
-  // Step 1: Move cursor to +New button and click it
-  st(() => {
-    clickEffect(newBtn, () => {
-      newBtn.classList.add('pressed');
-      setTimeout(() => newBtn.classList.remove('pressed'), 200);
-      st(() => {
-        modal.classList.add('show');
-        modalInput.innerHTML = '<span class="typing-cursor"></span>';
-      }, 200);
-    });
-  }, 600);
+async function sceneService() {
+  showTab('service');
+  guide(2, 'Service Info', 'The service feeding the house', '200 A at 120/240 V. The utilities that serve the ZIP are listed first.', 8500);
+  await sleep(500);
+  await click($('f-rating'), 800);
+  hideCursor();
+  await type($('f-rating'), '200', 140); progress(8);
+  $('t-results').classList.remove('disabled');
+  await sleep(300);
+  const u = $('f-util');
+  await click(u, 700);
+  u.classList.add('focus');
+  $('util-menu').classList.add('open');
+  await sleep(500);
+  const bed = $('util-bed');
+  await moveTo(bed, 500, 0.3);
+  bed.classList.add('hl');
+  await sleep(400);
+  await click(bed, 150, 0.3);
+  $('util-menu').classList.remove('open');
+  u.classList.remove('focus', 'ph');
+  u.querySelector('.tx').textContent = 'Burlington Electric Department';
+  u.querySelector('.tx').style.color = 'var(--gray-900)';
+  progress(9); dot('service', 'green');
+  hideCursor();
+  await sleep(1400);
+}
 
-  // Step 2: Type project name into modal
-  st(() => {
+async function sceneAmi() {
+  showTab('ami');
+  guide(3, 'Existing Load', 'A year of the meter’s own record', 'Drop in the utility’s interval data. TrueLoad finds the peak and checks the year for gaps.', 17000);
+  await sleep(900);
+  const cm = $('choice-measured');
+  await moveTo(cm, 800, 0.3, 0.5);
+  cm.classList.add('hover');
+  await sleep(350);
+  await click(cm, 120, 0.3, 0.5);
+  $('ami-choose').style.display = 'none';
+  $('ami-measured').style.display = 'block';
+  dot('ami', 'blue');
+  hideCursor();
+  await sleep(700);
+
+  // Drag the utility's file onto the drop zone
+  const drop = $('drop'), chip = $('filechip');
+  const dr = rel(drop);
+  chip.style.transition = 'none';
+  chip.style.left = (dr.x + dr.w - 120) + 'px';
+  chip.style.top = (dr.y - 150) + 'px';
+  chip.style.opacity = '0';
+  chip.offsetHeight;
+  chip.style.transition = 'opacity .3s, left 1.1s cubic-bezier(.45,0,.2,1), top 1.1s cubic-bezier(.45,0,.2,1)';
+  chip.style.opacity = '1';
+  cursor.style.transition = 'none';
+  cursor.style.transform = `translate(${dr.x + dr.w - 110}px, ${dr.y - 130}px)`;
+  cursor.style.opacity = '1';
+  await sleep(300);
+  chip.style.left = (dr.x + dr.w / 2 - 130) + 'px';
+  chip.style.top = (dr.y + dr.h / 2 - 20) + 'px';
+  cursor.style.transition = 'transform 1.1s cubic-bezier(.45,0,.2,1)';
+  cursor.style.transform = `translate(${dr.x + dr.w / 2 - 120}px, ${dr.y + dr.h / 2 - 2}px)`;
+  await sleep(700);
+  drop.classList.add('over');
+  await sleep(700);
+  chip.style.opacity = '0';
+  hideCursor();
+  $('drop-t').textContent = 'BED_interval_data_45Elm.csv';
+  $('drop-s').textContent = 'Reading 35,040 readings…';
+  const pg = $('prog2'); pg.style.display = 'block';
+  const bar = pg.firstElementChild;
+  bar.style.transition = 'width 1.4s ease-in-out';
+  bar.offsetHeight; bar.style.width = '100%';
+  await sleep(1600);
+
+  $('ami-before').style.display = 'none';
+  $('ami-after').style.display = 'block';
+  $('seg-sub').textContent = 'Data loaded';
+  progress(10); dot('ami', 'green');
+  const line = $('yearline'), len = line.getTotalLength();
+  line.style.transition = 'none';
+  line.style.strokeDasharray = len; line.style.strokeDashoffset = len;
+  line.getBoundingClientRect();
+  line.style.transition = '';
+  countUp($('st-pts'), 35040, 1400, v => Math.round(v).toLocaleString('en-US'));
+  await sleep(150);
+  line.style.strokeDashoffset = '0';
+  $('yeararea').style.opacity = '1';
+  await sleep(900);
+  await countUp($('st-peak'), 10.05, 1100, v => v.toFixed(2) + ' kW');
+  await sleep(300);
+  $('peakmark').classList.add('in');
+  await sleep(500);
+  $('checks').classList.add('in');
+  await sleep(3200);
+}
+
+const EQUIP = [
+  { name: 'Heat Pump — Main Floor', type: 'Heat Pump', amps: '24', reason: 'Heat pumps operate in heating mode during winter peaks; included as a concurrent load.' },
+  { name: 'Heat Pump Water Heater', type: 'Water Heater', amps: '15', reason: 'Electric water heaters operate year-round and are not limited to any season; included as a concurrent load.' },
+];
+function eqRow() {
+  const tr = document.createElement('tr');
+  tr.className = 'eqrow';
+  const sel = t => `<div class="ci ph" style="justify-content:space-between;gap:6px"><span class="tx">${t}</span>${icon('chev', 14)}</div>`;
+  tr.innerHTML = `
+    <td style="width:230px"><div class="ci n"><span class="tx"></span><span class="caret"></span></div></td>
+    <td style="width:170px">${sel('Select…')}</td>
+    <td style="width:130px">${sel('Select…')}</td>
+    <td><div class="ci" style="width:52px"><span class="tx">1</span></div></td>
+    <td><div class="ci ph a" style="width:68px"><span class="tx">OR</span><span class="caret"></span></div></td>
+    <td><div class="ci ph" style="width:68px"><span class="tx">OR</span></div></td>
+    <td><div class="ci" style="width:68px"><span class="tx">240</span></div></td>
+    <td style="min-width:200px"><div class="cbx">${icon('tick', 14, ' style="stroke-width:3"')}</div><div class="reason"></div><div class="ovr">Override</div></td>
+    <td><span class="trash">${icon('trash', 18)}</span></td>`;
+  return tr;
+}
+async function sceneEquip() {
+  showTab('equip');
+  guide(4, 'New Loads', 'Add what’s being installed', 'Concurrency is set for each load from the season the peak fell in, with the reason shown.', 14500);
+  await sleep(600);
+  for (let i = 0; i < EQUIP.length; i++) {
+    const e = EQUIP[i];
+    await click($('add-eq'), i ? 600 : 900);
     hideCursor();
-    const s = 'Smith – 45 Elm Street';
-    let i = 0;
-    const iv = si(() => {
-      if (i >= s.length) { clearInterval(iv); return; }
-      modalInput.innerHTML = s.slice(0, ++i) + '<span class="typing-cursor"></span>';
-    }, 75);
-  }, 1800);
-
-  // Step 3: Click "Create Project" — modal closes
-  st(() => {
-    const createBtnEl = document.getElementById('modal-create-btn');
-    clickEffect(createBtnEl, () => {
-      createBtnEl.classList.add('pressed');
-      st(() => {
-        modal.classList.remove('show');
-        hideCursor();
-        document.getElementById('header-project-name').textContent = 'Smith – 45 Elm Street';
-      }, 250);
-    });
-  }, 4000);
-
-  // Step 4: Zoom into Customer card and type name
-  st(() => {
-    inner.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.2,1)';
-    inner.style.transformOrigin = 'top left';
-    inner.style.transform = 'scale(1.06) translateY(-4px)';
-    fName.innerHTML = '<span class="typing-cursor"></span>';
-    fName.classList.add('focused');
-    st(() => {
-      const s = 'Sarah Smith'; let i = 0;
-      const iv = si(() => {
-        if (i >= s.length) { clearInterval(iv); fName.classList.remove('focused'); return; }
-        fName.innerHTML = s.slice(0, ++i) + '<span class="typing-cursor"></span>';
-      }, 85);
-    }, 300);
-  }, 5200);
-
-  // Step 5: Pan down to preparer card and type
-  st(() => {
-    inner.style.transform = 'scale(1.06) translateY(-120px)';
-    fPreparer.innerHTML = '<span class="typing-cursor"></span>';
-    fPreparer.classList.add('focused');
-    st(() => {
-      const s = 'J. Marin'; let i = 0;
-      const iv = si(() => {
-        if (i >= s.length) {
-          clearInterval(iv);
-          fPreparer.classList.remove('focused');
-          fLicense.innerHTML = '<span class="typing-cursor"></span>';
-          fLicense.classList.add('focused');
-          st(() => {
-            const s2 = 'EL-00492'; let j = 0;
-            const iv2 = si(() => {
-              if (j >= s2.length) { clearInterval(iv2); fLicense.classList.remove('focused'); return; }
-              fLicense.innerHTML = s2.slice(0, ++j) + '<span class="typing-cursor"></span>';
-            }, 85);
-          }, 200);
-          return;
-        }
-        fPreparer.innerHTML = s.slice(0, ++i) + '<span class="typing-cursor"></span>';
-      }, 85);
-    }, 300);
-  }, 7200);
-
-  // Step 6: Zoom back out
-  st(() => {
-    inner.style.transform = 'scale(1) translateY(0)';
-  }, 9000);
+    $('eq-empty').style.display = 'none';
+    const tr = eqRow();
+    $('eq-body').appendChild(tr);
+    await sleep(40);
+    tr.classList.add('in');
+    await sleep(250);
+    const ci = tr.querySelectorAll('.ci');
+    await type(tr.querySelector('.ci.n'), e.name, i ? 30 : 45);
+    for (const [k, v] of [[1, e.type], [2, 'Nameplate']]) {
+      ci[k].classList.add('focus'); await sleep(260);
+      ci[k].classList.remove('focus', 'ph'); ci[k].querySelector('.tx').textContent = v;
+      await sleep(160);
+    }
+    await type(tr.querySelector('.ci.a'), e.amps, 130);
+    await sleep(200);
+    tr.querySelector('.cbx').classList.add('on');
+    const rs = tr.querySelector('.reason');
+    rs.textContent = e.reason; rs.classList.add('in');
+    await sleep(900);
+  }
+  await sleep(1500);
 }
 
-/* ── Scene 1: Service Info ──────────────────────── */
-function a1() {
-  const rating = document.getElementById('svc-rating');
-  const voltage = document.getElementById('svc-voltage');
-  const bus = document.getElementById('svc-bus');
-  const type = document.getElementById('svc-type');
-  rating.textContent = '—'; voltage.textContent = '—'; bus.textContent = '—'; type.textContent = '—';
-
-  st(() => {
-    let v = 0;
-    const iv = si(() => {
-      v = Math.min(v + 10, 200);
-      rating.innerHTML = v + '<span class="svc-tile-unit">A</span>';
-      if (v >= 200) clearInterval(iv);
-    }, 35);
-  }, 400);
-
-  st(() => { voltage.innerHTML = '240<span class="svc-tile-unit">V</span>'; }, 900);
-  st(() => { bus.innerHTML = '200<span class="svc-tile-unit">A</span>'; }, 1300);
-  st(() => { type.textContent = 'Overhead'; }, 1700);
-}
-
-/* ── Scene 2: AMI Data drag-and-drop ────────────── */
-function a2() {
-  const zone = document.getElementById('upload-zone');
-  const lbl = document.getElementById('upload-lbl');
-  const sub = document.getElementById('upload-sub');
-  const pw = document.getElementById('prog-wrap');
-  const pf = document.getElementById('prog-fill');
-  const pp = document.getElementById('prog-pct');
-  const stats = document.getElementById('ami-stats');
-  const pts = document.getElementById('ami-pts');
-  const peak = document.getElementById('ami-peak');
-  const dragFile = document.getElementById('drag-file');
-
-  // Reset
-  zone.className = 'upload-zone';
-  lbl.textContent = 'Drop CSV, Excel, or XML file here';
-  sub.textContent = 'or click to browse — any format accepted';
-  pw.style.display = 'none'; pp.style.display = 'none';
-  stats.style.opacity = '0'; pts.textContent = '—'; peak.textContent = '—';
-  pf.style.width = '0%'; dragFile.style.opacity = '0';
-
-  // Position file card above the scene
-  const zoneRect = zone.getBoundingClientRect();
-  const cardRect = zone.closest('.form-card').getBoundingClientRect();
-  dragFile.style.top = '-60px';
-  dragFile.style.left = '20px';
-  dragFile.style.transition = 'none';
-
-  // Step 1: Show the file card drifting in from top-right
-  st(() => {
-    dragFile.style.top = '-60px';
-    dragFile.style.left = '60%';
-    dragFile.style.opacity = '1';
-    dragFile.style.transition = 'none';
-  }, 400);
-
-  // Step 2: Animate dragging toward upload zone
-  st(() => {
-    dragFile.style.transition = 'top 0.9s cubic-bezier(0.4,0,0.2,1), left 0.9s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s';
-    dragFile.style.top = '60px';
-    dragFile.style.left = '30%';
-  }, 700);
-
-  // Step 3: Hover over upload zone — highlight zone
-  st(() => {
-    zone.className = 'upload-zone hovering';
-    dragFile.classList.add('hovering');
-    dragFile.style.transition = 'top 0.4s, left 0.4s, box-shadow 0.3s';
-    dragFile.style.top = '80px';
-    dragFile.style.left = '34%';
-  }, 1700);
-
-  // Step 4: Drop — file card disappears, upload begins
-  st(() => {
-    dragFile.style.opacity = '0';
-    dragFile.style.transition = 'opacity 0.25s';
-    zone.className = 'upload-zone active';
-    lbl.textContent = 'GMP_AMI_Data_2024.csv';
-    sub.textContent = 'Processing records...';
-    pw.style.display = 'block'; pp.style.display = 'block';
-    let p = 0;
-    const iv = si(() => {
-      p = Math.min(p + Math.random() * 7 + 4, 100);
-      pf.style.width = p + '%';
-      pp.textContent = Math.round(p) + '%';
-      if (p >= 100) {
-        clearInterval(iv);
-        zone.className = 'upload-zone done';
-        lbl.textContent = 'Upload complete';
-        sub.textContent = '35,040 records • Peak detected • 12-month period';
-        pp.style.display = 'none';
-        st(() => {
-          stats.style.opacity = '1';
-          let n = 0;
-          const iv2 = si(() => { n = Math.min(n + 700, 35040); pts.textContent = n.toLocaleString(); if (n >= 35040) clearInterval(iv2); }, 22);
-          st(() => { peak.textContent = '14.2 kW'; }, 700);
-        }, 400);
-      }
-    }, 55);
-  }, 2200);
-}
-
-/* ── Scene 3: Equipment add flow ────────────────── */
-function a3() {
-  const tb = document.getElementById('equip-body');
-  const inlineForm = document.getElementById('inline-form');
-  const nameInput = document.getElementById('equip-name-input');
-  const mcaInput = document.getElementById('equip-mca-input');
-  const kvaInput = document.getElementById('equip-kva-input');
-  const typeBadge = document.getElementById('equip-type-badge');
-  const concBadge = document.getElementById('equip-conc-badge');
-  const addBtn = document.getElementById('add-equip-btn');
-
-  // Reset
-  tb.innerHTML = '';
-  inlineForm.classList.remove('show');
-  nameInput.value = ''; mcaInput.value = ''; kvaInput.value = '';
-  typeBadge.style.opacity = '0'; concBadge.style.opacity = '0';
-  nameInput.classList.remove('focused'); mcaInput.classList.remove('focused'); kvaInput.classList.remove('focused');
+async function sceneResults() {
+  showTab('results');
+  guide(5, 'Results', 'PASS or FAIL, with the math shown', '125% of the measured peak plus the new concurrent load, against what the service can carry.', 11500, 'left');
+  await sleep(500);
+  $('pass').classList.add('in');
+  await sleep(600);
+  $('sumboxes').classList.add('in');
+  await sleep(900);
+  await scrollTo(330, 900);
+  const vals = document.querySelectorAll('#sc-results .calc .cv');
+  for (const v of vals) { v.style.opacity = '1'; await sleep(320); }
+  $('mar').classList.add('in');
+  await sleep(1300);
+  await scrollTo(0, 900);
+  await click($('gen-report'), 900);
   hideCursor();
-
-  // Step 1: Move cursor to "Add Equipment" button and click
-  st(() => {
-    clickEffect(addBtn, () => {
-      addBtn.classList.add('pressed');
-      setTimeout(() => addBtn.classList.remove('pressed'), 200);
-      st(() => {
-        inlineForm.classList.add('show');
-        hideCursor();
-      }, 250);
-    });
-  }, 700);
-
-  // Step 2: Focus name field and type
-  st(() => {
-    nameInput.classList.add('focused');
-    const s = 'Heat Pump – Main Floor'; let i = 0;
-    const iv = si(() => {
-      if (i >= s.length) { clearInterval(iv); nameInput.classList.remove('focused'); return; }
-      nameInput.value = s.slice(0, ++i);
-    }, 65);
-  }, 1700);
-
-  // Step 3: Fill MCA
-  st(() => {
-    mcaInput.classList.add('focused');
-    const s = '30A'; let i = 0;
-    const iv = si(() => {
-      if (i >= s.length) { clearInterval(iv); mcaInput.classList.remove('focused'); return; }
-      mcaInput.value = s.slice(0, ++i);
-    }, 120);
-  }, 3600);
-
-  // Step 4: Fill kVA
-  st(() => {
-    kvaInput.classList.add('focused');
-    const s = '6.0'; let i = 0;
-    const iv = si(() => {
-      if (i >= s.length) { clearInterval(iv); kvaInput.classList.remove('focused'); return; }
-      kvaInput.value = s.slice(0, ++i);
-    }, 150);
-  }, 4300);
-
-  // Step 5: Badges appear
-  st(() => { typeBadge.style.opacity = '1'; }, 5000);
-  st(() => { concBadge.style.opacity = '1'; }, 5300);
-
-  // Step 6: Convert inline form to table row
-  st(() => {
-    inlineForm.classList.remove('show');
-    const tr = document.createElement('tr');
-    tr.className = 'equip-row';
-    tr.innerHTML = '<td>Heat Pump – Main Floor</td><td><span class="badge b-blue">Heat Pump</span></td><td>30A</td><td>6.0 kVA</td><td><span class="badge b-green">Yes</span></td>';
-    tb.appendChild(tr);
-    st(() => tr.classList.add('show'), 80);
-  }, 5700);
 }
 
-/* ── Scene 4: Results ───────────────────────────── */
-function a4() {
-  const banner = document.getElementById('result-banner');
-  const marginRow = document.getElementById('margin-row');
-  banner.classList.remove('show');
-  marginRow.classList.remove('margin-flash');
-  ['c1','c2','c3','c4','c5','c6'].forEach(id => document.getElementById(id).textContent = '—');
-
-  const vals = ['11.8 kVA','14.8 kVA','6.0 kVA','20.8 kVA','38.4 kVA','+17.6 kVA'];
-  vals.forEach((v, i) => {
-    st(() => {
-      document.getElementById(['c1','c2','c3','c4','c5','c6'][i]).textContent = v;
-      // After last row fills (+17.6 kVA = index 5), flash margin and show banner
-      if (i === 5) {
-        st(() => { marginRow.classList.add('margin-flash'); }, 150);
-        st(() => { banner.classList.add('show'); }, 800);
-      }
-    }, 500 + i * 360);
-  });
+async function sceneReport() {
+  guide(6, 'Report', 'A report ready for the AHJ', 'The result, the math, the utility data and the peak day, printed on the method you chose.', 12000);
+  const r = $('report'), doc = $('rdoc');
+  doc.style.transition = 'none'; doc.style.transform = 'none'; doc.offsetHeight; doc.style.transition = '';
+  r.classList.add('open');
+  await sleep(2600);
+  const bodyH = r.querySelector('.rbody').offsetHeight;
+  doc.style.transform = `translateY(${-(doc.offsetHeight - bodyH + 10)}px)`;
+  await sleep(6500);
+  const pb = $('print-btn');
+  await click(pb, 900);
+  await sleep(1400);
+  hideCursor();
 }
 
-/* ── Scene 5: Report ────────────────────────────── */
-function a5() {
-  const sections = ['rs1','rs2','rs3','rs4','rs5'];
-  sections.forEach(id => document.getElementById(id).classList.remove('show'));
-  const btn = document.getElementById('print-btn');
-  btn.style.background = '#1a4fa0';
-  btn.textContent = 'Print Report';
-
-  // Animate mini chart bars back to 0 then grow
-  const bars = document.querySelectorAll('.mini-bar');
-  bars.forEach(b => b.style.height = '0%');
-
-  sections.forEach((id, i) => {
-    st(() => document.getElementById(id).classList.add('show'), 300 + i * 450);
-  });
-
-  // Animate chart bars growing after section 3 appears
-  st(() => {
-    const heights = ['55%','48%','62%','70%','100%','80%','68%','73%','58%','65%','52%','45%'];
-    bars.forEach((b, i) => {
-      st(() => { b.style.height = heights[i]; }, i * 60);
-    });
-  }, 1600);
-
-  // Print button flash at the end
-  st(() => {
-    btn.style.background = '#15803d';
-    btn.textContent = 'Printing...';
-    st(() => {
-      btn.style.background = '#1a4fa0';
-      btn.textContent = 'Print Report';
-    }, 1600);
-  }, 4800);
+/* ── Run ───────────────────────────────────────────────────────────────── */
+const TEMPLATE = $('app').innerHTML;
+function reset() {
+  $('app').innerHTML = TEMPLATE;
+  hydrateIcons($('app'));
+  buildChart($('yearchart'), 1088, 260, false);
+  buildChart($('reportchart'), 700, 260, true);
+  document.querySelectorAll('#sc-results .calc .cv').forEach(v => { v.style.opacity = '0'; v.style.transition = 'opacity .3s'; });
+  cursor = $('cursor');
+  fit();
+  filled = 2;
 }
-
-// Init
-setTimeout(() => {
-  dots(); tabs(0); anim(0);
-  timer = setTimeout(() => go(1), DURATIONS[0]);
-}, 200);
+const SCENES = [sceneProject, sceneService, sceneAmi, sceneEquip, sceneResults, sceneReport];
+// ?from=N starts the first loop at scene N, for checking one scene at a time.
+let from = Math.min(SCENES.length - 1, Math.max(0, parseInt(new URLSearchParams(location.search).get('from'), 10) || 0));
+async function run() {
+  for (;;) {
+    reset();
+    for (const scene of SCENES.slice(from)) await scene();
+    from = 0;
+    $('report').classList.remove('open');
+    await sleep(500);
+  }
+}
+run();
 </script>
-
 </body>
 </html>
