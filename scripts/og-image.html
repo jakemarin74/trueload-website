@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Source for /og-image.png (1200x630 social share card). Regenerate with:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \
+       --window-size=1200,630 --screenshot=og-image.png scripts/og-image.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #ffffff;
+  color: #0f172a;
+  position: relative;
+}
+.bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 15% -10%, rgba(26,79,160,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 50% at 95% 100%, rgba(245,197,24,0.14) 0%, transparent 60%);
+}
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.045) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 90% 90% at 20% 0%, black, transparent);
+}
+.content { position: absolute; inset: 0; padding: 72px 80px; display: flex; flex-direction: column; }
+.logo { align-self: flex-start; width: 455px; height: 130px; margin: -22px 0 0 -18px; }
+h1 {
+  margin-top: 30px;
+  font-size: 76px; line-height: 1.05; font-weight: 700; letter-spacing: -0.025em;
+  max-width: 1000px;
+}
+h1 em { font-style: normal; color: #1a4fa0; }
+.sub { margin-top: 26px; font-size: 30px; line-height: 1.4; color: #475569; max-width: 900px; }
+.footer { margin-top: auto; display: flex; align-items: center; gap: 14px; font-family: 'DM Mono', monospace; font-size: 22px; color: #1a4fa0; font-weight: 500; }
+.chip { background: rgba(26,79,160,0.08); border: 1px solid rgba(26,79,160,0.25); border-radius: 999px; padding: 6px 16px; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="content">
+  <img class="logo" src="../trueload_logo.svg" alt="TrueLoad">
+  <h1>Electrical load calculations for <em>existing homes</em></h1>
+  <p class="sub">NEC 220.87 from smart-meter data, or the standard calculation when there isn't any. One AHJ-ready report.</p>
+  <div class="footer">trueloadapp.com <span class="chip">Heat pumps · EV chargers · Service upgrades</span></div>
+</div>
+</body>
+</html>

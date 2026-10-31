@@ -566,6 +566,7 @@ const FOOTER_HTML = `
   <p class="footer-disclaimer">
     TrueLoad is a service adequacy evaluation aid. This tool does not constitute engineering services, guarantee code compliance, or imply AHJ approval. Final responsibility for code compliance remains with the licensed preparer and the Authority Having Jurisdiction.
   </p>
+  <p class="footer-disclaimer" style="color:var(--slate-800);font-weight:500;">TrueLoad is built by eTherm Solutions LLC.</p>
   <div class="footer-links" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
     <a href="/resources/" class="footer-link">Resources</a>
     <a href="/terms/" class="footer-link">Terms of Service</a>
@@ -593,8 +594,13 @@ function page({ title, description, canonical, css, jsonLd, body, ogType = 'webs
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(canonical)}">
-<meta property="og:image" content="${SITE}/trueload_logo_lg.png">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:image" content="${SITE}/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png" />
 ${FONT_LINKS}
 <style>
