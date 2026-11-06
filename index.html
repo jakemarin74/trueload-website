@@ -773,6 +773,119 @@ section {
   line-height: 1.5;
 }
 
+/* ── AS HEARD ON (podcast) ── */
+.podcast-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.podcast-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 28px;
+}
+.podcast-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--slate-900);
+}
+.podcast-video img,
+.podcast-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.podcast-video img { object-fit: cover; }
+.podcast-play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.podcast-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 68px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  background: rgba(15,23,42,0.82);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+.podcast-play-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 10px 0 10px 17px;
+  border-color: transparent transparent transparent var(--white);
+}
+.podcast-play:hover .podcast-play-icon,
+.podcast-play:focus-visible .podcast-play-icon { background: var(--blue); }
+.podcast-play:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+.podcast-text h2 {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.podcast-sub {
+  font-style: italic;
+  font-size: 17px;
+  color: var(--slate-800);
+  margin-bottom: 14px;
+}
+.podcast-text p.podcast-body {
+  font-size: 16px;
+  color: var(--slate-600);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.podcast-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+}
+.podcast-links a {
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.podcast-links a:hover { text-decoration: underline; }
+.podcast-links a.podcast-watch {
+  background: var(--blue);
+  color: var(--white);
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.podcast-links a.podcast-watch:hover { background: var(--blue-dark); text-decoration: none; }
+@media (max-width: 768px) {
+  .podcast-section { padding: 64px 16px; }
+  .podcast-card { grid-template-columns: 1fr; gap: 24px; padding: 16px; }
+}
+
 /* ── PRICING ── */
 .pricing-section {
   max-width: 1100px;
@@ -1513,6 +1626,32 @@ footer {
 
 <div class="divider"></div>
 
+<!-- AS HEARD ON -->
+<div class="podcast-section fade-up" id="podcast">
+  <div class="podcast-card">
+    <div class="podcast-video" id="podcast-video">
+      <img src="https://i.ytimg.com/vi/OVZiqvVBo88/hqdefault.jpg" loading="lazy" width="480" height="360" alt="Video thumbnail for The Heat Pump Podcast episode 71, Stop Losing Heat Pump Jobs to Panel Upgrades, with Jake Marin of TrueLoad">
+      <button type="button" class="podcast-play" id="podcast-play" aria-label="Play The Heat Pump Podcast episode 71 video">
+        <span class="podcast-play-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="podcast-text">
+      <div class="section-label">As heard on</div>
+      <h2>The Heat Pump Podcast</h2>
+      <p class="podcast-sub">Stop Losing Heat Pump Jobs to Panel Upgrades</p>
+      <p class="podcast-body">Jake Marin joins Amply's Ed Smith and Eric Fitz to talk about why so many service upgrades never needed to happen, and how a year of smart-meter data can prove it.</p>
+      <div class="podcast-links">
+        <a href="https://www.youtube.com/watch?v=OVZiqvVBo88" class="podcast-watch" id="podcast-watch" target="_blank" rel="noopener">Watch the episode</a>
+        <a href="https://podcasts.apple.com/us/podcast/the-heat-pump-podcast/id1747806243" target="_blank" rel="noopener">Apple Podcasts</a>
+        <a href="https://open.spotify.com/show/3pJxxoC8fS0HZEf22FQwDX" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://info.amply.energy/blog/ep.-71-stop-losing-heat-pump-jobs-to-panel-upgrades-with-jake-marin-of-trueload" target="_blank" rel="noopener">Show notes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- PRICING -->
 <div class="pricing-section fade-up" id="pricing">
   <div class="pricing-header">
@@ -1681,6 +1820,33 @@ const chartObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 const chart = document.getElementById('capacity-chart');
 if (chart) chartObserver.observe(chart);
+
+// Podcast: click-to-load YouTube embed. Nothing from YouTube loads until the
+// visitor asks for the video; "Watch the episode" falls back to youtube.com
+// in a new tab if scripts are off.
+(function () {
+  const box = document.getElementById('podcast-video');
+  const play = document.getElementById('podcast-play');
+  const watch = document.getElementById('podcast-watch');
+  if (!box || !play) return;
+  function loadVideo() {
+    if (box.querySelector('iframe')) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/OVZiqvVBo88?autoplay=1';
+    iframe.title = 'The Heat Pump Podcast, Ep. 71: Stop Losing Heat Pump Jobs to Panel Upgrades, with Jake Marin of TrueLoad';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    box.replaceChildren(iframe);
+    iframe.focus();
+  }
+  play.addEventListener('click', loadVideo);
+  if (watch) watch.addEventListener('click', function (e) {
+    e.preventDefault();
+    loadVideo();
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
 
 </script>
 
