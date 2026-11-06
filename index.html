@@ -773,6 +773,42 @@ section {
   line-height: 1.5;
 }
 
+/* ── CUSTOMER QUOTE ── */
+.quote-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.quote-card {
+  margin: 0;
+  background: var(--slate-50);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--blue);
+  border-radius: 16px;
+  padding: 40px 44px;
+}
+.quote-card blockquote {
+  margin: 0;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--slate-900);
+}
+.quote-card figcaption {
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--slate-600);
+}
+.quote-card figcaption strong {
+  color: var(--slate-900);
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .quote-section { padding: 64px 16px; }
+  .quote-card { padding: 28px 22px; }
+}
+
 /* ── AS HEARD ON (podcast) ── */
 .podcast-section {
   max-width: 1100px;
@@ -1622,6 +1658,18 @@ footer {
       <div class="who-stat-label">Or less from project creation to final report</div>
     </div>
   </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CUSTOMER QUOTE (posted with the customer's permission) -->
+<div class="quote-section fade-up" id="customer-quote">
+  <figure class="quote-card">
+    <blockquote>
+      <p>TrueLoad has allowed me to confidently say to clients &ldquo;you don&rsquo;t need an electrical service upgrade&rdquo; which made the job close faster and at less cost. I am generally allergic to business software but your program is a great tool.</p>
+    </blockquote>
+    <figcaption><strong>Colin Doolittle</strong>, On The Dot HVAC</figcaption>
+  </figure>
 </div>
 
 <div class="divider"></div>
